@@ -18,24 +18,42 @@
   - The reference can be absolute (the full URL) or it can be relative (able to access by a path, close in directory)
 
 ## Elements
-You want to use the right elements, even if it will look the same if you don't
-1. html: the page container
-2. head: holds the header info
-3. title: this is in the head, shows up in the tab at the top of the window
-4. body: holds the content of the page
-5. header: holds the header content
-6. main: this is where most of the content is
-7. footer: this is after the main content
-8. section: this is to split of the contents of the main
-9. div: just a block division of the content (general thing), takes up the whole width
-10. span: an inline span of content, only as big as the content it is displayed in
-11. h<1-9>: text heading, from h1 (highest) to h9 (lowest)
-12. p: a paragraph of text
-13. table: for tables
-14. ol,ul: ordered and unordered lists
-15. a: anchors the text to a hyperlink
-16. img: a reference for a graohical image
-17. Entities: &, <, >, ", ', and emojis with unicode IDs
+| element   | meaning                                                                |
+| --------- | ---------------------------------------------------------------------- |
+| `html`    | The page container                                                     |
+| `head`    | Header information                                                     |
+| `title`   | Title of the page                                                      |
+| `meta`    | Metadata for the page such as character set or viewport settings       |
+| `script`  | JavaScript reference. Either a external reference, or inline           |
+| `include` | External content reference                                             |
+| `body`    | The entire content body of the page                                    |
+| `header`  | Header of the main content                                             |
+| `footer`  | Footer of the main content                                             |
+| `nav`     | Navigational inputs                                                    |
+| `main`    | Main content of the page                                               |
+| `section` | A section of the main content                                          |
+| `aside`   | Aside content from the main content                                    |
+| `div`     | A block division of content                                            |
+| `span`    | An inline span of content                                              |
+| `h<1-9>`  | Text heading. From h1, the highest level, down to h9, the lowest level |
+| `p`       | A paragraph of text                                                    |
+| `b`       | Bring attention                                                        |
+| `table`   | Table                                                                  |
+| `tr`      | Table row                                                              |
+| `th`      | Table header                                                           |
+| `td`      | Table data                                                             |
+| `ol,ul`   | Ordered or unordered list                                              |
+| `li`      | List item                                                              |
+| `a`       | Anchor the text to a hyperlink                                         |
+| `img`     | Graphical image reference                                              |
+| `dialog`  | Interactive component such as a confirmation                           |
+| `form`    | A collection of user input                                             |
+| `input`   | User input field                                                       |
+| `audio`   | Audio content                                                          |
+| `video`   | Video content                                                          |
+| `svg`     | Scalable vector graphic content                                        |
+| `iframe`  | Inline frame of another HTML page                                      |
+
 
   
 
