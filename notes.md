@@ -43,6 +43,12 @@ and this
 
 - Just use \\ to escape things
 
+- Here is how to make a table:
+| thing   | other thing |
+| -----   | ----------- |
+| 'here'  | now me      |
+| 'more'  | a bit more  |
+
 
 - Table of contents: This will hold all of my notes from the semester
    1. [Linux Notes](linux.txt)
