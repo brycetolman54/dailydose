@@ -48,7 +48,7 @@ and this
 | thing	| other thing |
 | :--- | :---: |
 | 'here'  | now me      |
-| 'more'  | a bit more  |
+| 'more'  | a bit more that allows me to make the box big |
 
 
 - Table of contents: This will hold all of my notes from the semester
