@@ -9,10 +9,13 @@
 - You can write comments: `<!-- Here is a comment -->`
   - These can be multiline too, just put the `-->` at the end of the lines
 - The escape character for html is &
-- **The Document Object Model** (DOM) is the memory of the tree that represents our document
-- Here is a tag for an image: `<img alt="beach" src="httos://images.pexels.jpg" />`
+- The **Document Object Model** (DOM) is the memory of the tree that represents our document
+- Here is a tag for an image: `<img alt="beach" src="https://images.pexels.jpg" />`
   - src: This tells you the link to get the image
   - alt: This is what is read if somebody can't see the image
+  - width: This modifies the width, it auto adjusts the height as well if you don't 
+  - height: This adjusts the height
+  - The reference can be absolute (the full URL) or it can be relative (able to access by a path, close in directory)
   
 
 
