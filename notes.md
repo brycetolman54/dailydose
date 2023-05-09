@@ -44,6 +44,7 @@ and this
 - Just use \\ to escape things
 
 - Here is how to make a table:
+
 | thing	| other thing |
 | :--- | :---: |
 | 'here'  | now me      |
