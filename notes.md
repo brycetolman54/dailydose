@@ -46,5 +46,6 @@ and this
 
 - Table of contents: This will hold all of my notes from the semester
    1. [Linux Notes](linux.txt)
-   2. [May 4: Internet and Class Technologies](May4.md)
-   3. [May 9: HTML](May9.md)
+   2. [Git Notes](git.md)
+   3. [May 4: Internet and Class Technologies](May4.md)
+   4. [May 9: HTML](May9.md)
