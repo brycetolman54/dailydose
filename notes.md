@@ -49,6 +49,7 @@ and this
 | :--- | :---: |
 | 'here'  | now me      |
 | 'more'  | a bit more that allows me to make the box big |
+- You just need 3 --- to make a column, use pipes to separate, use : on the left, right, or both sides of the --- to justify it
 
 
 - Table of contents: This will hold all of my notes from the semester
