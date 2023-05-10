@@ -89,6 +89,8 @@
 | file           | Local file                        |
 | submit         | button to trigger form submission |
 
+
+### Some common attributes
 | Attribute | Meaning                                                                             |
 | --------- | ----------------------------------------------------------------------------------- |
 | name      | The name of the input. This is submitted as the name of the input if used in a form |
@@ -96,7 +98,60 @@
 | value     | The initial value of the input                                                      |
 | required  | Signifies that a value is required in order to be valid   
 
-- You can also use the `pattern` attribute to give a regex that the input has follow
+### Structure
+- Tables: 
+  - You can use the th element to add the headers of the table
+  - You use the td element for the data in the table
+  - You use tr (this holds the th and td) to make a row in the table
+- Anchors: do `<a href="URL">Text that has the link</a>` to make the linked text
+  - Do `<a href="#idvalue">Value</a>` if you want to reference in the same page
+
+
+### Input
+- We can use the `form` element to make forms for user input, though it is not necessary
+- When we submit the form, it carries data as `variableName=variablevalue
+- `input` is the element, and you specify the `type` as an attribute
+-  The value of `for` in the `label` element appears to just be what ever you want to name the label: `<label for="literally whatever">Lit whatevs:</label>`
+- You can use the `pattern` attribute to give a regex that the input has to follow for:
+ 1. `text`
+ 2. `search`
+ 3. `URL`
+ 4. `tel`
+ 5. `email`
+ 6. `password`
 - Form:
   - you use `action` to say which website will process the data of the form
-- Text: You can use `placeholder` to put something in the box before people type
+  - the `method` attribute is either get or post
+   - Get carries the request in the URL, post carries it in a text body
+- Text: 
+  - You can use `placeholder` to put something in the box before people type
+- Select and Checkbox and Radio:
+  - You use `fieldset` to set this apart
+  - You can use the `legend` attribute to give a name to that field
+  - You can used `checked` or `selected` to make one of the options in these fields the default one
+- File:
+  - You can accept only certain files by the `accept` attribute
+  - You can use the `multiple` attribute to make it so you can attach multiple files
+- Number:
+  - This element allows you to specify a range with `min` and `max` and `step`
+- Range:
+  - This displays a bar
+  - You can specify the `min` and `max`, and the `step` size and the default `value`
+  - There is JavaScript involved that allows you to change the output at the end of the bar
+- Progress: 
+  - You can set a `max` and actual `value`
+- Meter:
+  - You can specify `min`, `max`, and `value`
+  - You can also specify `low`, `high` and `optimum` and this will change the color of the bar to reflect what you put
+- Color:
+  - You can specify the default color by using the `value` attribute
+
+### Media
+- You can use either absolute or relative references for these
+- Audio:
+  - `autoplay` makes it start playing when it loads
+  - `loop` makes it loop
+- Video is like audio, but you have to include a child `source` element with the `src` attribute
+- SVG and Canvas can be pretty cool
+- SVG:
+  - Cool
