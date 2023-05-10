@@ -20,5 +20,5 @@ I am going to create a social media site called ***DailyDose***. The purpose of 
 
 ## The Vision
 **Here is how I envision the website:**
-![Picture of my idea for my ***DailyDose*** site](DailyDose.jpg)
+![Picture of my idea for my ***DailyDose*** site](CS260Idea.jpg)
 
