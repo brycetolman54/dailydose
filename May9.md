@@ -70,5 +70,33 @@
 | `output`   | Output of input                  | `<output for="range">0</output>`               |
 | `meter`    | Display value with a known range | `<meter min="0" max="100" value="50"></meter>` |
 
+| Type           | Meaning                           |
+| -------------- | --------------------------------- |
+| text           | Single line textual value         |
+| password       | Obscured password                 |
+| email          | Email address                     |
+| tel            | Telephone number                  |
+| url            | URL address                       |
+| number         | Numerical value                   |
+| checkbox       | Inclusive selection               |
+| radio          | Exclusive selection               |
+| range          | Range limited number              |
+| date           | Year, month, day                  |
+| datetime-local | Date and time                     |
+| month          | Year, month                       |
+| week           | Week of year                      |
+| color          | Color                             |
+| file           | Local file                        |
+| submit         | button to trigger form submission |
 
+| Attribute | Meaning                                                                             |
+| --------- | ----------------------------------------------------------------------------------- |
+| name      | The name of the input. This is submitted as the name of the input if used in a form |
+| disabled  | Disables the ability for the user to interact with the input                        |
+| value     | The initial value of the input                                                      |
+| required  | Signifies that a value is required in order to be valid   
 
+- You can also use the `pattern` attribute to give a regex that the input has follow
+- Form:
+  - you use `action` to say which website will process the data of the form
+- Text: You can use `placeholder` to put something in the box before people type
