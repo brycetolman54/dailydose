@@ -58,13 +58,13 @@ p {
 | font               | family size style                  | `Arial 1.2em bold`  | Defines the text font using shorthand                                          |
 | grid               |                                    |                     | Grid layout. Used for responsive design                                        |
 | height             | unit                               | `.25em`             | Sets the height of the box                                                     |
-| margin             | unit                               | `5px 5px 0 0`       | Sets the margin spacing                                                        |
+| margin             | unit                               | `5px 5px 0 0`       | Sets the margin spacing, goes top right bottom left                            |
 | max-[width/height] | unit                               | `20%`               | Restricts the width or height to no more than the unit                         |
 | min-[width/height] | unit                               | `10vh`              | Restricts the width or height to no less than the unit                         |
 | opacity            | number                             | `.9`                | Sets how opaque the element is                                                 |
 | overflow           | [visible/hidden/scroll/auto]       | `scroll`            | Defines what happens when the content does not fix in its box                  |
 | position           | [static/relative/absolute/sticky]  | `absolute`          | Defines how the element is positioned in the document                          |
-| padding            | unit                               | `1em 2em`           | Sets the padding spacing                                                       |
+| padding            | unit                               | `1em 2em`           | Sets the padding spacing, if two it means top/bottom left/right, if one it means all around |
 | left               | unit                               | `10rem`             | The horizontal value of a positioned element                                   |
 | text-align         | [start/end/center/justify]         | `end`               | Defines how the text is aligned in the element                                 |
 | top                | unit                               | `50px`              | The vertical value of a positioned element                                     |
@@ -80,6 +80,16 @@ p {
 | class | all elements with the given class | .highlight |
 | element class | any elements with the name and class | p.highlight |
 - You specify a class with `class='classname'`
+
+| Selector | Meaning | Example | Description |
+| :---: | :---: | :---: | :---: |
+| list | any of the given selectors | body, section | body or section elements |
+| descendant | a list of descendants | body section | any section that is a descendant of a body |
+| child | a list of direct children | section > p | any p that is a direct child of section |
+| Pseudo | state based | p:hover | the mouse is hovering over a p element |
+| Siibling | if two things are under the same parent | p ~ section | the elements p and section that are under the same parent |
+- Here is a list of pseudocode options:   [Pseudocode Options](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)
+
 
 ## What things mean
 | Unit | Description                                                      |
@@ -105,4 +115,70 @@ Here it is:
 ![CSS Box model](https://raw.githubusercontent.com/webprogramming260/.github/main/profile/css/introduction/cssBoxModel.jpg)
 
 - The margin is non-editable, it just tells how far away everything else will be
-- 
+
+## Unicode and UTF-8
+- Important when thinking globally
+
+## Animation
+- Include the animation in the CSS, of course
+- `animation-name: demo`
+- `animation-duration: 3s`
+- Key frames tells the animation the key points, what the thing should look like at certain times instead of animating every second
+```
+@keyframes demo {
+  from {
+    font-size: 0vh;
+  }
+  50% {
+    font-size: 21vh;
+  }
+  to {
+    font-size: 20vh;
+  }
+```
+- This takes care of the movement between those times
+- You have to give the keyframes the name of the animation
+
+## Responsive Design
+- This is how we write our site so that it can be seen and look good and work on every device
+- CSS `display` property values:
+  - none: not there
+  - block: changes with size of window
+  - inline: size of content itself, fits the content
+  - flex: puts elements in a block, spaces them evenly in that block, not smashed together
+  - grid: puts elements in a table format, spaces them evenly in the table
+- `<meta>` is an element for the head
+  - do `name="viewport"`: makes it so we can show our page on other devices, so the site doesn't try to auto do it, we tell them how to
+  - float: puts stuff to the side (right, left)
+  - @media rerenders page for orientation of device, width of device, how it prints
+   ```
+   @media (orientation: portrait) {
+     body {
+       flex-direction: column;
+     }
+   }
+   @media ((orientation: portrait) and (max-height: 500 px)) {
+     aside {
+       display: none;
+     }
+   }
+   ```
+- More about grid:
+```
+<div class='container'></div>
+  <div class='card'></div>
+  <div class='card'></div>
+  <div class='card'></div>
+  <div class='card'></div>
+  <div class='card'></div>
+  <div class='card'></div>
+```
+ ```
+ .container {
+   display: grid; --> this affects the children more than the parent
+   grid-template-columns: 
+     repeat(auto-fill, minmax(300px, 1fr)); --> Autofill means fill the top before moving down to the next row, 1fr means fractional unit (can be as big as needed), 300px means the width can't be smaller than 300 px
+   grid-auto-rows: 300px; --> makes the rows 300px tall
+   grid-gap: 1em; --> makes the gap between rows 1em
+ }
+```
