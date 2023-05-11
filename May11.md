@@ -182,3 +182,40 @@ Here it is:
    grid-gap: 1em; --> makes the gap between rows 1em
  }
 ```
+
+## Holy Grail Layout
+```
+body {
+  display: flex; --> makes it flex, lays out the children 
+  flex-direction: column; --> makes it flex up/down
+  margin: 0; --> gets rid of margin that browser usually gives it
+  height: 100vh; --> fills up whole screen
+}
+header {
+  flex: 0 80px; --> don't grow, stay 30px
+  background: hsl(223, 57%, 38%);
+}
+footer {
+  flex: 0 30px;
+  background: hsl(180, 10%, 10%;
+}
+main {
+  flex: 1; --> all children get 1 fractional unit, they each get a part of the parent, the size of the fractional unit is dependent on how many children there are
+  display: flex;
+  flex-direction: row;
+}
+@media (orientation: portrait) {
+  main {
+    flex-direction: column;
+  }
+}
+
+@media (max-height: 700px) {
+  header {
+    display: none;
+  }
+  footer {
+    display: none;
+  }
+}
+```
