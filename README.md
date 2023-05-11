@@ -22,3 +22,17 @@ I am going to create a social media site called ***DailyDose***. The purpose of 
 **Here is how I envision the website:**
 ![Picture of my idea for my ***DailyDose*** site](CS260Idea.jpg)
 
+# HTML Deliverable
+In this deliverable, I put in place the structure of my website.
+- ***HTML Pages:*** I added 4 HTML pages to the website
+  - _Main_ page
+  - _Feed_ page
+  - _Chat_ page
+  - _My Posts_ page
+- ***Links:*** The _Main_ page automatically links to the _Feed_ page when a user logs in. Each page has links to all of the pages at the top.
+- ***Text:*** The posts in the _My Posts_ page are represented by text. The chat in the _Chat_ page is represented by text. The posts in the _Feed_ are represented by text.
+- ***Application Images:*** Each page has an image at the top of it, the logo or icon for the page.
+- ***Login:*** The _Main_ page has a Username and Password field, along with a submit button, for a user to login to their account on the site.
+- ***Database:*** The posts on the _My Posts_ page represent the data stored in and pulled from the database.
+-  ***WebSocket:*** The _Chat_ page and the inspirational quote on the _Feed_ page show realtime data and data being pulled from another server.
+
