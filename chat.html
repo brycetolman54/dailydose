@@ -24,6 +24,11 @@
         <p>
             Why thank you, I am so glad you let me know!
         </p>
+        <form method="get">
+            <label for="textarea"></label>
+            <textarea id="textarea" name="message"></textarea>
+            <button>Send</button>
+        </form>
     </main>
     <aside>
         <h3>Conversations</h3>
@@ -32,7 +37,13 @@
             <li>Bob</li>
             <li>Ruth</li>
         </ol>
-        <form
+        <form method="get">
+            <label for="textarea">New Message:</label>
+            <textarea id="textarea" name="newMessage"></textarea>
+            <label for="text">for</label>
+            <input id="text" type="text" name="user" />
+            <button>Send</button>
+        </form>
     </aside>
 
 </body>
