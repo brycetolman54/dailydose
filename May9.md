@@ -105,6 +105,10 @@
   - You use tr (this holds the th and td) to make a row in the table
 - Anchors: do `<a href="URL">Text that has the link</a>` to make the linked text
   - Do `<a href="#idvalue">Value</a>` if you want to reference in the same page
+- There is a `meta` element that we can add in head for character encoding
+- `link` is another tag
+  - `rel` tells you what the relationship between the link and this document is (icon for our stuff)
+  - `href` actually specifies the link
 
 
 ### Input
