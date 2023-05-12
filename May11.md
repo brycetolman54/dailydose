@@ -149,8 +149,10 @@ Here it is:
   - grid: puts elements in a table format, spaces them evenly in the table
 - `<meta>` is an element for the head
   - do `name="viewport"`: makes it so we can show our page on other devices, so the site doesn't try to auto do it, we tell them how to
-  - float: puts stuff to the side (right, left)
-  - @media rerenders page for orientation of device, width of device, how it prints
+  - Also include `content="width=device-width, initial-scale=1"` to tell it not to resize the stuff
+  - float: puts stuff to the side (right, left) and makes the other text float around it
+  - You can use `display: flex` and `flex` to make the chat room aside in your chat.html
+  - @media rerenders page for orientation of device, width of device, how it prints based on the condition that is specified in the parentheses
    ```
    @media (orientation: portrait) {
      body {
@@ -179,9 +181,12 @@ Here it is:
    grid-template-columns: 
      repeat(auto-fill, minmax(300px, 1fr)); --> Autofill means fill the top before moving down to the next row, 1fr means fractional unit (can be as big as needed), 300px means the width can't be smaller than 300 px
    grid-auto-rows: 300px; --> makes the rows 300px tall
-   grid-gap: 1em; --> makes the gap between rows 1em
+   grid-gap: 1em; --> makes the gap between the cards 1em
  }
 ```
+- Flex:
+  - `flex: #` gives the fr for each part of the children
+  - `flex-direction` tells if the kids are in rows (column) or columns (row)
 
 ## Holy Grail Layout
 ```
