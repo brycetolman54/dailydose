@@ -1,5 +1,5 @@
 body {
-    size: 100vh;
+    height: 100vh;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -13,4 +13,29 @@ header {
     text-align: center;
     color: black;
     margin: 0;
+}
+main {
+    flex: 1;
+
+}
+footer {
+    flex: 0 20px;
+    background-color: rgba(8, 5, 62, 0.943);
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    color: white;
+    padding:
+}
+footer a {
+    text-align: end;
+    color: white;
+}
+@media (max-height: 300px) {
+    header {
+        display: none;
+    }
+    footer {
+        display: none;
+    }
 }
