@@ -1,0 +1,16 @@
+body {
+    size: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+header {
+    flex: 0 80px;
+    background-image: url("DailyDose.jpg");
+    background-position: center;
+    background-repeat: 0;
+    background-size: 400px;
+    text-align: center;
+    color: black;
+    margin: 0;
+}
