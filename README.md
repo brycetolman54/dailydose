@@ -36,3 +36,8 @@ In this deliverable, I put in place the structure of my website.
 - ***Database:*** The posts on the _My Posts_ page represent the data stored in and pulled from the database.
 -  ***WebSocket:*** The _Chat_ page and the inspirational quote on the _Feed_ page show realtime data and data being pulled from another server.
 
+# CSS Deliverable
+- ***Header, Footer, and Main Content Body:*** I added styling for each part of each of my HTML pages.
+- ***Navigation Elements:*** I put the navigation elements in a box, spaced evenly and separated by lines. I made the links light up when they are hovered over.
+- 
+- ***Application Iamges:*** I made the image I had on my site into the background image for the top of my site. 
