@@ -25,10 +25,19 @@ main {
     justify-content: center;
     background-color: rgb(204, 234, 244);
 }
-main div {
+main > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+.login {
+    flex: 1;
     padding: 6px;
 }
 h2 {
+    flex: 0 30px;
     border: solid;
     border-width: 3px 0 3px 0;
     text-align: center;
@@ -42,12 +51,16 @@ footer {
     justify-content: center;
     flex-direction: row;
     color: white;
-    padding:
+    padding: 3px;
 }
 footer a {
     flex: 1;
     text-align: end;
     color: white;
+}
+footer p {
+    flex: 1;
+    margin: 0;
 }
 #submit {
     background-color: blue;
