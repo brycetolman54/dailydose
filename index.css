@@ -88,6 +88,19 @@ nav a:hover {
     margin: 0;
     color: black;
 }
+#feedAndQuote {
+    display: flex;
+    flex-direction: row;
+}
+div > aside {
+    flex: 1;
+}
+#feedfield {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+}
+
 
 @media (max-height: 300px) {
     header {
@@ -100,5 +113,8 @@ nav a:hover {
 @media (max-width: 600px) {
     header {
         background-size: 300px;
+    }
+    div > aside {
+        display: none;
     }
 }
