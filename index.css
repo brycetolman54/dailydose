@@ -27,11 +27,11 @@ main {
     background-color: rgb(204, 234, 244);
 }
 main div {
-    padding: 3px;
+    padding: 6px;
 }
 h2 {
-    border: solid 3px;
-    border-radius: 3px;
+    border: solid;
+    border-width: 3px 0 3px 0;
     text-align: center;
     background-color: rgb(147, 204, 223);
     margin: 0;
