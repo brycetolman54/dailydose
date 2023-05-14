@@ -19,32 +19,28 @@
             <a href="posts.html">My Posts</a> 
         </nav>
         <h2>Feed</h2>
-        <div>
-            <ul>
-                <li>
-                    <p>Bob</p>
-                    <b>My thoughts on John</b>
-                    <p>
-                        I think that John is a great guy. He did a  lot in helping the Early Christian
-                        Church to understand who Jesus Christ really was...
-                    </p>
-                    <button>Like</button>
-                    <button>Comment</button>
-                </li>
-                <li>
-                    <div>
-                        <p>Amy</p>                    
-                        <b>The meaning of love</b>
-                        <p>
-                            Love is a great thing. It really is the best.
-                            I love how Jesus Christ shows His love in the scriptures...
-                        </p>
-                        <button>Like</button>
-                        <button>Comment</button>
-                    </div>
-                </li>
-            </ul>
-            <form method="get">
+        <div id="feedfield">
+            <div id="post1">
+                <p id="user1">Bob</p>
+                <b id="title1">My thoughts on John</b>
+                <p id="comment1">
+                    I think that John is a great guy. He did a  lot in helping the Early Christian
+                    Church to understand who Jesus Christ really was...
+                </p>
+                <button id="like">Like</button>
+                <button id="comment">Comment</button>
+            </div>
+            <div id="post2">
+                <p id="user2">Amy</p>                    
+                <b id="title2">The meaning of love</b>
+                <p id="comment2">
+                    Love is a great thing. It really is the best.
+                    I love how Jesus Christ shows His love in the scriptures...
+                </p>
+                <button id="like">Like</button>
+                <button id="comment">Comment</button>
+            </div>
+            <form method="get" id="newpost">
                 <p><b>New Post</b></p>
                 <label for="text">Post title</label>
                 <input type="text" id="text" name="postTitle" placeholder="Enter a title"/>
@@ -53,12 +49,12 @@
                 <button>Post</button>
             </form>
         </div>
-        <aside>
+        <aside id="quote">
             <h3>Inspirational Quote</h3>
-            <p>
+            <p id="thequote">
                 "One of the great tragedies we witness almost daily is the tragedy of men of high aim and low achievement. Their motives are noble. Their proclaimed ambition is praiseworthy. Their capacity is great. But their discipline is weak. They succumb to indolence. Appetite robs them of will."
             </p>
-            <p>
+            <p id="author">
                 - Gordon B. Hinckley
             </p>
            <a href="https://www.churchofjesuschrist.org/study/general-conference/1979/04/and-peter-went-out-and-wept-bitterly?lang=eng">General Conference</a>
