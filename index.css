@@ -16,6 +16,8 @@ header {
     -webkit-text-stroke: black 1px;
     margin: 0;
     font-size: 17px;    
+    border: solid black;
+    border-width: 0 0 3px 0;
 }
 main {
     flex: 1;
@@ -39,7 +41,7 @@ main > div {
 h2 {
     flex: 0 30px;
     border: solid;
-    border-width: 0 0 2px 0;
+    border-width: 0 0 1px 0;
     text-align: center;
     background-color: rgb(177, 228, 245);
     margin: 0;
@@ -74,7 +76,7 @@ nav {
     flex-direction: row;
     text-align: center;
     border: solid;
-    border-width: 3px 0 3px 0;
+    border-width: 0 0 2px 0;
     padding: 5px;
     background-color: rgb(147, 204, 223);
 }
