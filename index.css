@@ -1,6 +1,6 @@
 body {
-    height: 100vh;
     margin: 0;
+    height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -11,12 +11,30 @@ header {
     background-repeat: 0;
     background-size: 400px;
     text-align: center;
-    color: black;
+    color: white;
+    -webkit-text-stroke: black 1px;
     margin: 0;
+    font-size: 17px;
+    font-family: georgia
+    
 }
 main {
     flex: 1;
-
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    background-color: rgb(204, 234, 244);
+}
+main div {
+    padding: 3px;
+}
+h2 {
+    border: solid 3px;
+    border-radius: 3px;
+    text-align: center;
+    background-color: rgb(147, 204, 223);
+    margin: 0;
 }
 footer {
     flex: 0 20px;
@@ -31,11 +49,22 @@ footer a {
     text-align: end;
     color: white;
 }
+button {
+    background-color: blue;
+    color: white;
+    padding: 6px;
+     border-radius: 6px;
+}
 @media (max-height: 300px) {
     header {
         display: none;
     }
     footer {
         display: none;
+    }
+}
+@media (max-width: 600px) {
+    header {
+        background-size: 300px;
     }
 }
