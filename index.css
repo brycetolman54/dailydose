@@ -3,6 +3,7 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
+    font-family: georgia;
 }
 header {
     flex: 0 80px;
@@ -14,9 +15,7 @@ header {
     color: white;
     -webkit-text-stroke: black 1px;
     margin: 0;
-    font-size: 17px;
-    font-family: georgia
-    
+    font-size: 17px;    
 }
 main {
     flex: 1;
@@ -46,6 +45,7 @@ footer {
     padding:
 }
 footer a {
+    flex: 1;
     text-align: end;
     color: white;
 }
