@@ -1,3 +1,4 @@
+/* This is for all the pages, the header, body, and footer */
 body {
     margin: 0;
     height: 100vh;
@@ -15,7 +16,7 @@ header {
     color: white;
     -webkit-text-stroke: black 1px;
     margin: 0;
-    font-size: relative;    
+    font-size: 17px;    
     border: solid black;
     border-width: 0 0 3px 0;
 }
@@ -34,10 +35,6 @@ main > div {
     justify-content: center;
 
 }
-.login {
-    flex: 1;
-    padding: 6px;
-}
 h2 {
     flex: 0 30px;
     border: solid;
@@ -46,6 +43,7 @@ h2 {
     background-color: rgb(177, 228, 245);
     margin: 0;
 }
+/* For the footer */
 footer {
     flex: 0 20px;
     background-color: rgba(8, 5, 62, 0.943);
@@ -54,6 +52,8 @@ footer {
     flex-direction: row;
     color: white;
     padding: 3px;
+    border: solid black;
+    border-width: 3px 0 0 0;
 }
 footer a {
     flex: 1;
@@ -64,12 +64,7 @@ footer p {
     flex: 1;
     margin: 0;
 }
-#submit {
-    background-color: blue;
-    color: white;
-    padding: 6px;
-    border-radius: 6px;
-}
+/* For the navigation bar */
 nav {
     flex: 0 20px;
     display: flex;
@@ -90,6 +85,25 @@ nav a:hover {
     margin: 0;
     color: black;
 }
+
+/* This is for the login page */
+#loginbox{
+    border: solid 2px;
+    border-radius: 8px;
+    margin: auto;
+}
+#submit {
+    background-color: blue;
+    color: white;
+    padding: 6px;
+    border-radius: 6px;
+}
+.login {
+    flex: 1;
+    padding: 6px
+}
+
+/* This is for the feed page */
 #feedAndQuote {
     display: flex;
     flex-direction: row;
@@ -102,12 +116,8 @@ div > aside {
     display: flex;
     flex-direction: column;
 }
-main form {
-    border: solid 2px;
-    border-radius: 8px;
-    margin: 20%;
-}
 
+/* This is for making it good on all platforms */
 @media (max-height: 300px) {
     header {
         display: none;
