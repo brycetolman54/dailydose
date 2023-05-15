@@ -90,8 +90,8 @@ nav a:hover {
 #loginbox{
     border: solid 2px;
     border-radius: 8px;
-    margin: auto;
-    padding: 20px;
+    margin: 0 25vw;
+    padding: 20px 0 20px 0;
     text-align: center;
 }
 #submit {
@@ -99,6 +99,7 @@ nav a:hover {
     color: white;
     padding: 6px;
     border-radius: 6px;
+    transform: translate(0%, -70%);
 }
 .login {
     flex: 1;
@@ -106,26 +107,34 @@ nav a:hover {
 }
 #checkbox {
     color: green;
-    content: "\2713";
 }
 #filler {
-    margin: 2px 0 2px 0;
-    padding: 0;
+    margin: 0;
+    font-size: 8px;
     display: grid;
     flex-direction: column;
+    text-align: center;
 }
 .require {
     flex: 1;
     display: flex;
     margin: auto;
-    text-align: start;
+    text-align: center;
+}
+#passwordcheck, #usernamecheck {
+    padding: 0 0 0 5px;
 }
 #login-signup {
     border: solid 2px;
     font-weight: bold; 
-    border-radius: 0px;
-    padding: 2px 10px 2px 10px;
+    border-radius: 6px;
+    padding: 5px 25px 5px 25px;
     margin: 0 10px 0 10px;
+    background-color: rgb(230, 224, 224);
+    transform: translate(0%, 80%);
+}
+#login-signup:hover {
+    background-color: lightblue;
 }
 
 /* This is for the feed page */
