@@ -106,12 +106,19 @@ nav a:hover {
 }
 #checkbox {
     color: green;
-    border: solid;
+    content: "\2713";
 }
 #filler {
-    margin: auto;
+    margin: 2px 0 2px 0;
     padding: 0;
+    display: grid;
+    flex-direction: column;
+}
+.require {
+    flex: 1;
     display: flex;
+    margin: auto;
+    text-align: start;
 }
 #login-signup {
     border: solid 2px;
