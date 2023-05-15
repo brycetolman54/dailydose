@@ -94,6 +94,9 @@ nav a:hover {
     padding: 20px 0 20px 0;
     text-align: center;
 }
+#topbuttons {
+    flex: 0;
+}
 #submit {
     background-color: blue;
     color: white;
