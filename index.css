@@ -10,12 +10,12 @@ header {
     background-image: url("DailyDose.jpg");
     background-position: center;
     background-repeat: 0;
-    background-size: 400px;
+    background-size: 100vw;
     text-align: center;
     color: white;
     -webkit-text-stroke: black 1px;
     margin: 0;
-    font-size: 17px;    
+    font-size: relative;    
     border: solid black;
     border-width: 0 0 3px 0;
 }
@@ -117,9 +117,6 @@ main form {
     }
 }
 @media (max-width: 600px) {
-    header {
-        background-size: 300px;
-    }
     div > aside {
         display: none;
     }
