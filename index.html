@@ -15,33 +15,41 @@
     <main>
         <h2>Login</h2>
         <div>
-            <form method="get" action="feed.html" id="loginbox">
+            <form method="get" action="feed.html">
                     <div class="login">
-                        <button type="Login" id="login/signup">Login</button>
-                        <button type="SignUp" id="login/signup">Sign Up</button>
+                        <button type="Login" id="login-signup">Login</button>
+                        <button type="SignUp" id="login-signup">Sign Up</button>
                     </div>
-                    <div class="login">
-                        <label for="text">Username:</label>
-                        <input type="text" id="text" name="userName" placeholder="Enter your username" required />
-                    </div>
-                    <div id="usernamespecs">
+                    <div id="loginbox">
+                        <div class="login">
+                            <label for="text">Username:</label>
+                            <input type="text" id="text" name="userName" placeholder="Enter your username" required />
+                        </div>
                         <ul id="filler">
-                        <div id="checkbox"></div>
-                        <div id="usernamecheck">Minimum 8 characters</div>
+                            <div id="require1" class="require">
+                                <div id="checkbox"></div>
+                                <div id="usernamecheck">Minimum 8 characters</div>
+                            </div>
+                        </ul>
+                        <div class="login">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="passWord" placeholder="Enter your password" required pattern="" />
+                        </div>
+                        <ul id="filler">
+                            <div id="require2" class="require">
+                                <div id="checkbox"></div>
+                                <div id="passwordcheck">Minimum 8 characters</div>
+                            </div>
+                            <div id="require3" class="require">
+                                <div id="checkbox"></div>
+                                <div id="passwordcheck">An <b>uppercase</b> letter</div>
+                            </div>
+                            <div id="require4" class="require">
+                                <div id="checkbox"></div>
+                                <div id="passwordcheck">A <b>number</b></div>
+                            </div>
                         </ul>
                     </div>
-                    <div class="login">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="passWord" placeholder="Enter your password" required pattern="" />
-                    </div>
-                        <ul id="filler">
-                        <div id="checkbox"></div>
-                        <div id="passwordcheck">Minimum 8 characters</div>
-                        <div id="checkbox"></div>
-                        <div id="passwordcheck">An <b>uppercase</b> letter</div>
-                        <div id="checkbox"></div>
-                        <div id="passwordcheck">A <b>number</b></div>
-                        </ul>
                     <div class="login">
                         <button type="submit" id="submit">Submit</button>      
                     </div>
