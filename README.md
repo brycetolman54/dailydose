@@ -39,7 +39,7 @@ In this deliverable, I put in place the structure of my website.
 # CSS Deliverable
 - ***Header, Footer, and Main Content Body:*** I added styling for each part of each of my HTML pages.
 - ***Navigation Elements:*** I put the navigation elements in a box, spaced evenly and separated by lines. I made the links light up when they are hovered over.
-- ***Responsive to window resizing:*** I make the header and footer disappear if the screen gets too small. I make the inspirational quote move to the top of the feed page if the window gets too small. 
-- ***Application elements:***
-- ***Application text content:***
+- ***Responsive to window resizing:*** I make the header and footer disappear if the screen gets too small. I make the inspirational quote move to the top of the feed page if the window gets too small. The login/sign up buttons resize for a smaller window.
+- ***Application elements:*** I used great contrast and white space. I used borders nicely to modularize the sections on each page. 
+- ***Application text content:*** My fonts are consistent. I have bold font where needed. 
 - ***Application Iamges:*** I made the image I had on my site into the background image for the top of my site. 
