@@ -190,21 +190,24 @@ nav a:hover {
 }
 #post {
     flex: 0 20px;
-    margin: 5px 10px 10px;
+    margin: 5px 5px 10px 10px;
     background-color: blue;
     color: white;
     padding: 2px;
     border-radius: 6px;
+    width: 20%;
+    align-self: center;
 }
 #text {
     flex: 0 20px;
-    margin: 0 5px 5px 10px;
+    margin: 0px 5px 5px 10px;
     border: solid;
 }
 #textarea {
     flex: 3;
-    margin: 5px 5px 5px 10px;
+    margin: 0px 5px 5px 10px;
     border: solid;
+    width: 100vw;
 }
 #quote {
     flex: 1;
