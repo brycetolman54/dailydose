@@ -61,6 +61,9 @@ footer a {
     color: white;
     text-decoration: none;
 }
+footer a:hover {
+    color: rgb(153, 34, 153);
+}
 footer p {
     flex: 1;
     margin: 0;
@@ -174,18 +177,45 @@ nav a:hover {
     flex-direction: row-reverse;
 }
 #newpost {
-    flex: 1;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+#newPostHead {
+    flex: 0 8px;
+    margin: 10px 5px 5px 10px;
+    border: solid darkblue;
+    background-color: rgb(234, 248, 253);
+    border-radius: 7px;
+}
+#post {
+    flex: 0 20px;
+    margin: 5px 10px 10px;
+    background-color: blue;
+    color: white;
+    padding: 2px;
+    border-radius: 6px;
+}
+#text {
+    flex: 0 20px;
+    margin: 0 5px 5px 10px;
+    border: solid;
+}
+#textarea {
+    flex: 3;
+    margin: 5px 5px 5px 10px;
+    border: solid;
 }
 #quote {
     flex: 1;
     border: solid darkblue;
     background-color: rgb(234, 248, 253);
     border-radius: 7px;
-    margin: 10px;
+    margin: 10px 10px 10px 5px;
     text-align: center;
     display: flex;
     flex-direction: column;
-    height: 50vh;
+    height: auto;
 }
 #quoteTitle {
     flex: 1;
@@ -200,11 +230,14 @@ nav a:hover {
     margin: 5px;
 }
 #quoteReference {
-    flex: 1;
     margin: 0;
+    flex: 1;
     color: rgb(9, 9, 194);
     text-decoration: none;
     padding: 10px;
+}
+#quoteReference:hover {
+    color: rgb(153, 34, 153);
 }
 @media (max-width: 700px) {
     #quoteAndNew {
