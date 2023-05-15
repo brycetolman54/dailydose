@@ -59,6 +59,7 @@ footer a {
     flex: 1;
     text-align: end;
     color: white;
+    text-decoration: none;
 }
 footer p {
     flex: 1;
