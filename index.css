@@ -101,6 +101,9 @@ nav a:hover {
     border-radius: 6px;
     transform: translate(0%, -70%);
 }
+#submit:hover {
+    background-color: rgb(153, 34, 153);
+}
 .login {
     flex: 1;
     padding: 6px
