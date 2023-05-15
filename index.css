@@ -160,7 +160,20 @@ nav a:hover {
 /* This is for the feed page */
 #feedAndQuote {
     display: flex;
+    flex-direction: column;
+}
+#feedfield {
+    flex: 1;
+    display: flex;
     flex-direction: row;
+}
+#quoteAndNew {
+    flex: 1;
+    display: flex;
+    flex-direction: row-reverse;
+}
+#newpost {
+    flex: 1;
 }
 #quote {
     flex: 1;
@@ -171,30 +184,31 @@ nav a:hover {
     text-align: center;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 50vh;
 }
 #quoteTitle {
     flex: 1;
+    margin: 5px;
 }
 #thequote {
-    flex: 5;
+    flex: 3;
+    margin: 5px;
 }
 #author {
     flex: 1;
+    margin: 5px;
 }
 #quoteReference {
     flex: 1;
-    color: darkblue;
-}
-#feedfield {
-    flex: 3;
-    display: flex;
-    flex-direction: column;
+    margin: 0;
+    color: rgb(9, 9, 194);
+    text-decoration: none;
+    padding: 10px;
 }
 @media (max-width: 700px) {
-    #feedAndQuote {
+    #quoteAndNew {
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
 }
 
