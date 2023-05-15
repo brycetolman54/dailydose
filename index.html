@@ -20,10 +20,20 @@
                         <label for="text">Username:</label>
                         <input type="text" id="text" name="userName" placeholder="Enter your username" required />
                     </div>
+                    <div id="usernamespecs">
+                        <div id="checkbox"></div>
+                        <div id="usernamecheck">Minimum 8 characters</div>
+                    </div>
                     <div class="login">
                         <label for="password">Password:</label>
-                        <input type="password" id="password" name="passWord" placeholder="Enter your password" required />
+                        <input type="password" id="password" name="passWord" placeholder="Enter your password" required pattern="" />
                     </div>
+                        <div id="checkbox"></div>
+                        <div id="passwordcheck">Minimum 8 characters</div>
+                        <div id="checkbox"></div>
+                        <div id="passwordcheck">An <b>uppercase</b> letter</div>
+                        <div id="checkbox"></div>
+                        <div id="passwordcheck">A <b>number</b></div>
                     <div class="login">
                         <button type="submit" id="submit">Submit</button>      
                     </div>
