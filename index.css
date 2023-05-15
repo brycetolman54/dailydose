@@ -115,23 +115,22 @@ nav a:hover {
     border-radius: 7px;
     margin: 10px;
     text-align: center;
-    justify-content: center;
     display: flex;
     flex-direction: column;
-    position: fixed right top;
     height: 100vh;
 }
 #quoteTitle {
     flex: 1;
 }
 #thequote {
-    flex: 3;
+    flex: 5;
 }
 #author {
-flex: 1;
+    flex: 1;
 }
 #quoteReference {
     flex: 1;
+    color: darkblue;
 }
 #feedfield {
     flex: 3;
