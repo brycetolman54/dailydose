@@ -23,22 +23,22 @@
                     <div id="loginbox">
                         <div class="login">
                             <label for="text">Username:</label>
-                            <input type="text" id="text" name="userName" placeholder="Enter your username" required />
+                            <input type="text" id="text" name="userName" placeholder="Enter your username" required pattern="\w{8,}"/>
                         </div>
                         <div id="filler">
                             <div id="require1" class="require">
                                 <div id="checkbox">&#x2713</div>
-                                <div id="usernamecheck">Minimum 8 characters</div>
+                                <div id="usernamecheck"><b>Minimum</b> 8 characters</div>
                             </div>
                         </div>
                         <div class="login">
                             <label for="password">Password:</label>
-                            <input type="password" id="password" name="passWord" placeholder="Enter your password" required pattern="" />
+                            <input type="password" id="password" name="passWord" placeholder="Enter your password" required pattern="(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*]){8,}" />
                         </div>
                         <div id="filler">
                             <div id="require2" class="require">
                             <div id="checkbox">&#x2713</div>
-                                <div id="passwordcheck">Minimum 8 characters</div>
+                                <div id="passwordcheck"><b>Minimum</b> 8 characters</div>
                             </div>
                             <div id="require3" class="require">
                                 <div id="checkbox">&#x2713</div>
@@ -47,6 +47,10 @@
                             <div id="require4" class="require">
                                 <div id="checkbox">&#x2713</div>
                                 <div id="passwordcheck">A <b>number</b></div>
+                            </div>
+                            <div id="require5" class="require">
+                                <div id="checkbox">&#x2713</div>
+                                <div id="passwordcheck">A <b>symbol</b>: !@#$%^&*</div>
                             </div>
                         </div>
                     </div>
