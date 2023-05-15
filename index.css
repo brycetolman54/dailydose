@@ -16,7 +16,7 @@ header {
     color: white;
     -webkit-text-stroke: black 1px;
     margin: 0;
-    font-size: 17px;    
+    font-size: auto;    
     border: solid black;
     border-width: 0 0 3px 0;
 }
@@ -127,7 +127,9 @@ div > aside {
     }
 }
 @media (max-width: 600px) {
-    div > aside {
-        display: none;
+
+    #feedAndQuote {
+        display: flex;
+        flex-direction: column-reverse;
     }
 }
