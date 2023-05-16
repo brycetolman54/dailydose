@@ -336,4 +336,62 @@ nav a:hover {
     }
 }
 
-/* This is the formatting for the My Posts page */
+/* This is the formatting for the Chat page */
+#chatSpace {
+    flex: 1;
+    display: flex;
+    flex-direction: row-reverse;
+}
+#chat {
+    flex: 3;
+}
+#chats {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    border: solid;
+    border-width: 1px 1.5px;
+    margin: 0;
+}
+#chatHead {
+    flex: 0 20px;
+    margin: 0;
+    background-color: ;
+}
+#userChatList {
+    flex: 1;
+}
+#startNew {
+    flex: 0 20px;
+    margin: 0;
+    border: solid;
+    border-width: 1.5px 0 0 0;
+    padding: 10px 20px 10px 20px;
+    background-color: lightgrey;
+}
+#start {
+    background-color: blue;
+    color: white;
+    border-radius: 7px;
+    width: 30%;
+    padding: 2px;
+    margin: 5px 0 0 0;
+}
+#start:hover {
+    background-color: rgb(153, 34, 153);
+}
+#startLabel {
+    font-size: 15px;
+    margin: 0;
+}
+#userStart {
+    border: solid;
+    margin: 5px 0 5px 0;
+}
+#userChatter {
+    background-color: white;
+}
+#userChatList {
+    list-style: none;
+}
