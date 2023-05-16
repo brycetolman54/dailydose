@@ -425,3 +425,22 @@ nav a:hover {
 #userChatter {
     background-color: white;
 }
+@media (max-width: 700px) {
+    #chat {
+        flex: 4;
+    }
+    #chats {
+        width: 150px;
+    }
+    #start {
+        width: 50px;
+    }
+    #userStart {
+        width: 100px;
+        height: 15px;
+        font-size: 10px;
+    }
+    #date {
+        display: none;
+    }
+}
