@@ -148,6 +148,8 @@ console.log(dup(3)('again'));
 - `reduce((p,c) => p + c)`, p is the past value, c is the cumulator, it just adds up the whole array
 - `filter((n) => operation)`, if the operation returns true, we get rid of the value in the array
 - `some((n) => operation)`, if one of the elements returns true from the operation, the return of the function is true
+- `join(string)` will join the array with the string you provide between each value
+- 
 
 ## Template Literals
 ` console.log(\`Template ${'lite' + 'rals'}! ${hello(name)}\`)`
@@ -155,6 +157,56 @@ console.log(dup(3)('again'));
 
 ## Special Operators
 - nullish: `y &&= 30`, if y does not have a value, it is assigned a value
+
+## Objects
+- The first value also has to be string
+- You can do something like `for(const property _in_ obj) {do something}`
+
+## Spread
+```
+let input = [1, 2, 3];
+input = [...input, 4, 5, 6]; --> The ... spreads out the input into the new array
+console.log(input);
+# output is [1, 2, 3, 4, 5, 6]
+```
+- You can do this with objects or arrays
+
+## Rest
+- This is also just ..., but you put it on a parameter of a function
+```
+const sumAndMultiply = (multiplier, ...numbers) => {
+  console.log(numbers);
+  return numbers.reduce((a,n) => a + multiplier * n);
+};
+```
+- The ... just means the rest of the numbers are going to be passed into a function called numbers
+
+## Object Operations
+
+## Optional Chain
+
+## Iterators and Generators
+
+## Destructuring Arrays
+a = [1,2]
+x = a --> this just makes x equal to a
+[x] = a --> this just makes x equal to the first of a
+[x,y] = a --> this makes x the first of a and y the second
+[x,y,z] = a --> same as above, z is undefined
+[x,y,z=100] = a --> just makes z 100 since it would be undefined
+[x,y,...z] = [1,2,3,4,5,6,7] --> This gives the rest after the first two to z
+
+## Destructuring Parameters
+```
+function af([a=3, b='taco'] = []) {
+  console.log(a,b);
+}
+```
+- [] is the default (if nothing is passed in)
+- You only want the first two values
+
+## Destructuring Return Values
+- You can do `return [a, b, 'cat']` to get multiple values out of the function
 
 ## How to load JavaScript:
 ```
