@@ -175,42 +175,74 @@ nav a:hover {
     flex: 1;
     display: flex;
     flex-direction: column;
+    border: solid;
+    margin: 5px 10px;
+    border-radius: 7px;
 }
 #topMatter {
     flex: 1;
     display: flex;
     flex-direction: row;
+    border: solid;
+    border-radius: 7px 7px 0 0;
+    border-width: 0 0 2px 0;
+    background-color: lightblue;
 }
 #user {
-    flex: 0 20vw;
+    flex: 0 25vw;
+    font-size: 100%;
     font-weight: bold;
     text-align: start;
-    margin: 5px 5px;
+    margin: 5px 10px;
     height: 20px;
     border: solid #000000 2px;
     text-align: center;
     border-radius: 30px;
-    background-color: lightgrey;
+    background-color: rgb(243, 228, 228);
     width: 50px;
     padding: 0 5px;
+    max-width: 150px;
+}
+#user:hover {
+    color: darkblue;
+    border-color: darkblue;
+    background-color: white;
 }
 #buttons {
     flex: 1;
     text-align: end;
 }
 #like, #comment {
-    flex: 1 100px;
     background-color: purple;
     color: white;
     border-radius: 7px;
-    width: 15%;
+    width: 25%;
     font-weight: bold;
     padding: 0;
-    margin: 5px 20px;
+    margin: 7px 20px;
     height: 20px;
+    max-width: 100px;
 }
 #like:hover, #comment:hover {
     background-color: rgb(41, 195, 246);
+}
+#bottomMatter {
+    display: flex;
+    flex-direction: column;
+}
+#thoughts {
+    flex: 4;
+    text-align: left;
+    margin: 4px 2px;
+}
+#title {
+    flex: 1;
+    text-align: start;
+    margin: 0;
+    padding: 0 0 0 10px;
+    background-color: lightgrey;
+    border: solid;
+    border-width: 0 0 1px 0;
 }
 #quoteAndNew {
     flex: 1;
