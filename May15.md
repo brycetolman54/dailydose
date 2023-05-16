@@ -1,4 +1,5 @@
 # JavaScript
+- You comment with //
 
 | cmd | output |
 | :---: | :---: |
@@ -65,7 +66,7 @@
 - You also have `for` statements like in C++
 - You can do `while` loops as well
 - `break` is a thing as well
-- `switch` statements aer there too
+- `switch` statements are there too
 
 ## Functions!!!
 ```
@@ -85,6 +86,75 @@ f = function (a, b, c='rat') {
 
 ```
 
+## Arrow Functions
+- Called this because it uses `=>`
+```
+const arrow = (a) => 1;
+# output is 1, whatever the value you set after the arrow
+
+const arrowWithBlock = (a) => {
+  a;
+}; 
+# output is undefined, you need a return if you have {}
+
+const arrowWithReturn = (a) +=> {
+  return a;
+};
+# output is a, you get whatever the return value is
+```
+
+## Closures
+- This is a function and its surrounding state
+- You can create super functions, so you can make a function that returns a function. Just see...
+```
+function dup(i, sep =':') {
+  let dupLimit = i;
+  
+  return (t) => {
+    let dupCount = dupLimit;
+    out = t;
+    while (dupCount-- > 1) {
+      out += sep + t;
+    }
+    return out;
+  };
+};
+
+const duplicate4 = dup(4);
+console.log(dupicate4('hello');
+# output is hello:hello:hello:hello
+console.log(dup(3)('again'));
+# output is again:again:again
+```
+
+## Strings
+| Function | What it does |
+| :---: | :---: |
+| toUpperCase | makes it all uppercase |
+| toLowerCase | makes it all lowercase |
+
+## Regex
+- You can make a regularexpression with `new RegExp('string', 'i')` where i is an option
+- Or `literalRegex = /cat?/i`
+- You can use `match` to find matches, `replace` to replace that regex or `test(text)` to match a specific text
+
+## Arrays
+- Declare with `[]`
+- Push with `.push(i)`
+- Pop off with `.pop()`
+- You can use `length` as well
+- You can use `slice(2,5)` to get a subset
+- `map((n) => operation)` to map each component of the array to a new array
+- `reduce((p,c) => p + c)`, p is the past value, c is the cumulator, it just adds up the whole array
+- `filter((n) => operation)`, if the operation returns true, we get rid of the value in the array
+- `some((n) => operation)`, if one of the elements returns true from the operation, the return of the function is true
+
+## Template Literals
+` console.log(\`Template ${'lite' + 'rals'}! ${hello(name)}\`)`
+- This will evaluate the stuff in the ${} and then put it in the string, you just have to use the \` symbol on both sides
+
+## Special Operators
+- nullish: `y &&= 30`, if y does not have a value, it is assigned a value
 
 ## How to load JavaScript:
 ```
