@@ -353,9 +353,6 @@ nav a:hover {
     display: flex;
     flex-direction: row-reverse;
 }
-#chat {
-    flex: 3;
-}
 #chats {
     flex: 1;
     display: flex;
@@ -409,7 +406,7 @@ nav a:hover {
     font-size: 10px;
 }
 #startNew {
-    flex: 0 20px;
+    flex: 0 60px;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -442,9 +439,47 @@ nav a:hover {
     border: solid;
     margin: 5px 0 5px 0;
 }
+#chat {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+}
+#messageSpace {
+    flex: 1;
+}
 #userChatter {
+    flex: 0 20px;
+    background-color: rgb(236, 218, 218);
+    text-align: end;
+    padding: 0 0 0 10px;
+    font-size: 20px;
+
+}
+#newMessage {
+    flex: 0 60px;
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    border-width: 0 0 1px 0;
+    padding: 10px 10px 5px;
     background-color: white;
 }
+#messageArea {
+    flex: 0 50px;
+    border: solid;
+}
+#send {
+    flex: 0 25px;
+    background-color: blue;
+    color: white;
+    border-radius: 7px;
+    width: 30%;
+    padding: 2px;
+    margin: 5px 0 0 0;
+    height: 10%;
+    align-self: center;
+}
+
 @media (max-width: 600px) {
     #chat {
         flex: 4;

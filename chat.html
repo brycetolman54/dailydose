@@ -22,21 +22,28 @@
             <div id="chatSpace">
                 <div id="chat">
                     <h2 id="userChatter">Bob</h2>
-                    <p class="message">
-                        Hey, I just wanted to say that I loved your thoughts about John.
-                    </p>
-                    <p class="time">
-                        03/04/2023 1:23 pm
-                    </p>
-                    <p class="message">
-                        Why thank you, I am so glad you let me know!
-                    </p>
-                    <p class="time">
-                        03/04/2023 1:45 pm
-                    </p>
+                    <div id="messageSpace">
+                        <ol id="messageList">
+                            <li id="theirMessage">
+                                <p class="message">
+                                    Hey, I just wanted to say that I loved your thoughts about John.
+                                </p>
+                                <p class="time">
+                                    03/04/2023 1:23 pm
+                                </p>
+                            </li>
+                            <li id="myMessage">
+                                <p class="message">
+                                    Why thank you, I am so glad you let me know!
+                                </p>
+                                <p class="time">
+                                    03/04/2023 1:45 pm
+                                </p>
+                            </li>
+                        </ol>
+                    </div>
                     <form method="get" id="newMessage">
-                        <label for="textarea"></label>
-                        <textarea id="textarea" name="message"></textarea>
+                        <textarea id="messageArea" name="message"></textarea>
                         <button id="send">Send</button>
                     </form>
                 </div>
