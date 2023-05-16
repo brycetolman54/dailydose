@@ -357,10 +357,26 @@ nav a:hover {
 #chatHead {
     flex: 0 20px;
     margin: 0;
-    background-color: ;
+    background-color: darkblue;
+    color: white;
+    padding: 5px 0;
+    border-bottom: solid  black 2px;
 }
 #userChatList {
     flex: 1;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.chatuser {
+    padding: 5px 0 5px 10px;
+    margin: 0;
+    text-align: start;
+    border-bottom: solid;
+    border-bottom-width: 1px;
+}
+.chatuser:hover {
+    background-color: lightblue;
 }
 #startNew {
     flex: 0 20px;
@@ -391,7 +407,4 @@ nav a:hover {
 }
 #userChatter {
     background-color: white;
-}
-#userChatList {
-    list-style: none;
 }
