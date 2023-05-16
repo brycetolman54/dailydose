@@ -211,6 +211,7 @@ nav a:hover {
     color: darkblue;
     border-color: darkblue;
     background-color: white;
+    cursor: pointer;
 }
 #buttons {
     flex: 5;
@@ -389,6 +390,7 @@ nav a:hover {
     flex-direction: row;
     border-bottom: solid;
     border-bottom-width: 1px;
+    cursor: pointer;
 }
 .chatuser {
     flex: 1;
@@ -408,6 +410,9 @@ nav a:hover {
 }
 #startNew {
     flex: 0 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
     margin: 0;
     border: solid;
     border-width: 1.5px 0 0 0;
@@ -415,21 +420,25 @@ nav a:hover {
     background-color: lightgrey;
 }
 #start {
+    flex: 1;
     background-color: blue;
     color: white;
     border-radius: 7px;
     width: 30%;
     padding: 2px;
     margin: 5px 0 0 0;
+    align-self: center;
 }
 #start:hover {
     background-color: rgb(153, 34, 153);
 }
 #startLabel {
+    flex: 1;
     font-size: 15px;
     margin: 0;
 }
 #userStart {
+    flex: 1;
     border: solid;
     margin: 5px 0 5px 0;
 }
