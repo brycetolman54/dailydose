@@ -576,10 +576,8 @@ div > ::-webkit-scrollbar-thumb:hover, aside > ::-webkit-scrollbar-thumb:hover {
 /* This is the styling for My Posts page */
 #postTable {
     display: grid;
-    
     margin: 0px;
     font-size: 12px;
-    width: 100vw;
     grid-gap: 0;
 }
 .date {
