@@ -476,7 +476,7 @@ div > ::-webkit-scrollbar-thumb:hover, aside > ::-webkit-scrollbar-thumb:hover {
 }
 .message {
     border: solid 1px;
-    border-radius: 10px;
+    border-radius: 20px;
     font-size: 13px;
 }
 .time {
@@ -484,23 +484,34 @@ div > ::-webkit-scrollbar-thumb:hover, aside > ::-webkit-scrollbar-thumb:hover {
     padding: 2px;
     margin: 0;
 }
+#theirTime {
+    padding-left: 10px;
+}
+#myTime {
+    padding-right: 10px;
+}
 #theirs {
     background-color: rgb(227, 227, 250);
-    padding: 3px;
+    padding: 5px 10px;
     margin: 0;
 }
 #theirMessage {
     text-align: start;
     width: auto;
+    max-width: 60%;
+    float: left;
 }
 #mine {
     background-color: rgb(250, 228, 250);
-    padding: 3px;
+    padding: 5px 10px;
     margin: 0;
+    text-align: start;
 } 
 #myMessage {
     text-align: end;
     width: auto;
+    max-width: 60%;
+    float: right;
 }
 #userChatter {
     flex: 0 12px;
