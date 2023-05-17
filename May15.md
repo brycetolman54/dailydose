@@ -132,6 +132,10 @@ console.log(dup(3)('again'));
 | :---: | :---: |
 | toUpperCase | makes it all uppercase |
 | toLowerCase | makes it all lowercase |
+| indeOf | tells the index where the substring starts |
+| split | given a delimiter, it splits the string into its parts around that |
+| startsWith | returns a boolean, given a substring |
+| endsWith | returns a boolean, given a substring |
 
 ## Regex
 - You can make a regularexpression with `new RegExp('string', 'i')` where i is an option
@@ -225,3 +229,62 @@ function af([a=3, b='taco'] = []) {
 # Script style (to activate a function for a specific element, or you can write a whole function here...)
 <button onlcik="sayHello()">Say Hello</button>
 ```
+
+## Reading Notes
+```
+// Line comment
+
+/* 
+Block comment 
+*/
+
+You can specify formatting with CSS for the console to output:
+console.log('%c JavaScript Demo', 'font-size:1.5em; color:green;');
+// This will output large green letters
+
+You can time things with time and timeEnd:
+console.time('demo time');
+// Code that runs
+console.timeEnd('demo time');
+// output: demo time: 9274.54 ms
+
+You can use count to see how many times a block of code is called:
+console.count('a');
+// output: a: 1
+console.count('a');
+// output: a: 2
+console.count('b');
+// output: b: 1
+
+You can use for in to iterate over an object's property names:
+const arr = ['a', 'b'];
+for (const name in arr) {
+  console.log(name);
+}
+// output: 0
+// output: 1
+
+You can use for of to loop through an object's values
+const arr = ['a', 'b'];
+for (const name of arr) {
+  console.log(name);
+}
+// output: 'a'
+// output: 'b'
+
+You can write strings with '' or ""
+You can do multiline without using \n  if you use \` (just use the enter button)
+
+```
+
+## Some DOM Events
+| Event name | What it means |
+| :---: | :---: |
+| input | an element gets user input |
+| keypress | a key is pressed |
+| keyup | a key is realeased |
+| submit | a form is submitted |
+| transitionend | a CSS animation has completed |
+| animationend |  a CSS animation has finished |
+| click | an element is clicked on |
+| dblclick | an element is double clicked on |
