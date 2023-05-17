@@ -189,14 +189,13 @@ div > ::-webkit-scrollbar-thumb:hover, aside > ::-webkit-scrollbar-thumb:hover {
     resize: none;
 }
 #send {
-    flex: 1 25px;
+    flex: 0 25px;
     background-color: blue;
     color: white;
     border-radius: 7px;
     width: 60px;
     padding: 2px;
     margin: 5px 0 0 0;
-    height: 10%;
     align-self: center;
 }
 #send:hover {
