@@ -63,11 +63,13 @@ footer a {
     text-align: end;
     color: white;
     text-decoration: none;
+    padding-right: 20px;
 }
 footer a:hover {
     color: rgb(153, 34, 153);
 }
 footer p {
+    padding-left: 20px;
     flex: 1;
     margin: 0;
 }
