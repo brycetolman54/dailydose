@@ -549,6 +549,9 @@ div > ::-webkit-scrollbar-thumb:hover, aside > ::-webkit-scrollbar-thumb:hover {
     height: 10%;
     align-self: center;
 }
+#send:hover {
+    background-color: rgb(153, 34, 153);
+}
 
 @media (max-width: 600px) {
     #chat {
@@ -573,4 +576,34 @@ div > ::-webkit-scrollbar-thumb:hover, aside > ::-webkit-scrollbar-thumb:hover {
 /* This is the styling for My Posts page */
 #postTable {
     display: grid;
+    
+    margin: 0px;
+    font-size: 12px;
+    width: 100vw;
+    grid-gap: 0;
+}
+.date {
+    width: 20vw;
+}
+.title {
+    width: 50vw;
+    font-weight: bold;
+}
+.likes {
+    width: 15vw;
+}
+.comments {
+    width: 15vw;
+}
+#head {
+    background-color: lightgrey;
+    height: 2vw;
+    font-size: 15px;
+}
+.dataRow:nth-child(odd) {
+    background-color: rgb(224, 243, 249);
+}
+.dataRow {
+    border-top: 1px solid;
+    height: 5vh;
 }
