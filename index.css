@@ -569,3 +569,8 @@ div > ::-webkit-scrollbar-thumb:hover, aside > ::-webkit-scrollbar-thumb:hover {
         display: none;
     }
 }
+
+/* This is the styling for My Posts page */
+#postTable {
+    display: grid;
+}
