@@ -471,19 +471,36 @@ div > ::-webkit-scrollbar-thumb:hover, aside > ::-webkit-scrollbar-thumb:hover {
 #messageList > li {
     list-style: none;
 }
+.wholeMessage {
+    margin: 10px 10px;
+}
 .message {
-    border: solid;
+    border: solid 1px;
     border-radius: 10px;
+    font-size: 13px;
+}
+.time {
+    font-size: 8px;
+    padding: 2px;
+    margin: 0;
+}
+#theirs {
+    background-color: rgb(227, 227, 250);
+    padding: 3px;
+    margin: 0;
 }
 #theirMessage {
     text-align: start;
-    width: 50vw;
-    margin: 0;
+    width: auto;
 }
+#mine {
+    background-color: rgb(250, 228, 250);
+    padding: 3px;
+    margin: 0;
+} 
 #myMessage {
     text-align: end;
     width: auto;
-    margin: 0;
 }
 #userChatter {
     flex: 0 12px;
