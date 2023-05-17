@@ -102,6 +102,7 @@ const arrowWithReturn = (a) +=> {
 };
 # output is a, you get whatever the return value is
 ```
+- The arrow inherits the `this` pointer from the environment it is made (if it is made inside a function)
 
 ## Closures
 - This is a function and its surrounding state
@@ -148,12 +149,15 @@ console.log(dup(3)('again'));
 - Pop off with `.pop()`
 - You can use `length` as well
 - You can use `slice(2,5)` to get a subset
+- `sort(() => {})` to sort an array, it seems you can use a function to specify how it is to sort
+- You can use `find(function)` to find the first item that satisfies the function you put in there
+- `forEach(function)` allows you to perform that function on each element in the array
 - `map((n) => operation)` to map each component of the array to a new array
 - `reduce((p,c) => p + c)`, p is the past value, c is the cumulator, it just adds up the whole array
 - `filter((n) => operation)`, if the operation returns true, we get rid of the value in the array
 - `some((n) => operation)`, if one of the elements returns true from the operation, the return of the function is true
+- `every(function)` is like `some`, but all elements have to match the function
 - `join(string)` will join the array with the string you provide between each value
-- 
 
 ## Template Literals
 ` console.log(\`Template ${'lite' + 'rals'}! ${hello(name)}\`)`
