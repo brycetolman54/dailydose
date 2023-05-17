@@ -1,16 +1,182 @@
-body {
-    size: 100vh;
-    margin: 0;
+/* This is for the feed page */
+#feedAndQuote {
     display: flex;
     flex-direction: column;
 }
-header {
-    flex: 0 80px;
-    background-image: url("DailyDose.jpg");
-    background-position: center;
-    background-repeat: 0;
-    background-size: 400px;
+#feedfield {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+#post {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    margin: 5px 10px;
+    border-radius: 7px;
+}
+#topMatter {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    border: solid;
+    border-radius: 7px 7px 0 0;
+    border-width: 0 0 2px 0;
+    background-color: lightblue;
+}
+#user {
+    flex: 0 25vw;
+    font-size: 100%;
+    font-weight: bold;
+    text-align: start;
+    margin: 5px 10px;
+    height: 20px;
+    border: solid #000000 2px;
     text-align: center;
-    color: black;
+    border-radius: 30px;
+    background-color: rgb(243, 228, 228);
+    width: 50px;
+    padding: 0 5px;
+    max-width: 150px;
+}
+#user:hover {
+    color: darkblue;
+    border-color: darkblue;
+    background-color: white;
+    cursor: pointer;
+}
+#buttons {
+    flex: 5;
+    text-align: end;
+}
+#like, #comment {
+    background-color: purple;
+    color: white;
+    border-radius: 7px;
+    width: 25%;
+    font-weight: bold;
+    padding: 0;
+    margin: 7px 20px;
+    height: 20px;
+    max-width: 100px;
+    min-width: 70px;
+}
+#like:hover, #comment:hover {
+    background-color: rgb(41, 195, 246);
+}
+#timestamp {
+    flex: 1;
     margin: 0;
+    font-size: 10px;
+    align-self: center;
+}
+#bottomMatter {
+    display: flex;
+    flex-direction: column;
+}
+#thoughts {
+    flex: 4;
+    text-align: left;
+    margin: 4px 2px;
+}
+#title {
+    flex: 1;
+    text-align: start;
+    margin: 0;
+    padding: 0 0 0 10px;
+    background-color: lightgrey;
+    border: solid;
+    border-width: 0 0 1px 0;
+}
+#quoteAndNew {
+    flex: 1;
+    display: flex;
+    flex-direction: row-reverse;
+}
+#newpost {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+#newPostHead {
+    flex: 0 8px;
+    margin: 10px 5px 5px 10px;
+    background-color: darkblue;
+    color: white;
+    border-radius: 7px;
+}
+#postIt {
+    flex: 0 20px;
+    margin: 5px 5px 10px 10px;
+    background-color: blue;
+    color: white;
+    padding: 2px;
+    border-radius: 6px;
+    width: 20%;
+    align-self: center;
+    font-weight: bold;
+}
+#postIt:hover {
+    background-color: rgb(153, 34, 153)
+}
+#text {
+    flex: 0 20px;
+    margin: 0px 5px 5px 10px;
+    border: solid;
+    font-weight: bold;
+}
+#textarea {
+    flex: 3;
+    margin: 0px 5px 5px 10px;
+    border: solid;
+    resize: none;
+}
+#quote {
+    flex: 1;
+    border: solid darkblue;
+    background-color: rgb(234, 248, 253);
+    border-radius: 7px;
+    margin: 10px 10px 10px 5px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+#quoteTitle {
+    flex: 1;
+    margin: 5px;
+}
+#thequote {
+    flex: 3;
+    margin: 5px;
+}
+#author {
+    flex: 1;
+    margin: 5px;
+}
+#quoteReference {
+    margin: 0;
+    flex: 1;
+    color: rgb(9, 9, 194);
+    text-decoration: none;
+    padding: 10px;
+}
+#quoteReference:hover {
+    color: rgb(153, 34, 153);
+}
+@media (max-width: 700px) {
+    #quoteAndNew {
+        display: flex;
+        flex-direction: column;
+    }
+    #like, #comment {
+        margin: 7px 10px;
+    }
+}
+@media (max-width: 500px) {
+    #user {
+        font-size: 12px;
+        justify-items: center;
+    }
 }

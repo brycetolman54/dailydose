@@ -1,16 +1,32 @@
-body {
-    size: 100vh;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
+/* This is the styling for My Posts page */
+#postTable {
+    display: grid;
+    margin: 0px;
+    font-size: 12px;
+    grid-gap: 0;
 }
-header {
-    flex: 0 80px;
-    background-image: url("DailyDose.jpg");
-    background-position: center;
-    background-repeat: 0;
-    background-size: 400px;
-    text-align: center;
-    color: black;
-    margin: 0;
+.date {
+    width: 20vw;
+}
+.title {
+    width: 50vw;
+    font-weight: bold;
+}
+.likes {
+    width: 15vw;
+}
+.comments {
+    width: 15vw;
+}
+#head {
+    background-color: lightgrey;
+    height: 2vw;
+    font-size: 15px;
+}
+.dataRow:nth-child(odd) {
+    background-color: rgb(224, 243, 249);
+}
+.dataRow {
+    border-top: 1px solid;
+    height: 5vh;
 }
