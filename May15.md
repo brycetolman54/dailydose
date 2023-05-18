@@ -189,6 +189,12 @@ const sumAndMultiply = (multiplier, ...numbers) => {
 ```
 - The ... just means the rest of the numbers are going to be passed into a function called numbers
 
+## Exceptions
+- You can use `try` (to try some code), `throw` (to throw an error message when it doesn't work), `catch` (to catch the throw and do some code), and `finally` (to execute code after a try/catch)
+- You should only use these for exceptional circumstances
+- You can use this in fallback:
+  - If you need to get data from a server for your app (`try`), but you can't connect (`throw`), you can fallback to cached data (`catch`)
+
 ## Object Operations
 
 ## Optional Chain
@@ -203,6 +209,12 @@ x = a --> this just makes x equal to a
 [x,y,z] = a --> same as above, z is undefined
 [x,y,z=100] = a --> just makes z 100 since it would be undefined
 [x,y,...z] = [1,2,3,4,5,6,7] --> This gives the rest after the first two to z
+
+## Destructuring Objects
+- This works likes arrays
+- You have to specify the keys you want to pull out of the object though
+- You can also map these keys to new names if you want: `const { a: count, b: type } = 0`
+  - This will take `a` and `b` from the object `o` but rename them to `count` and `type`
 
 ## Destructuring Parameters
 ```
@@ -292,3 +304,29 @@ You can do multiline without using \n  if you use \` (just use the enter button)
 | animationend |  a CSS animation has finished |
 | click | an element is clicked on |
 | dblclick | an element is double clicked on |
+
+## JSON
+- This is to convert to JavaScript, it is useful
+- There are 6 data types:
+  - String
+  - Number
+  - Boolean
+  - Array
+  - Object
+  - Null
+- A JSON docuemnt contains one of those things, usually an object
+  - An object contains key-value pairs, where the key is always a string
+- You can convert from JSON to JavaScript and back:
+```
+const obj = { a: 2, b: 'crockford', c: undefined };
+const json = JSON.stringify(obj);
+const objFromJson = JSON.parse(json);
+
+console.log(obj, json, objFromJson);
+
+// OUTPUT:
+// {a: 2, b: 'crockford', c: undefined}
+// {"a":2, "b":"crockford"}
+// {a: 2, b: 'crockford'}
+```
+- Notice how the `undefined` value is dropped when going from JavaScript to JSON
