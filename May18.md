@@ -1,4 +1,5 @@
 # More JavaScript
+- Add `'use strict';` at the top of your file for it to make sure that you can't do weird stuff
 
 ## Objects and Classes
 
@@ -31,4 +32,28 @@ const obj = {
   - Adding a # before a value of the class will make it private
 - You define inheritance with `extends`: `class Employee extends Person {}` (where Person is the parent)
   - You can use the `super` keyword to access the functions of the parent (like the this keyword)
-- 
+
+### From Class
+- You declare a new variable with `const name = new obj(parameters)`, where const means you can't reassign the `name` a value, but you can change the object's properties still
+- When you want to make a class with functions, you don't have to use the `function` keyword for them
+- You should use `get` and `set` for those functions though in the classes
+
+ ## JSON
+ - You can use `JSON.stringify(obj)` to make an object into JSON file
+ - You can use `JSON.parse(json)` to make a JSON file into an object
+ - This is to send data around
+
+## Compatibility
+- Don't use var
+
+## DOM: Document Object Model
+- Your computer turns the HTML and CSS code into a tree
+- The variable name for the DOM is `document`
+- `document.querySelectorAll('el')` goes for all the el elements in the document
+  - You can also do this on classes, ids, etc.
+- You can use `querySelector('el')` to get the first element or id or whatever, not all of them
+- You can use `.textContent` to get out the text or assign it if it is text
+- You can use `.innerHTML` to inject HTML into your browser
+  - You just find the id you want to change, then do `el.innerHTML = newHTML`
+ 
+ 
