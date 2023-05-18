@@ -8,7 +8,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    height: 75vh;
+    height: 100%;
     border: solid;
     border-width: 1px 1.5px;
     margin: 0;
@@ -94,31 +94,22 @@
     flex: 3;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 #messageSpace {
-    flex: 3;
+    flex: 1;
     padding: 0;
+    display: flex;
+    flex-direction: row;
 }
 #messageList {
     overflow-y: scroll;
-    height: 55vh;
+    height: 65vh;
     padding: 0;
     margin: 5px 0 0 0;
 }
-div > ::-webkit-scrollbar, aside > ::-webkit-scrollbar {
-    width: 5px;
-}
-div > ::-webkit-scrollbar-track, aside > ::-webkit-scrollbar-track {
-    background-color: white;
-}
-div > ::-webkit-scrollbar-thumb, aside > ::-webkit-scrollbar-thumb {
-    background: #b6b3b3;
-    border-radius: 20px;
-}
-div > ::-webkit-scrollbar-thumb:hover, aside > ::-webkit-scrollbar-thumb:hover {
-    background-color: grey;
-}
 #messageList > li {
+    flex: 1;
     list-style: none;
 }
 .wholeMessage {
@@ -173,10 +164,9 @@ div > ::-webkit-scrollbar-thumb:hover, aside > ::-webkit-scrollbar-thumb:hover {
     border-radius: 0 0 7px 7px;
     padding: 5px 10px;
     font-size: 12px;
-
 }
 #newMessage {
-    flex: 1;
+    flex: 0 80px;
     display: flex;
     flex-direction: column;
     border: solid;
@@ -201,7 +191,19 @@ div > ::-webkit-scrollbar-thumb:hover, aside > ::-webkit-scrollbar-thumb:hover {
 #send:hover {
     background-color: rgb(153, 34, 153);
 }
-
+div > ::-webkit-scrollbar, aside > ::-webkit-scrollbar {
+    width: 5px;
+}
+div > ::-webkit-scrollbar-track, aside > ::-webkit-scrollbar-track {
+    background-color: white;
+}
+div > ::-webkit-scrollbar-thumb, aside > ::-webkit-scrollbar-thumb {
+    background: #b6b3b3;
+    border-radius: 20px;
+}
+div > ::-webkit-scrollbar-thumb:hover, aside > ::-webkit-scrollbar-thumb:hover {
+    background-color: grey;
+}
 @media (max-width: 600px) {
     #chat {
         flex: 4;
