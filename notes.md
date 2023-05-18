@@ -60,4 +60,5 @@ and this
    4. [May 4: Internet and Class Technologies](May4.md)
    5. [May 9: HTML](May9.md)
    6. [May 11: CSS](May11.md)
-   7. [May 16: JavaScript](May15.md)
+   7. [May 16: JavaScript](May16.md)
+   8. [May 18: More JavaScript](May18.md)
