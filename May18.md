@@ -71,4 +71,42 @@ const obj = {
 - IF you are not in anything, `this` will point to the window itself
 - IF you have a `this` pointer in your JS function (as you call it in the HTML element), it will point to that element
 
+ ## Modules
+ - You want to take code and encapsulate it somehow
+ - You can use `export` and `import` to send functions between files
+ ```
+ # In hello.js
+ export function hello() {
+   console.log('hello');
+ }
  
+ # in index.js
+ import {hello} from './hello.js'; --> that after import is actually destructuring, you are just grabbing the one function you want out of all of them that exist
+ hello();
+ # to get all the library
+ import x from './hello.js';
+ x.hello();
+ ```
+- If you are going to import modules, specify in the `script` element an attribute of `type="module"`
+
+## Promises and Async
+- JS can't run a long time, the program will pull off the thing that is taking a long time and do the rest while the long thing takes its time
+- That is async
+```
+function demo() {
+  console.log('Before timeout');
+
+  setTimeout(() => {
+    console.log('In timeout');
+  }, 5000);
+
+  console.log('After timeout');
+}
+  
+  demo();
+  console.log('Done');
+  
+  # output looks like: Berfore timeout, After timeout, Done, In timeout
+```
+- The `setTimeout()` takes a function to do and a time to do it after
+- That line is done last because it takes the longest, so it is set aside while the rest goes until it is done
