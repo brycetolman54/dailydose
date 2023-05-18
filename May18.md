@@ -55,5 +55,20 @@ const obj = {
 - You can use `.textContent` to get out the text or assign it if it is text
 - You can use `.innerHTML` to inject HTML into your browser
   - You just find the id you want to change, then do `el.innerHTML = newHTML`
- 
+  -  You shouldn't use this at all... It's dangerous for security reasons, use the following:
+- You can create an element with `document.createElement('el');`
+- You can then put this into the document with `parentElement.appendChild(child)`
+
+## Events
+- You can take in input and then do things when input is in
+- Example: `<button onclick='console.log("hello")'>click me</button>` --> This will print "hello" to the console
+- Example: `<button onclick='alert("hello")'>click me</button>` --> This will send an alert that says "hello"
+- `.addEventListener('click', (event) => console.log('clicked'))` --> The `addEventListener` takes an event (click in this case) and does whatever the function says to do
+- You can add the `defer` attribute to the `script` element so that the JS doesn't do anything until the whole document has been read
+
+## Scope
+- You can use `globalThis` to get to the `this` of the global scope when you are inside a different scope
+- IF you are not in anything, `this` will point to the window itself
+- IF you have a `this` pointer in your JS function (as you call it in the HTML element), it will point to that element
+
  
