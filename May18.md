@@ -75,6 +75,7 @@ const obj = {
 | setAttribute | takes an attribute name and value, adds to a DOM element |
 | hasAttribute | sees if an element has an attribute |
 | getAttribute | gets the value of an attribute of the element operated on, given the attribute to look for |
+| classList | gives the list of classes of an element |
 
 - Injecting HTML into the DOM
 
