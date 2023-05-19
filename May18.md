@@ -58,6 +58,25 @@ const obj = {
   -  You shouldn't use this at all... It's dangerous for security reasons, use the following:
 - You can create an element with `document.createElement('el');`
 - You can then put this into the document with `parentElement.appendChild(child)`
+- Functions from DOM:
+
+| Function | What it does |
+| :---: | :---: |
+| tagName | gives the element name |
+| children | returns the children of an element |
+| querySelectorAll | returns an array of all the elements that fit the selector it is passed |
+| textContent | containts all the element's text |
+| innerHTML | gives the HTML of the element in text form |
+| createElement | creates a new element in the DOM |
+| querySelector | finds only the first  (or only) instance of the selector given it |
+| appendChild | allows you to add an element to the element you are using this on |
+| removeChild | removes a child from a parent (you want to call this on the parent like `el.parentElement.removeChild(el)` |
+| parentElement | gives the parent element of the element we are looking at |
+| setAttribute | takes an attribute name and value, adds to a DOM element |
+| hasAttribute | sees if an element has an attribute |
+| getAttribute | gets the value of an attribute of the element operated on, given the attribute to look for |
+
+- Injecting HTML into the DOM
 
 ## Events
 - You can take in input and then do things when input is in
