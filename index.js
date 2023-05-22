@@ -1,10 +1,16 @@
 function switchForm(toWhat) {
     if(toWhat === "login") {
-        document.querySelector('login');
-        insertRule("#filler {display: none;}");
+
+        let filler = document.querySelectorAll('.filler');
+        for(let fill of filler) {
+            fill.style.display = 'none';
+        }
     }
     if(toWhat === "signup") {
-
-        insertRule("#filler {display: grid;}")
+        
+        let filler = document.querySelectorAll('.filler');
+        for(let fill of filler) {
+            fill.style.display = 'grid';
+        }
     }
 };
