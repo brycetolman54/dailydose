@@ -7,6 +7,8 @@
         <title>DailyDose</title>
         <link rel="icon" href="DailyDose.jpg" />
         <link rel="stylesheet" href="index.css" />
+        <script defer src="index.js"></script>
+        <script defer src="general.js"></script>
     </head>
 <body>
     <header>
@@ -16,8 +18,8 @@
         <h2>Login</h2>
         <div>
             <div class="login" id="topbuttons">
-                <button type="Login" id="login">Login</button>
-                <button type="SignUp" id="signup">Sign Up</button>
+                <button type="Login" id="login" onclick="switchForm('login')">Login</button>
+                <button type="SignUp" id="signup" onclick="switchForm('signup')">Sign Up</button>
             </div>
             <form method="get" action="feed.html">
                     <div id="loginbox">
