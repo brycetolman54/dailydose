@@ -133,7 +133,7 @@ nav a:hover {
 #checkbox {
     color: green;
 }
-#filler {
+.filler {
     margin: 0;
     font-size: 8px;
     display: grid;
