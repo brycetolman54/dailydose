@@ -58,6 +58,26 @@ const obj = {
   -  You shouldn't use this at all... It's dangerous for security reasons, use the following:
 - You can create an element with `document.createElement('el');`
 - You can then put this into the document with `parentElement.appendChild(child)`
+- Functions from DOM:
+
+| Function | What it does |
+| :---: | :---: |
+| tagName | gives the element name |
+| children | returns the children of an element |
+| querySelectorAll | returns an array of all the elements that fit the selector it is passed |
+| textContent | containts all the element's text |
+| innerHTML | gives the HTML of the element in text form |
+| createElement | creates a new element in the DOM |
+| querySelector | finds only the first  (or only) instance of the selector given it |
+| appendChild | allows you to add an element to the element you are using this on |
+| removeChild | removes a child from a parent (you want to call this on the parent like `el.parentElement.removeChild(el)` |
+| parentElement | gives the parent element of the element we are looking at |
+| setAttribute | takes an attribute name and value, adds to a DOM element |
+| hasAttribute | sees if an element has an attribute |
+| getAttribute | gets the value of an attribute of the element operated on, given the attribute to look for |
+| classList | gives the list of classes of an element |
+
+- Injecting HTML into the DOM
 
 ## Events
 - You can take in input and then do things when input is in
@@ -71,4 +91,42 @@ const obj = {
 - IF you are not in anything, `this` will point to the window itself
 - IF you have a `this` pointer in your JS function (as you call it in the HTML element), it will point to that element
 
+ ## Modules
+ - You want to take code and encapsulate it somehow
+ - You can use `export` and `import` to send functions between files
+ ```
+ # In hello.js
+ export function hello() {
+   console.log('hello');
+ }
  
+ # in index.js
+ import {hello} from './hello.js'; --> that after import is actually destructuring, you are just grabbing the one function you want out of all of them that exist
+ hello();
+ # to get all the library
+ import x from './hello.js';
+ x.hello();
+ ```
+- If you are going to import modules, specify in the `script` element an attribute of `type="module"`
+
+## Promises and Async
+- JS can't run a long time, the program will pull off the thing that is taking a long time and do the rest while the long thing takes its time
+- That is async
+```
+function demo() {
+  console.log('Before timeout');
+
+  setTimeout(() => {
+    console.log('In timeout');
+  }, 5000);
+
+  console.log('After timeout');
+}
+  
+  demo();
+  console.log('Done');
+  
+  # output looks like: Berfore timeout, After timeout, Done, In timeout
+```
+- The `setTimeout()` takes a function to do and a time to do it after
+- That line is done last because it takes the longest, so it is set aside while the rest goes until it is done
