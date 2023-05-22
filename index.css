@@ -105,7 +105,8 @@ nav a:hover {
 
 /* This is for the login page */
 #loginbox{
-    border: solid 2px;
+    border: solid 1.5px;
+    background-color: rgb(243, 238, 238);
     border-radius: 8px;
     margin: auto;
     padding: 20px 0 20px 0;
@@ -127,7 +128,7 @@ nav a:hover {
 }
 .login {
     flex: 1;
-    padding: 6px
+    padding: 6px;
 }
 #checkbox {
     color: green;
@@ -148,8 +149,8 @@ nav a:hover {
 #passwordcheck, #usernamecheck {
     padding: 0 0 0 5px;
 }
-#login-signup {
-    border: solid 2px;
+#login, #signup {
+    border: solid 1px;
     font-weight: bold; 
     border-radius: 6px;
     padding: 5px 25px;
@@ -157,11 +158,14 @@ nav a:hover {
     background-color: rgb(230, 224, 224);
     transform: translate(0%, 80%);
 }
-#login-signup:hover {
+#signup {
+    background-color: rgb(197, 197, 197);
+}
+#login:hover, #signup:hover {
     background-color: lightblue;
 }
 @media (max-width: 500px) {
-    #login-signup {
+    #login, #signup {
         font-size: 12px;
         padding: 5px 15px;
     }
