@@ -106,7 +106,7 @@ nav a:hover {
 /* This is for the login page */
 #loginbox{
     border: solid 1.5px;
-    background-color: rgb(243, 238, 238);
+    background-color: rgb(255, 255, 255);
     border-radius: 8px;
     margin: auto;
     padding: 20px 0 20px 0;
@@ -155,11 +155,11 @@ nav a:hover {
     border-radius: 6px;
     padding: 5px 25px;
     margin: 0 2vw;
-    background-color: rgb(230, 224, 224);
+    background-color: rgb(236, 233, 233);
     transform: translate(0%, 80%);
 }
 #signup {
-    background-color: rgb(197, 197, 197);
+    border-width: 2px;
 }
 #login:hover, #signup:hover {
     background-color: lightblue;
