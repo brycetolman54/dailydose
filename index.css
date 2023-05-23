@@ -35,10 +35,26 @@ main > div {
     justify-content: center;
 
 }
-h2 {
+#topHeader {
     flex: 0 30px;
+    display: flex;
+    flex-direction: row;
     border: solid;
-    border-width: 0 0 1px 0;
+    border-width: 0 0 1.5px 0;
+    background-color: rgb(177, 228, 245);
+}
+#userInfo {
+    flex: 0 80px;
+    padding: 5px 20px;
+    border: solid;
+    border-width: 0 0 0 1.5px;
+}
+#userInfo:hover {
+    background-color: rgb(165, 213, 220);
+    cursor: pointer;
+}
+h2 {
+    flex: 1;
     text-align: center;
     background-color: rgb(177, 228, 245);
     margin: 0;
