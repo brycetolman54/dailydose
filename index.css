@@ -168,6 +168,9 @@ nav a:hover {
 #login:hover, #signup:hover {
     background-color: lightblue;
 }
+.checkbox {
+    color: red;
+}
 @media (max-width: 500px) {
     #login, #signup {
         font-size: 12px;

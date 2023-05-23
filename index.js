@@ -22,3 +22,43 @@ function switchForm(toWhat) {
         }
     }
 };
+
+function checkUsername() {
+    const userName = event.target.value;
+
+     if(userName.match(/\w{5,}/)) {
+        let element = document.querySelector('#checkbox1');
+        element.innerText = "\u2714";
+        element.style.color = 'green';
+    }
+     else {
+        let element = document.querySelector('#checkbox1');
+        element.innerText = "\u2716";
+        element.style.color = 'red';
+     }
+     if(userName.match(/\w{1,15}/)) {
+        let element = document.querySelector('#checkbox15');
+        element.innerText = "\u2714";
+        element.style.color = 'green';
+     }
+     else {
+        let element = document.querySelector('#checkbox15');
+        element.innerText = "\u2716";
+        element.style.color = 'red';
+     }    
+}
+
+function checkPassword() {
+    const passWord = event.target.value;
+
+    if(passWord.match(/\w{8,}/)) {
+        let element = document.querySelector('#checkbox2');
+        element.innerText = "\u2714";
+        element.style.color = 'green';
+     }
+     else {
+        let element = document.querySelector('#checkbox2');
+        element.innerText = "\u2716";
+        element.style.color = 'red';
+     }   
+}
