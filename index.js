@@ -46,6 +46,8 @@ function checkUsername() {
         element.innerText = "\u2714";
         element.style.color = 'green';
     }    
+
+    localStorage.setItem('username', userName);
 }
 
 function checkPassword() {
