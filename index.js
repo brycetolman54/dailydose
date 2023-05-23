@@ -26,39 +26,69 @@ function switchForm(toWhat) {
 function checkUsername() {
     const userName = event.target.value;
 
-     if(userName.match(/\w{5,}/)) {
+    if(userName.match(/\w{5,}/)) {
         let element = document.querySelector('#checkbox1');
         element.innerText = "\u2714";
         element.style.color = 'green';
     }
-     else {
+    else {
         let element = document.querySelector('#checkbox1');
         element.innerText = "\u2716";
         element.style.color = 'red';
-     }
-     if(userName.match(/\w{1,15}/)) {
-        let element = document.querySelector('#checkbox15');
+    }
+    if(userName.match(/\w{1,15}/)) {
+        let element = document.querySelector('#checkbox2');
         element.innerText = "\u2714";
         element.style.color = 'green';
-     }
-     else {
-        let element = document.querySelector('#checkbox15');
+    }
+    else {
+        let element = document.querySelector('#checkbox2');
         element.innerText = "\u2716";
         element.style.color = 'red';
-     }    
+    }    
 }
 
 function checkPassword() {
     const passWord = event.target.value;
 
-    if(passWord.match(/\w{8,}/)) {
-        let element = document.querySelector('#checkbox2');
+    if(passWord.length > 8) {
+        let element = document.querySelector('#checkbox3');
         element.innerText = "\u2714";
         element.style.color = 'green';
      }
-     else {
-        let element = document.querySelector('#checkbox2');
+    else {
+        let element = document.querySelector('#checkbox3');
         element.innerText = "\u2716";
         element.style.color = 'red';
-     }   
+    }
+    if(/[A-Z]/.test(passWord)) {
+        let element = document.querySelector('#checkbox4');
+        element.innerText = "\u2714";
+        element.style.color = 'green';
+    }
+    else {
+        let element = document.querySelector('#checkbox4');
+        element.innerText = "\u2716";
+        element.style.color = 'red';
+    }
+    if(/[0-9]/.test(passWord)) {
+        let element = document.querySelector('#checkbox5');
+        element.innerText = "\u2714";
+        element.style.color = 'green';
+    }
+    else {
+        let element = document.querySelector('#checkbox5');
+        element.innerText = "\u2716";
+        element.style.color = 'red';
+    }
+    if(/[!@#$%^&amp;\*\(\)]/.test(passWord)) {
+        let element = document.querySelector('#checkbox6');
+        element.innerText = "\u2714";
+        element.style.color = 'green';
+    }
+    else {
+        let element = document.querySelector('#checkbox6');
+        element.innerText = "\u2716";
+        element.style.color = 'red';
+    }
 }
