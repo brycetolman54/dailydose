@@ -26,7 +26,7 @@
     background-color: lightblue;
 }
 .user {
-    flex: 0 auto;
+    flex: 0 150px;
     font-size: 100%;
     font-weight: bold;
     text-align:;
@@ -37,7 +37,7 @@
     border-radius: 30px;
     background-color: rgb(243, 228, 228);
     width: 50px;
-    padding: 2px 5px;
+    padding: 3px 5px;
     max-width: 150px;
 }
 .user:hover {
