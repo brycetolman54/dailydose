@@ -40,11 +40,11 @@ function rehydratePost(post) {
             user.textContent = post.user;
             user.classList.add('user');
             // Time Stamp
-            const timeStamp = document.createElement('p');
-            timeStamp.textContent = getTime(post.time);
-            timeStamp.classList.add('timestamp');
+            // const timeStamp = document.createElement('p');
+            // timeStamp.textContent = getTime(post.time);
+            // timeStamp.classList.add('timestamp');
         newTop.appendChild(user);
-        newTop.appendChild(timeStamp);
+        //newTop.appendChild(timeStamp);
         // Bottom Matter
         const newBottom = document.createElement('div');
         newBottom.classList.add('bottomMatter');
