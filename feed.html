@@ -39,20 +39,20 @@
                 <form method="get" id="newpost" action="feed.html" onsubmit="addPost()">
                     <p id="newPostHead"><b>New Post</b></p>
                     <label for="text">Post title</label>
-                    <input type="text" id="postTitle" name="postTitle" placeholder="Enter a title (max 60 characters)" pattern="[\w\s]{1,50}" title="Your title is too long" required/>
+                    <input type="text" id="postTitle" name="postTitle" placeholder="Enter a title (max 60 characters)" pattern=".{1,50}" title="Your title is too long" required/>
                     <label for="textarea">Post text</label>
                     <textarea id="postContent" name="newPost" placeholder="Share your thoughts" required></textarea>
                     <button id="postIt">Post</button>
                 </form>
             </div>
             <div id="feedfield">
-                <div id="post">
+                <div class="post">
                     <div id="topMatter">
                         <p id="user">Bobbaliciouslly</p>
                         <p id="timestamp">01/02/2023 9:32 am</p>
                         <div id="buttons">
                             <button id="like1" class="like" onclick="hitLike()">Like</button>
-                            <button id="comment">Comment</button>
+                            <!-- <button id="comment">Comment</button> -->
                         </div>
                     </div>
                     <div id="bottomMatter">
@@ -62,21 +62,28 @@
                             Church to understand who Jesus Christ really was...
                         </p>
                     </div> 
-                    <div class="commentMatter">
-                        <input type="checkbox" class="openComments"/>
-                        <label class="commentSection">
+                    <!-- <div class="commentMatter">
+                        <input type="checkbox" id="openComments1"/>
+                        <label class="commentSection" for="openComments1">
                             <p class="commentList">Comments</p>
-                            <p class="hidingComment">I really like this idea</p>
+                            <div class="hidingComment">
+                                <p class="actualComment">I really like this thought. This is just a really long comment so that I can show what happens to the text when it goes longer than the length of the box.</p>
+                                <p class="commentTimeStamp">01/02/2023 7:37 pm</p>
+                            </div>
+                            <div class="hidingComment">
+                                <p class="actualComment">I also really like this thought.</p>
+                                <p class="commentTimeStamp">01/02/2023 8:39 pm</p>
+                            </div>
                         </label>
-                    </div>
+                    </div> -->
                 </div>
-                <div id="post">
+                <div class="post">
                     <div id="topMatter">
                         <p id="user">Amy</p>
                         <p id="timestamp">03/04/2023 7:57 am</p>   
                         <div id="buttons">
                             <button id="like2" class="like">Like</button>
-                            <button id="comment">Comment</button>
+                            <!-- <button id="comment">Comment</button> -->
                         </div>
                     </div>
                     <div id="bottomMatter">
@@ -86,6 +93,21 @@
                             I love how Jesus Christ shows His love in the scriptures...
                         </p>
                     </div>
+                    <!-- This is stuff I may not want, at least not now -->
+                    <!-- <div class="commentMatter">
+                        <input type="checkbox" id="openComments2"/>
+                        <label class="commentSection" for="openComments2">
+                            <p class="commentList">Comments</p>
+                            <div class="hidingComment">
+                                <p class="actualComment">I really like this thought.</p>
+                                <p class="commentTimeStamp">01/02/2023 7:37 pm</p>
+                            </div>
+                            <div class="hidingComment">
+                                <p class="actualComment">I also really like this thought.</p>
+                                <p class="commentTimeStamp">01/02/2023 8:39 pm</p>
+                            </div>
+                        </label>
+                    </div> -->
                 </div>
             </div>
         </div>
