@@ -1,4 +1,15 @@
 /* This is the formatting for the Chat page */
+#bars {
+    flex: 0 40px;
+    padding: 2px 0 5px 0px;
+    border: solid;
+    border-width: 0 1.5px 0 0;
+    display: none;
+}
+#bars:hover {
+    background-color: rgb(165, 213, 220);
+    cursor: pointer;
+}
 #chatSpace {
     flex: 1;
     display: flex;
@@ -63,7 +74,7 @@
     text-align: center;
     margin: 0;
     border: solid;
-    border-width: 1.5px 0 0 0;
+    border-width: 1.5px 0 1.5px 0;
     padding: 10px 20px 10px 20px;
     background-color: lightgrey;
 }
@@ -220,6 +231,14 @@ div > ::-webkit-scrollbar-thumb:hover, aside > ::-webkit-scrollbar-thumb:hover {
         font-size: 10px;
     }
     #date {
+        display: none;
+    }
+}
+@media (max-width: 500px) {
+    #bars {
+        display: block;
+    }
+    #chats {
         display: none;
     }
 }
