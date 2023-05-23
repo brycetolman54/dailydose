@@ -1,4 +1,6 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', replaceUsername());
+
+export function replaceUsername() {
     const user = localStorage.getItem('username');
     if(user) {
         let elem = document.querySelector('#userInfo');
@@ -7,4 +9,10 @@ window.addEventListener('DOMContentLoaded', () => {
         elem.style.alignSelf = 'center';
         elem.style.height = '25px';
     }
-});
+}
+
+export function backToLogin() {
+    console.log('hello');
+    localStorage.removeItem('username');
+    window.location.replace('index.html');
+}
