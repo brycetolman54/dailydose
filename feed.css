@@ -260,10 +260,13 @@
     #like, #comment {
         margin: 7px 10px;
     }
+    .user {
+        font-size: 12px;
+    }
 }
 @media (max-width: 500px) {
-    #user {
-        font-size: 12px;
+    .user {
+        font-size: 10px;
         justify-items: center;
     }
 }

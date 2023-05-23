@@ -40,11 +40,15 @@ function rehydratePost(post) {
             user.textContent = post.user;
             user.classList.add('user');
             // Time Stamp
-            // const timeStamp = document.createElement('p');
-            // timeStamp.textContent = getTime(post.time);
-            // timeStamp.classList.add('timestamp');
+            const timeStamp = document.createElement('p');
+            timeStamp.textContent = getTime(new Date(post.time));
+            timeStamp.classList.add('timestamp');
+            // Buttons
+            const buttons = document.createElement('div');
+            buttons.classList.add('buttons');
         newTop.appendChild(user);
-        //newTop.appendChild(timeStamp);
+        newTop.appendChild(timeStamp);
+        newTop.appendChild(buttons);
         // Bottom Matter
         const newBottom = document.createElement('div');
         newBottom.classList.add('bottomMatter');
