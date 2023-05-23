@@ -101,8 +101,11 @@
     border: solid;
     margin: 5px 0 5px 0;
 }
+#userStart:hover {
+    cursor: pointer;
+}
 #chat {
-    flex: 3;
+    flex: 1;
     display: flex;
     flex-direction: column;
     height: 100%;

@@ -118,7 +118,7 @@ nav a:hover {
 }
 #chatNav {
     border: solid black;
-    border-width: 0 2px;
+    border-width: 0 0 0 2px;
 }
 @media (max-height: 300px) {
     header {

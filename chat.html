@@ -18,10 +18,10 @@
             <nav>
                 <a href="feed.html" id="feedNav">Feed</a>
                 <a href="chat.html" id="chatNav">Chat</a>
-                <a href="posts.html" id="postsNav">My Posts</a> 
+                <!-- <a href="posts.html" id="postsNav">My Posts</a>  -->
             </nav>
             <div id="topHeader">
-                <div id="bars">&#x2630</div>
+                <div id="bars" onclick="openChats()">&#x2630</div>
                 <h2>Chat</h2>
                 <div id="userInfo" onclick="backToLogin()">Login</div>
             </div>
@@ -72,7 +72,7 @@
                         </ol>
                     </div>
                     <form method="get" id="startNew">
-                        <label for="text" id="startLabel">Start a new message with</label>
+                        <label id="startLabel">Start a new message with</label>
                         <select id="userStart" name="newChatUser">
                             <option selected>--Please choose a user--</option>
                             <option>Bob</option>

@@ -1,5 +1,4 @@
 window.addEventListener('DOMContentLoaded', () => {
-    console.log('hello');
     let scrollElement = document.getElementById('messageList');
     scrollElement.scrollTop = scrollElement.scrollHeight;
 });
@@ -18,3 +17,15 @@ function backToLogin() {
     localStorage.removeItem('username');
     window.location.replace('index.html');
 };
+
+function openChats() {
+    let chats = document.getElementById('chats');
+    let messages = document.getElementById('chat');
+
+    chats.style.display = 'flex';
+    messages.style.dispaly = 'none';
+}
+
+function closeChats() {
+    
+}
