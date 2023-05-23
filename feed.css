@@ -140,7 +140,7 @@
 }
 #quote {
     flex: 1;
-    border: solid darkblue;
+    border: solid black;
     background-color: rgb(234, 248, 253);
     border-radius: 7px;
     margin: 10px 10px 10px 10px;

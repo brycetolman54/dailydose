@@ -3,9 +3,8 @@ window.addEventListener('DOMContentLoaded', () => {
     if(user) {
         let elem = document.querySelector('#userInfo');
         elem.textContent = user;
-        elem.style.fontSize = "12px";
-        elem.style.alignSelf = 'center';
-        elem.style.height = '25px';
+        elem.style.fontSize = "15px";
+        elem.style.height = 'auto';
     }
 });
 

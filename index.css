@@ -36,7 +36,9 @@ main > div {
 
 }
 #topHeader {
-    flex: 0 30px;
+    flex: 0 auto;
+    height: auto;
+    font-size: 15px;
     display: flex;
     flex-direction: row;
     border: solid;
@@ -45,7 +47,10 @@ main > div {
 }
 #userInfo {
     flex: 0 80px;
-    padding: 5px 20px 0;
+    height: auto;
+    font-size: 15px;
+    padding: 2px 10px;
+    margin: auto;
     border: solid;
     border-width: 0 0 0 1.5px;
 }
@@ -110,6 +115,10 @@ nav a:hover {
     padding: 0;
     margin: 0;
     color: black;
+}
+#chatNav {
+    border: solid black;
+    border-width: 0 2px;
 }
 @media (max-height: 300px) {
     header {
