@@ -36,12 +36,12 @@
                     </p>
                     <a href="https://www.churchofjesuschrist.org/study/general-conference/1979/04/and-peter-went-out-and-wept-bitterly?lang=eng" id="quoteReference">(General Conference)</a>
                 </aside>
-                <form method="get" id="newpost" action="feed.html">
+                <form method="get" id="newpost" action="feed.html" onsubmit="addPost()">
                     <p id="newPostHead"><b>New Post</b></p>
                     <label for="text">Post title</label>
-                    <input type="text" id="text" name="postTitle" placeholder="Enter a title"/>
+                    <input type="text" id="postTitle" name="postTitle" placeholder="Enter a title (max 60 characters)" pattern="[\w\s]{1,50}" title="Your title is too long" required/>
                     <label for="textarea">Post text</label>
-                    <textarea id="textarea" name="newPost" placeholder="Share your thoughts"></textarea>
+                    <textarea id="postContent" name="newPost" placeholder="Share your thoughts" required></textarea>
                     <button id="postIt">Post</button>
                 </form>
             </div>
@@ -51,7 +51,7 @@
                         <p id="user">Bobbaliciouslly</p>
                         <p id="timestamp">01/02/2023 9:32 am</p>
                         <div id="buttons">
-                            <button id="like">Like</button>
+                            <button id="like1" class="like" onclick="hitLike()">Like</button>
                             <button id="comment">Comment</button>
                         </div>
                     </div>
@@ -62,13 +62,20 @@
                             Church to understand who Jesus Christ really was...
                         </p>
                     </div> 
+                    <div class="commentMatter">
+                        <input type="checkbox" class="openComments"/>
+                        <label class="commentSection">
+                            <p class="commentList">Comments</p>
+                            <p class="hidingComment">I really like this idea</p>
+                        </label>
+                    </div>
                 </div>
                 <div id="post">
                     <div id="topMatter">
                         <p id="user">Amy</p>
                         <p id="timestamp">03/04/2023 7:57 am</p>   
                         <div id="buttons">
-                            <button id="like">Like</button>
+                            <button id="like2" class="like">Like</button>
                             <button id="comment">Comment</button>
                         </div>
                     </div>
