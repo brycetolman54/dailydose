@@ -26,25 +26,25 @@ function switchForm(toWhat) {
 function checkUsername() {
     const userName = event.target.value;
 
-    if(userName.match(/\w{5,}/)) {
-        let element = document.querySelector('#checkbox1');
-        element.innerText = "\u2714";
-        element.style.color = 'green';
-    }
-    else {
+    if((!userName.length > 8) || userName.length === 0) {
         let element = document.querySelector('#checkbox1');
         element.innerText = "\u2716";
         element.style.color = 'red';
     }
-    if(userName.match(/\w{1,15}/)) {
-        let element = document.querySelector('#checkbox2');
+    else {
+        let element = document.querySelector('#checkbox1');
         element.innerText = "\u2714";
         element.style.color = 'green';
     }
-    else {
+    if(!(userName.length < 15) || userName.length === 0) {
         let element = document.querySelector('#checkbox2');
         element.innerText = "\u2716";
         element.style.color = 'red';
+    }
+    else {
+        let element = document.querySelector('#checkbox2');
+        element.innerText = "\u2714";
+        element.style.color = 'green';
     }    
 }
 
