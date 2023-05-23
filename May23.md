@@ -59,4 +59,6 @@ console.log(await cow());
 ```
 - You can only use await on a function that you have declared async
 
-
+## Debugging
+- console.log debugging
+- use a debugger
