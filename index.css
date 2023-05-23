@@ -45,7 +45,7 @@ main > div {
 }
 #userInfo {
     flex: 0 80px;
-    padding: 5px 20px;
+    padding: 5px 20px 0;
     border: solid;
     border-width: 0 0 0 1.5px;
 }
