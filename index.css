@@ -120,6 +120,11 @@ nav a:hover {
 }
 
 /* This is for the login page */
+#mainHeader {
+    flex: 0 30px;
+    border: solid;
+    border-width: 0 0 1.5px 0;
+}
 #loginbox{
     border: solid 1.5px;
     background-color: rgb(255, 255, 255);
