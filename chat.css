@@ -105,7 +105,7 @@
     cursor: pointer;
 }
 #chat {
-    flex: 1;
+    flex: 3;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -191,6 +191,7 @@
     flex: 0 29px;
     border: solid;
     resize: none;
+    width: 100px;
 }
 #send {
     flex: 0 25px;
@@ -229,7 +230,7 @@ div > ::-webkit-scrollbar-thumb:hover, aside > ::-webkit-scrollbar-thumb:hover {
         width: 50px;
     }
     #userStart {
-        width: 100px;
+        width: auto;
         height: 15px;
         font-size: 10px;
     }

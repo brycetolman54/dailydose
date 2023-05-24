@@ -19,13 +19,29 @@ function backToLogin() {
 };
 
 function openChats() {
+    // Get the elements to manipulate
     let chats = document.getElementById('chats');
     let messages = document.getElementById('chat');
 
+    // Manipulate them on the click
     chats.style.display = 'flex';
-    messages.style.dispaly = 'none';
+    messages.style.display = 'none';
+
+    // Reset the onclick attribute to go to close chats
+    const bars = document.getElementById('bars');
+    bars.setAttribute('onclick', 'closeChats()');
 }
 
 function closeChats() {
-    
+        // Get the elements to manipulate
+    let chats = document.getElementById('chats');
+    let messages = document.getElementById('chat');
+
+    // Manipulate them on the click
+    chats.style.display = 'none';
+    messages.style.display = 'flex';
+
+    // Reset the onclick attribute to go to open chats
+    const bars = document.getElementById('bars');
+    bars.setAttribute('onclick', 'openChats()');
 }
