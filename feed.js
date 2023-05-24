@@ -41,7 +41,16 @@ function rehydratePost(post) {
             user.classList.add('user');
             // Time Stamp
             const timeStamp = document.createElement('p');
-            timeStamp.textContent = getTime(new Date(post.time));
+                // Date
+                const date = document.createTextNode(`${getDate(new Date(post.time))}`);
+                //timeStamp.textContent = getDate(new Date(post.time));
+                // Break
+                const lineBreak = document.createElement('br');
+                // Time
+                const time = document.createTextNode(`${getTime(new Date(post.time))}`);
+            timeStamp.appendChild(date);
+            timeStamp.appendChild(lineBreak);
+            timeStamp.appendChild(time);
             timeStamp.classList.add('timestamp');
             // Buttons
             const buttons = document.createElement('div');
@@ -71,9 +80,8 @@ function rehydratePost(post) {
     feed.appendChild(newElement);
 }
 
-// This is a function just to take a post's time and change it into a string that we like
-function getTime(time) {
-    let bool = false;
+// This is to get the post's date and change it into a string
+function getDate(time) {
     let value = '';
     let month = time.getMonth() + 1;
     value += month;
@@ -81,7 +89,13 @@ function getTime(time) {
     value += time.getDate();
     value += '/';
     value += time.getFullYear();
-    value += ' ';
+    return value;
+}
+
+// This is a function just to take a post's time and change it into a string that we like
+function getTime(time) {
+    let bool = false;
+    let value = '';
     let hour = time.getHours();
     if(hour > 12) {
         hour = hour - 12;
@@ -92,6 +106,9 @@ function getTime(time) {
         value += hour;
     }
     value += ':';
+    if(time.getMinutes() < 10) {
+        value += 0;
+    }
     value += time.getMinutes();
     value += ' ';
     if(bool) {
