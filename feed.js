@@ -7,6 +7,9 @@ window.addEventListener('DOMContentLoaded', () => {
         elem.style.fontSize = "15px";
         elem.style.height = 'auto';
     }
+    else {
+        window.location.replace('index.html');
+    }
 });
 
 // This loads all the posts onto the page
