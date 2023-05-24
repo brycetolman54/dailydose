@@ -12,7 +12,6 @@ window.addEventListener('DOMContentLoaded', () => {
         elem.style.height = 'auto';
     }
     else {
-        console.log('what');
         window.location.replace('index.html');
     }
 });
@@ -24,13 +23,12 @@ function backToLogin() {
 
 function getRootUser() {
     // Get the username
-    const username = JSON.parse(localStorage.getItem('username'));
+    const username = localStorage.getItem('username');
     // Get the array of the user objects
     const userData = JSON.parse(localStorage.getItem('userData'));
     // Find the username in the list of userData and return that object
-    const rootUser = userData.find(obj => obj.name === username);
-    console.log(rootUser);
-    return rootUser;
+
+    return userData.find(obj => obj.name === username);
 }
 
 // Function to load the user list into the new message space
@@ -42,7 +40,9 @@ window.addEventListener('DOMContentLoaded', () => {
     const users = JSON.parse(localStorage.getItem('users'));
     // Fill the list with the users who are not the root user and who aren't already chatted with
     for( const user of users) {
-        fillSelect(user);
+        if(!(user === rootUser.name) && !(rootUser.chats.find(obj => obj.name === user))) {
+            fillSelect(user);
+        }
     }
 })
 function fillSelect(user) {

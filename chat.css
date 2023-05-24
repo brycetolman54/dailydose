@@ -113,14 +113,15 @@
 #messageSpace {
     flex: 1;
     padding: 0;
-    display: flex;
-    flex-direction: row;
 }
 #messageList {
+    flex: 1;
     overflow-y: scroll;
-    height: 65vh;
+    height: 48vh;
     padding: 0;
     margin: 5px 0 0 0;
+    display: flex;
+    flex-direction: column;
 }
 #messageList > li {
     flex: 1;
@@ -154,7 +155,6 @@
     text-align: start;
     width: auto;
     max-width: 60%;
-    float: left;
 }
 #mine {
     background-color: rgb(250, 228, 250);
@@ -164,9 +164,9 @@
 } 
 #myMessage {
     text-align: end;
+    margin-left: 40%;
     width: auto;
     max-width: 60%;
-    float: right;
 }
 #userChatter {
     flex: 0 12px;
