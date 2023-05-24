@@ -96,15 +96,33 @@ function checkPassword() {
 }
 
 function submitForm() {
+    // Make a new object for the user
+    const obj = new Object;
+
     // Get the user
     const user = document.getElementById('loginText').value;
+    obj.name = user;
+    
+    // Make a space for their posts
+    obj.posts = [];
+
+    // Make a space for their chats with others
+    obj.chats = [];
 
     // Get the users array
     const users = JSON.parse(localStorage.getItem('users'));
 
+    // Get the userData array
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
     // Check it
     if(!users.includes(user)) {
+        // Put the user in the list
         users.push(user);
         localStorage.setItem('users', JSON.stringify(users));
+
+        // Put the user data in the data array
+        userData.push(obj);
+        localStorage.setItem('userData', JSON.stringify(userData));
     }
 }

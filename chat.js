@@ -18,6 +18,14 @@ function backToLogin() {
     window.location.replace('index.html');
 };
 
+// Function to load the user list into the new message space
+// Compare the whole user list to the list of people the current user has chats with
+// You also have to load the user list colun with people the current user has chats with
+// Add a function to start a new chat  based on input, to add it to the current users and the other users chat arrays
+// You will need to make each convo id between each pair unique so you can add to it as more messages are sent
+// You need to load up the conversation when an old chat is chosen
+// The chat array of the user object should hold objects of the other user of the chat and an array of previous messages (these are to be objects with time and text content attributes)
+
 function openChats() {
     // Get the elements to manipulate
     let chats = document.getElementById('chats');
