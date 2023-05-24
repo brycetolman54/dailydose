@@ -116,7 +116,13 @@ function getDate(time) {
 
 // This will open a chat when it is clicked on from the side menu
 function openChat(userId) {
-    
+    // We need to get the root user again
+    const rootUser = getRootUser();
+
+    // Then lets make the head of the chat with the users name 
+    document.getElementById('userChatter').textContent = `${userId}`;
+
+    // Now we can fill in the
 }
 
 // Add a function to start a new chat  based on input, to add it to the current users and the other users chat arrays

@@ -172,9 +172,10 @@
 #userChatter {
     flex: 0 12px;
     background-color: rgb(236, 218, 218);
+    color: rgb(236,218,218);
     text-align: center;
     margin: auto;
-    border: solid;
+    border: solid black;
     border-width: 0 1.5px 1.5px;
     border-radius: 0 0 7px 7px;
     padding: 5px 10px;
