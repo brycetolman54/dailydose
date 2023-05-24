@@ -39,12 +39,12 @@
     padding: 3px 5px;
     max-width: 150px;
 }
-.user:hover {
+/* .user:hover {
     color: darkblue;
     border-color: darkblue;
     background-color: white;
     cursor: pointer;
-}
+} */
 .buttons {
     flex: 5;
     text-align: end;

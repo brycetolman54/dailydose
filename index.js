@@ -94,3 +94,17 @@ function checkPassword() {
         element.style.color = 'red';
     }
 }
+
+function submitForm() {
+    // Get the user
+    const user = document.getElementById('loginText').value;
+
+    // Get the users array
+    const users = JSON.parse(localStorage.getItem('users'));
+
+    // Check it
+    if(!users.includes(user)) {
+        users.push(user);
+        localStorage.setItem('users', JSON.stringify(users));
+    }
+}
