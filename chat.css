@@ -134,6 +134,7 @@
     border: solid 1px;
     border-radius: 20px;
     font-size: 13px;
+    display: inline-block;
 }
 .time {
     font-size: 8px;
@@ -244,5 +245,11 @@ div > ::-webkit-scrollbar-thumb:hover, aside > ::-webkit-scrollbar-thumb:hover {
     }
     #chats {
         display: none;
+    }
+    #date {
+        display: block;
+    }
+    #messageList {
+        height: 65vh;
     }
 }
