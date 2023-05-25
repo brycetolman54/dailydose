@@ -153,6 +153,9 @@ function getTime(time) {
 // This will open a chat when it is clicked on from the side menu
 function openChat(userId) {
 
+    // Start by enabling input in the text box
+    document.getElementById('messageArea').disabled = false;
+
     // Now remove the color from the rest of the users in the chatlist
     const userList = document.getElementById('userChatList');
     const users = userList.children;
@@ -277,8 +280,14 @@ function startNew() {
     }
 }
 
-// Add a function to start a new chat  based on input, to add it to the current users and the other users chat arrays
-// You need to add a function to make the send and stat buttons disabled if there is no content chosen or typed
+function enableSend() {
+    if(document.getElementById('messageArea').value.length > 0) {
+        document.getElementById('send').disabled = false;
+    }
+    else {
+        document.getElementById('send').disabled = true;
+    }
+}
 
 function openChats() {
     // Get the elements to manipulate

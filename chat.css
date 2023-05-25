@@ -195,6 +195,9 @@
     resize: none;
     width: auto;
 }
+#messageArea:disabled {
+    background-color: lightgrey;
+}
 #send {
     flex: 0 25px;
     background-color: blue;
@@ -207,6 +210,10 @@
 }
 #send:hover {
     background-color: rgb(153, 34, 153);
+}
+#send:disabled {
+    background-color: grey;
+    cursor: default;
 }
 div > ::-webkit-scrollbar, aside > ::-webkit-scrollbar {
     width: 5px;

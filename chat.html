@@ -73,8 +73,8 @@
                         </ol>
                     </div>
                     <form method="get" id="newMessage">
-                        <textarea id="messageArea" name="message" required></textarea>
-                        <button id="send">Send</button>
+                        <textarea id="messageArea" name="message" required oninput="enableSend()" disabled></textarea>
+                        <button id="send" disabled="false">Send</button>
                     </form>
                 </div>
                 <aside id="chats">
