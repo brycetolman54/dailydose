@@ -1,5 +1,3 @@
-const rootUser = getRootUser();
-
 window.addEventListener('DOMContentLoaded', () => {
     const user = localStorage.getItem('username');
     if(user) {
@@ -11,9 +9,6 @@ window.addEventListener('DOMContentLoaded', () => {
     else {
         window.location.replace('index.html');
     }
-    const startUser = localStorage.getItem('startUser');
-    localStorage.removeItem('startUser');
-    //openChat(startUser);
 });
 
 function backToLogin() {
@@ -36,14 +31,14 @@ function getUser(userId) {
     const userData = JSON.parse(localStorage.getItem('userData'));
     // Find the username in the list of userData and return that object
     return userData.find(obj => obj.name === username);
-} // Use this any time you need to add stuff to a  user and you only have their id
-// Go through functions and erase calls to getRootuser
-// Go through and make sure I don't need to use this function anywhere else
-// Make sure to setItem in localStorage after you have added to the user and root user
+} 
 
 // Function to load the user list into the new message space
 window.addEventListener('DOMContentLoaded', () => {
     
+    // Get the root user
+    const rootUser = getRootUser();
+
     // Get the list of users from storage
     const users = JSON.parse(localStorage.getItem('users'));
     // Fill the list with the users who are not the root user and who aren't already chatted with
@@ -54,7 +49,11 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     // Now we want to populate the conversations list with the chats we have opened
-    const chatList = rootUser.chats;
+    let chatList = rootUser.chats;
+    // Sort the array by time before using it
+    chatList = chatList.sort((a,b) => b.time - a.time);
+    console.log(chatList);
+
     for(const chat of chatList) {
         placeChat(chat, rootUser);
     }
@@ -75,7 +74,9 @@ function fillSelect(user) {
 }
 
 // This will fill the chats area with chats the user has
+// YOU HAVE TO SORT THESE BY DATE BEFORE YOU PLACE THEM, sort the chat array that you have, then do the rest
 function placeChat(chat, rootUser) {
+
     // Access the ol element to add the li element to
     const olEl = document.getElementById('userChatList');
 
@@ -152,6 +153,9 @@ function getTime(time) {
 
 // This will open a chat when it is clicked on from the side menu
 function openChat(userId) {
+    console.log(`'${userId}'`);
+    // Get the root user
+    const rootUser = getRootUser();
 
     // Start by enabling input in the text box
     document.getElementById('messageArea').disabled = false;
@@ -164,6 +168,7 @@ function openChat(userId) {
     }
 
     // Let's make the box stay colored when we click on it
+    const value = document.getElementById(userId);
     document.getElementById(userId).style.backgroundColor = 'lightblue';
 
     // Now we need the root users chat list that corresponds to this person
@@ -229,16 +234,17 @@ function getMessageEl(msg) {
     return liEl;
 }
 
+// This function adds the chat object to the chat array of each user
 function startNew() {
+
+    // Get the root user
+    const rootUser = getRootUser();
 
     // Get the user chosen for the new chat
     const newChat = document.getElementById('userStart').value;
     
     // If it is actually a user, start a new chat
     if(newChat !== '--Please choose a user--') {
-
-        // Set it in local storage for use once the rest of this function finishes
-        localStorage.setItem('startUser', newChat);
 
         // Get the user data array
         const userData = JSON.parse(localStorage.getItem('userData'));
@@ -277,9 +283,39 @@ function startNew() {
         // Put it back to the local storage
         localStorage.setItem('userData', JSON.stringify(userData));
 
+        // Now load the page with that user's chat
+        openChat(newChat);
     }
 }
 
+// This will deal with sending the message from one user to the other
+function sendMessage() {
+    
+    // Build the message object in prep to stick it in the array
+    const targetObj = new Object();
+        // Get the message being sent
+        let msg = document.getElementById('messageArea').value;
+        targetObj.message = msg;
+        // Get the time
+        timeStamp = new Date();
+        targetObj.time = timeStamp;
+        // Set whose the message is
+        targetObj.whose = 'their';
+
+    // Build the object now for the root user
+    const rootObj = new Object();
+        // Get the message
+        rootObj.message = msg;
+        // Get the time
+        rootObj.time = timeStamp;
+        // Set whose it is
+        rootObj.whose = 'mine';
+
+    // Set the time of the chat list to the new time
+
+}
+
+// This enables and disables the send button if there is input
 function enableSend() {
     if(document.getElementById('messageArea').value.length > 0) {
         document.getElementById('send').disabled = false;
@@ -289,6 +325,7 @@ function enableSend() {
     }
 }
 
+// This opens the chats page from the bars
 function openChats() {
     // Get the elements to manipulate
     let chats = document.getElementById('chats');
@@ -303,6 +340,7 @@ function openChats() {
     bars.setAttribute('onclick', 'closeChats()');
 }
 
+// This closes the chats page from the bars
 function closeChats() {
         // Get the elements to manipulate
     let chats = document.getElementById('chats');

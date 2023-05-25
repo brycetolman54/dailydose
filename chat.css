@@ -243,7 +243,7 @@ div > ::-webkit-scrollbar-thumb:hover, aside > ::-webkit-scrollbar-thumb:hover {
         height: 15px;
         font-size: 10px;
     }
-    #date {
+    .date {
         display: none;
     }
 }
