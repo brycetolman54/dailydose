@@ -51,8 +51,17 @@ window.addEventListener('DOMContentLoaded', () => {
     // Now we want to populate the conversations list with the chats we have opened
     let chatList = rootUser.chats;
     // Sort the array by time before using it
-    chatList = chatList.sort((a,b) => b.time - a.time);
-    console.log(chatList);
+    chatList = chatList.sort((a,b) => {
+        if(a.time > b.time) {
+            return -1;
+        }
+        else if(a.time < b.time) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    });
 
     for(const chat of chatList) {
         placeChat(chat, rootUser);
@@ -74,7 +83,6 @@ function fillSelect(user) {
 }
 
 // This will fill the chats area with chats the user has
-// YOU HAVE TO SORT THESE BY DATE BEFORE YOU PLACE THEM, sort the chat array that you have, then do the rest
 function placeChat(chat, rootUser) {
 
     // Access the ol element to add the li element to
