@@ -1,3 +1,7 @@
+// These are bool values to check for password and username being good
+let usernameGood = true;
+let passwordGood = true;
+
 function switchForm(toWhat) {
     if(toWhat === "login") {
         let element = document.querySelector('#login');
@@ -25,27 +29,36 @@ function switchForm(toWhat) {
 
 function checkUsername() {
     const userName = event.target.value;
+    
+    let check1 = true;
+    let check2 = true;
 
-    if((!userName.length > 8) || userName.length === 0) {
+    if(!(userName.length > 5) || userName.length === 0) {
         let element = document.querySelector('#checkbox1');
         element.innerText = "\u2716";
         element.style.color = 'red';
+        check1 = false;
     }
     else {
         let element = document.querySelector('#checkbox1');
         element.innerText = "\u2714";
         element.style.color = 'green';
+        check1 = true;
     }
     if(!(userName.length < 15) || userName.length === 0) {
         let element = document.querySelector('#checkbox2');
         element.innerText = "\u2716";
         element.style.color = 'red';
+        check2 = false;
     }
     else {
         let element = document.querySelector('#checkbox2');
         element.innerText = "\u2714";
         element.style.color = 'green';
-    }    
+        check2 = true;
+    } 
+    
+    usernameGood = check1 && check2;
 
     localStorage.setItem('username', userName);
 }
@@ -53,46 +66,61 @@ function checkUsername() {
 function checkPassword() {
     const passWord = event.target.value;
 
+    let check1 = true;
+    let check2 = true;
+    let check3 = true;
+    let check4 = true;
+
     if(passWord.length > 8) {
         let element = document.querySelector('#checkbox3');
         element.innerText = "\u2714";
         element.style.color = 'green';
+        check1 = true;
      }
     else {
         let element = document.querySelector('#checkbox3');
         element.innerText = "\u2716";
         element.style.color = 'red';
+        check1 = false;
     }
     if(/[A-Z]/.test(passWord)) {
         let element = document.querySelector('#checkbox4');
         element.innerText = "\u2714";
         element.style.color = 'green';
+        check2 = true;
     }
     else {
         let element = document.querySelector('#checkbox4');
         element.innerText = "\u2716";
         element.style.color = 'red';
+        check2 = false;
     }
     if(/[0-9]/.test(passWord)) {
         let element = document.querySelector('#checkbox5');
         element.innerText = "\u2714";
         element.style.color = 'green';
+        check3 = true;
     }
     else {
         let element = document.querySelector('#checkbox5');
         element.innerText = "\u2716";
         element.style.color = 'red';
+        check3 = false;
     }
     if(/[!@#$%^&amp;\*\(\)]/.test(passWord)) {
         let element = document.querySelector('#checkbox6');
         element.innerText = "\u2714";
         element.style.color = 'green';
+        check4 = true;
     }
     else {
         let element = document.querySelector('#checkbox6');
         element.innerText = "\u2716";
         element.style.color = 'red';
+        check4 = false;
     }
+
+    passwordGood = check1 && check2 && check3 && check4;
 }
 
 function submitForm() {
@@ -119,7 +147,9 @@ function submitForm() {
     obj.num = userData.length;
 
     // Check it
-    if(!users.includes(user)) {
+    console.log(passwordGood);
+    console.log(usernameGood);
+    if(!users.includes(user) && passwordGood && usernameGood) {
         // Put the user in the list
         users.push(user);
         localStorage.setItem('users', JSON.stringify(users));
