@@ -215,6 +215,9 @@
     background-color: grey;
     cursor: default;
 }
+#userTest { 
+    display: none;
+}
 div > ::-webkit-scrollbar, aside > ::-webkit-scrollbar {
     width: 5px;
 }

@@ -1,3 +1,9 @@
+/*
+- Change the time of the chat when you send a message, not just the text content of the list
+- Start up after sending a new message and after starting a new chat
+- Get rid of things already on the screen before adding more
+*/
+
 window.addEventListener('DOMContentLoaded', () => {
     const user = localStorage.getItem('username');
     if(user) {
@@ -30,17 +36,17 @@ function getUser(userId) {
     // Get the array of the user objects
     const userData = JSON.parse(localStorage.getItem('userData'));
     // Find the username in the list of userData and return that object
-    return userData.find(obj => obj.name === username);
+    return userData.find(obj => obj.name === userId);
 } 
 
-// Function to load the user list into the new message space
-window.addEventListener('DOMContentLoaded', () => {
-    
+// This is what I want my page to do when loading, but also at other times
+function startingUp() {
     // Get the root user
     const rootUser = getRootUser();
 
     // Get the list of users from storage
     const users = JSON.parse(localStorage.getItem('users'));
+        
     // Fill the list with the users who are not the root user and who aren't already chatted with
     for(const user of users) {
         if(!(user === rootUser.name) && !(rootUser.chats.find(obj => obj.name === user))) {
@@ -66,6 +72,11 @@ window.addEventListener('DOMContentLoaded', () => {
     for(const chat of chatList) {
         placeChat(chat, rootUser);
     }
+}
+
+// Function to load the user list into the new message space
+window.addEventListener('DOMContentLoaded', () => {
+    startingUp();    
 })
 
 // This will fill the select menu for making new chats
@@ -161,7 +172,7 @@ function getTime(time) {
 
 // This will open a chat when it is clicked on from the side menu
 function openChat(userId) {
-    console.log(`'${userId}'`);
+
     // Get the root user
     const rootUser = getRootUser();
 
@@ -242,15 +253,26 @@ function getMessageEl(msg) {
     return liEl;
 }
 
+function removeList() {
+    const list = document.getElementById('userChatList');
+    const childs = Array.from(list.children);
+    for(const child of childs) {
+        list.removeChild(child);
+    }
+}
+
 // This function adds the chat object to the chat array of each user
 function startNew() {
+
+    // Get rid of the list that was there
+    removeList();
 
     // Get the root user
     const rootUser = getRootUser();
 
     // Get the user chosen for the new chat
     const newChat = document.getElementById('userStart').value;
-    
+
     // If it is actually a user, start a new chat
     if(newChat !== '--Please choose a user--') {
 
@@ -268,6 +290,8 @@ function startNew() {
             rootObj.time = new Date();
             // Add the messages array
             rootObj.messages = [];
+            // Add the number
+            rootObj.num = rootUser.chats.length;
 
         // Add the object to the root users chats
         rootUser.chats.push(rootObj);
@@ -280,6 +304,8 @@ function startNew() {
             targetObj.time = new Date();
             // Add the messages array
             targetObj.messages = [];
+            // Add the number
+            targetObj.num = target.chats.length;
 
         // Add the object to the target users chats
         target.chats.push(targetObj);
@@ -291,14 +317,23 @@ function startNew() {
         // Put it back to the local storage
         localStorage.setItem('userData', JSON.stringify(userData));
 
-        // Now load the page with that user's chat
+        // Reload the chats, then choose the one you just made
+        startingUp();
         openChat(newChat);
     }
 }
 
 // This will deal with sending the message from one user to the other
 function sendMessage() {
-    
+
+    // Get the userId by looking at the header value
+    const userId = document.getElementById('userChatter').textContent;
+
+    // Get the userData for the user and the root, get all userData
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    const rootUser = getRootUser();
+    const targetUser = getUser(userId);
+
     // Build the message object in prep to stick it in the array
     const targetObj = new Object();
         // Get the message being sent
@@ -319,7 +354,30 @@ function sendMessage() {
         // Set whose it is
         rootObj.whose = 'mine';
 
+    // Add the objects to their respective places, add them to the userData
+    // We have to find the right chat in order to add to the messages
+
+        // Add the message to the chats for root
+        const rootToTarget = rootUser.chats.find(obj => obj.name === userId);
+        rootToTarget.messages.push(rootObj);
+        // Add the chats back to the root
+        rootUser.chats[rootToTarget.num] = rootToTarget;
+
+        // Add the message to the chats for the target
+        const targetToRoot = targetUser.chats.find(obj => obj.name === rootUser.name);
+        targetToRoot.messages.push(targetObj);
+        // Add the chats back to the target
+        targetUser.chats[targetToRoot.num] = targetToRoot;
+    
+        // Replace the user data objects 
+        userData[rootUser.num] = rootUser;
+        userData[targetUser.num] = targetUser;
+
+    // Send it back to storage
+    localStorage.setItem('userData', JSON.stringify(userData));
+
     // Set the time of the chat list to the new time
+    document.getElementById(userId).children[1].textContent = getDate(timeStamp);
 
 }
 
