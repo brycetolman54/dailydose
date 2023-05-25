@@ -153,9 +153,6 @@ function getTime(time) {
 // This will open a chat when it is clicked on from the side menu
 function openChat(userId) {
 
-    // We need to get the root user again
-    const rootUser = getRootUser();
-
     // Now remove the color from the rest of the users in the chatlist
     const userList = document.getElementById('userChatList');
     const users = userList.children;
@@ -230,14 +227,52 @@ function getMessageEl(msg) {
 }
 
 function startNew() {
+
+    // Get the user chosen for the new chat
     const newChat = document.getElementById('userStart').value;
+    
+    // If it is actually a user, start a new chat
     if(newChat !== '--Please choose a user--') {
 
         // Set it in local storage for use once the rest of this function finishes
         localStorage.setItem('startUser', newChat);
 
-        // Now we need to create for the user and the rootUser a chat object in their array
+        // Get the user data array
+        const userData = JSON.parse(localStorage.getItem('userData'));
 
+        // Get the user's object
+        const target = userData.find(obj => obj.name === newChat);
+
+        // Create a new object for the chat in the root users object
+        const rootObj = new Object();
+            // Add the user that it is with
+            rootObj.name = `${newChat}`;
+            // Add the time
+            rootObj.time = new Date();
+            // Add the messages array
+            rootObj.messages = [];
+
+        // Add the object to the root users chats
+        rootUser.chats.push(rootObj);
+
+        // Create the object for the chat in the target users object
+        const targetObj = new Object();
+            // Add the root user
+            targetObj.name = `${rootUser.name}`;
+            // Add the time
+            targetObj.time = new Date();
+            // Add the messages array
+            targetObj.messages = [];
+
+        // Add the object to the target users chats
+        target.chats.push(targetObj);
+
+        // Add the root and target users back into the userData array
+        userData[rootUser.num] = rootUser;
+        userData[target.num] = target;
+
+        // Put it back to the local storage
+        localStorage.setItem('userData', JSON.stringify(userData));
 
     }
 }

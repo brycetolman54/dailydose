@@ -33,7 +33,7 @@ function checkUsername() {
     let check1 = true;
     let check2 = true;
 
-    if(!(userName.length > 5) || userName.length === 0) {
+    if(!(userName.length >= 5) || userName.length === 0) {
         let element = document.querySelector('#checkbox1');
         element.innerText = "\u2716";
         element.style.color = 'red';
