@@ -39,10 +39,10 @@
                 <form method="get" id="newpost" action="feed.html" onsubmit="addPost()">
                     <p id="newPostHead"><b>New Post</b></p>
                     <label for="text">Post title</label>
-                    <input type="text" id="postTitle" name="postTitle" placeholder="Enter a title (max 60 characters)" pattern=".{1,50}" title="Your title is too long" required/>
+                    <input type="text" id="postTitle" name="postTitle" placeholder="Enter a title (max 60 characters)" pattern=".{1,50}" title="Your title is too long" required oninput="enablePost()"/>
                     <label for="textarea">Post text</label>
-                    <textarea id="postContent" name="newPost" placeholder="Share your thoughts" required></textarea>
-                    <button id="postIt">Post</button>
+                    <textarea id="postContent" name="newPost" placeholder="Share your thoughts" required oninput="enablePost()"></textarea>
+                    <button id="postIt" disabled>Post</button>
                 </form>
             </div>
             <div id="feedfield">

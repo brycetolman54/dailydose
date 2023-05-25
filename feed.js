@@ -155,6 +155,15 @@ function addPost() {
     
 }
 
+function enablePost() {
+    if(document.getElementById('postTitle').value.length > 0 && document.getElementById('postContent').value.length > 0) {
+        document.getElementById('postIt').disabled = false;
+    }
+    else {
+        document.getElementById('postIt').disabled = true;
+    }
+}
+
 function onLike() {
 
 }

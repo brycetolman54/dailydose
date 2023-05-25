@@ -203,6 +203,10 @@
 #postIt:hover {
     background-color: rgb(153, 34, 153)
 }
+#postIt:disabled {
+    background-color: grey;
+    cursor: default;
+}
 #postTitle {
     flex: 0 20px;
     margin: 0px 10px 5px 10px;
