@@ -115,6 +115,9 @@ function submitForm() {
     // Get the userData array
     const userData = JSON.parse(localStorage.getItem('userData'));
 
+    // Give them a number of their location in the array
+    obj.num = userData.length;
+
     // Check it
     if(!users.includes(user)) {
         // Put the user in the list

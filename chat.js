@@ -1,7 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
-    let scrollElement = document.getElementById('messageList');
-    scrollElement.scrollTop = scrollElement.scrollHeight;
-});
+const rootUser = getRootUser();
 
 window.addEventListener('DOMContentLoaded', () => {
     const user = localStorage.getItem('username');
@@ -14,6 +11,9 @@ window.addEventListener('DOMContentLoaded', () => {
     else {
         window.location.replace('index.html');
     }
+    const startUser = localStorage.getItem('startUser');
+    localStorage.removeItem('startUser');
+    //openChat(startUser);
 });
 
 function backToLogin() {
@@ -31,10 +31,18 @@ function getRootUser() {
     return userData.find(obj => obj.name === username);
 }
 
+function getUser(userId) {
+    // Get the array of the user objects
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    // Find the username in the list of userData and return that object
+    return userData.find(obj => obj.name === username);
+} // Use this any time you need to add stuff to a  user and you only have their id
+// Go through functions and erase calls to getRootuser
+// Go through and make sure I don't need to use this function anywhere else
+// Make sure to setItem in localStorage after you have added to the user and root user
+
 // Function to load the user list into the new message space
 window.addEventListener('DOMContentLoaded', () => {
-    // Get the root user's object from storage
-    const rootUser = getRootUser();
     
     // Get the list of users from storage
     const users = JSON.parse(localStorage.getItem('users'));
@@ -114,21 +122,127 @@ function getDate(time) {
     return value;
 }
 
+// This gets the time in a string
+function getTime(time) {
+    let bool = false;
+    let value = '';
+    let hour = time.getHours();
+    if(hour > 12) {
+        hour = hour - 12;
+        value += hour;
+        bool = true;
+    }
+    else {
+        value += hour;
+    }
+    value += ':';
+    if(time.getMinutes() < 10) {
+        value += 0;
+    }
+    value += time.getMinutes();
+    value += ' ';
+    if(bool) {
+        value += 'pm';
+    }
+    else {
+        value += 'am';
+    }
+    return value;
+}
+
 // This will open a chat when it is clicked on from the side menu
 function openChat(userId) {
+
     // We need to get the root user again
     const rootUser = getRootUser();
 
+    // Now remove the color from the rest of the users in the chatlist
+    const userList = document.getElementById('userChatList');
+    const users = userList.children;
+    for(const user of users) {
+        user.style.backgroundColor = 'white';
+    }
+
+    // Let's make the box stay colored when we click on it
+    document.getElementById(userId).style.backgroundColor = 'lightblue';
+
+    // Now we need the root users chat list that corresponds to this person
+    const chat = rootUser.chats.find(obj => obj.name === userId);
+
+    // Get the actual messages out of that object
+    const messages = chat.messages;
+
     // Then lets make the head of the chat with the users name 
     document.getElementById('userChatter').textContent = `${userId}`;
+    document.getElementById('userChatter').style.color = 'black';
 
-    // Now we can fill in the
+    // Now we can get the ol element that we need to add the messages to
+    const olEl = document.getElementById('messageList');
+    
+    // Remove each of the children of the list
+    const children = olEl.children;
+    for(const child of children) {
+        olEl.removeChild(child);
+    }
+
+    // Now we can make flush out each message and add it to the message list ol
+    for(const message of messages) {
+        let liEl = getMessageEl(message);
+        olEl.appendChild(liEl);
+    }
+
+    // Scroll down again
+    let scrollElement = document.getElementById('messageList');
+    scrollElement.scrollTop = scrollElement.scrollHeight;
+}
+
+// this function flushes out each message into its elements to add to the list
+function getMessageEl(msg) {
+    // First create the li element to add to
+    const liEl = document.createElement('li');
+        // Add the class
+        liEl.classList.add('wholeMessage');
+        // Add the id
+        liEl.setAttribute('id', `${msg.whose}Message`);
+
+    // Then create the p element for the message
+    const text = document.createElement('p');
+        // Add its class
+        text.classList.add('message');
+        // Add the id
+        text.setAttribute('id', `${msg.whose}`);
+        // Add the message
+        text.textContent = msg.message;
+    
+    // Then create the p element for the time
+    const time = document.createElement('p');
+        // Add the class
+        time.classList.add('time');
+        // Add the id
+        time.setAttribute('id', `${msg.whose}Time`);
+        // Add the time
+        time.textContent = getDate(new Date(msg.time)) + ' ' + getTime(new Date(msg.time));
+
+    // Now add the two p elements to the liEl and return it
+    liEl.appendChild(text);
+    liEl.appendChild(time);
+    return liEl;
+}
+
+function startNew() {
+    const newChat = document.getElementById('userStart').value;
+    if(newChat !== '--Please choose a user--') {
+
+        // Set it in local storage for use once the rest of this function finishes
+        localStorage.setItem('startUser', newChat);
+
+        // Now we need to create for the user and the rootUser a chat object in their array
+
+
+    }
 }
 
 // Add a function to start a new chat  based on input, to add it to the current users and the other users chat arrays
-// You will need to make each convo id between each pair unique so you can add to it as more messages are sent
-// You need to load up the conversation when an old chat is chosen
-// The chat array of the user object should hold objects of the other user of the chat and an array of previous messages (these are to be objects with time and text content attributes)
 // You need to add a function to make the send and stat buttons disabled if there is no content chosen or typed
 
 function openChats() {

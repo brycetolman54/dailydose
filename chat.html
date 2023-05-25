@@ -30,6 +30,14 @@
                     <h2 id="userChatter">Bobbaly</h2>
                     <div id="messageSpace">
                         <ol id="messageList">
+                            <!-- <li id="theirMessage" class="wholeMessage">
+                                <p class="message" id="theirs">
+                                    Hey, I just wanted to say that I loved your thoughts about John.
+                                </p>
+                                <p class="time" id="theirTime">
+                                    03/04/2023 1:23 pm
+                                </p>
+                            </li>
                             <li id="theirMessage" class="wholeMessage">
                                 <p class="message" id="theirs">
                                     Hey, I just wanted to say that I loved your thoughts about John.
@@ -38,54 +46,30 @@
                                     03/04/2023 1:23 pm
                                 </p>
                             </li>
-                            <li id="myMessage" class="wholeMessage">
+                            <li id="theirMessage" class="wholeMessage">
+                                <p class="message" id="theirs">
+                                    Hey, I just wanted to say that I loved your thoughts about John.
+                                </p>
+                                <p class="time" id="theirTime">
+                                    03/04/2023 1:23 pm
+                                </p>
+                            </li>
+                            <li id="theirMessage" class="wholeMessage">
+                                <p class="message" id="theirs">
+                                    Hey, I just wanted to say that I loved your thoughts about John.
+                                </p>
+                                <p class="time" id="theirTime">
+                                    03/04/2023 1:23 pm
+                                </p>
+                            </li>
+                            <li id="mineMessage" class="wholeMessage">
                                 <p class="message" id="mine">
                                     Why thank you!
                                 </p>
-                                <p class="time" id="myTime">
+                                <p class="time" id="mineTime">
                                     03/04/2023 1:45 pm
                                 </p>
-                            </li>
-                            <li id="theirMessage" class="wholeMessage">
-                                <p class="message" id="theirs">
-                                    Hey, I just wanted to say that I loved your thoughts about John.
-                                </p>
-                                <p class="time" id="theirTime">
-                                    03/04/2023 1:23 pm
-                                </p>
-                            </li>
-                            <li id="myMessage" class="wholeMessage">
-                                <p class="message" id="mine">
-                                    Why thank you, I am so glad you let me know! I would love to talk to you more about it!
-                                </p>
-                                <p class="time" id="myTime">
-                                    03/04/2023 1:45 pm
-                                </p>
-                            </li>
-                            <li id="theirMessage" class="wholeMessage">
-                                <p class="message" id="theirs">
-                                    Hey, I just wanted to say that I loved your thoughts about John.
-                                </p>
-                                <p class="time" id="theirTime">
-                                    03/04/2023 1:23 pm
-                                </p>
-                            </li>
-                            <li id="myMessage" class="wholeMessage">
-                                <p class="message" id="mine">
-                                    Why thank you, I am so glad you let me know! I would love to talk to you more about it!
-                                </p>
-                                <p class="time" id="myTime">
-                                    03/04/2023 1:45 pm
-                                </p>
-                            </li>
-                            <li id="myMessage" class="wholeMessage">
-                                <p class="message" id="mine">
-                                    Why thank you, I am so glad you let me know! I would love to talk to you more about it!
-                                </p>
-                                <p class="time" id="myTime">
-                                    03/04/2023 1:45 pm
-                                </p>
-                            </li>
+                            </li> -->
                         </ol>
                     </div>
                     <form method="get" id="newMessage">
@@ -97,7 +81,8 @@
                     <h3 id="chatHead">Conversations</h3>
                     <div id="container">
                         <ol id="userChatList">
-                            <!-- <li class="chatGroup" onclick="openChat('user')" id="user">
+<!--                             
+                            <li class="chatGroup" onclick="openChat('user')" id="user">
                                 <div id="user1" class="chatuser">Anna</div>
                                 <p class="date">04/03/2023</p>
                             </li>
@@ -114,7 +99,7 @@
                     <form method="get" id="startNew">
                         <label id="startLabel">Start a new message with</label>
                         <select id="userStart" name="newChatUser">
-                            <option selected>--Please choose a user--</option>
+                            <option id="selector" selected>--Please choose a user--</option>
                             
                             <!-- <option>Bob</option>
                             <option>Ruth</option>
@@ -122,7 +107,7 @@
                             <option>Bobbalicious</option> -->
 
                         </select>
-                        <button id="start">Start</button>
+                        <button id="start" onclick="startNew()">Start</button>
                     </form>
                 </aside>
             </div>

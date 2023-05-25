@@ -144,10 +144,10 @@
 #theirTime {
     padding-left: 10px;
 }
-#myTime {
+#mineTime {
     padding-right: 10px;
 }
-#theirs {
+#their {
     background-color: rgb(227, 227, 250);
     padding: 5px 10px;
     margin: 0;
@@ -163,7 +163,7 @@
     margin: 0;
     text-align: start;
 } 
-#myMessage {
+#mineMessage {
     text-align: end;
     margin-left: 40%;
     width: auto;
