@@ -6,6 +6,7 @@ window.addEventListener('DOMContentLoaded', () => {
         elem.style.fontSize = "15px";
         elem.style.height = 'auto';
     }
+    fillTable();
 });
 
 function backToLogin() {
@@ -23,6 +24,7 @@ function getRootUser() {
     return userData.find(obj => obj.name === username);
 }
 
+// When we click on one post, we close all the others
 function closeOtherPosts(buttonId) {
 
     // Get the length of the posts array from the root user
@@ -54,4 +56,9 @@ function closeOtherPosts(buttonId) {
     // for(const child in children) {
     //     console.log(child[0]);
     // }
+}
+
+// This function fills in the table with our posts
+function fillTable() {
+
 }

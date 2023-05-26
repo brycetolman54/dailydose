@@ -129,8 +129,31 @@ function backToLogin() {
     window.location.replace('index.html');
 };
 
+function getRootUser() {
+    // Get the username
+    const username = localStorage.getItem('username');
+    // Get the array of the user objects
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    // Find the username in the list of userData and return that object
+
+    return userData.find(obj => obj.name === username);
+}
+
 // This allows us to add more posts to our local storage
 function addPost() {
+
+    // Let's get the root user to add the post to his posts
+    const rootUser = getRootUser();
+
+    // Also get the length of the root users posts array to set that in the object
+    const rootLength = rootUser.posts.length;
+
+    // Make an object to hold that place in the user's posts and the place in the overall posts
+    const rootObj = new Object();
+
+    // Add the rootLength place
+    rootObj.myPlace = rootLength;
+
     // Let's get what we need from the form
     const title = document.getElementById('postTitle').value;
     const content = document.getElementById('postContent').value;
@@ -152,6 +175,17 @@ function addPost() {
 
     // Maybe I'll put this in at a later date
     // obj.comments = [];
+
+    // Add the overall place to the rootObj
+    rootObj.allPlace = store.length;
+
+    // Add the rootObj to the root users posts
+    rootUser.posts.push(rootObj);
+
+    // Replace the root user in the userData array
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    userData[rootUser.num] = rootUser;
+    localStorage.setItem('userData', JSON.stringify(userData));
 
     // Now we can actually store the data
     store.unshift(obj);
