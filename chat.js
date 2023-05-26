@@ -377,12 +377,14 @@ function sendMessage() {
         // Add the message to the chats for root
         const rootToTarget = rootUser.chats.find(obj => obj.name === userId);
         rootToTarget.messages.push(rootObj);
+        rootToTarget.time = timeStamp;
         // Add the chats back to the root
         rootUser.chats[rootToTarget.num] = rootToTarget;
 
         // Add the message to the chats for the target
         const targetToRoot = targetUser.chats.find(obj => obj.name === rootUser.name);
         targetToRoot.messages.push(targetObj);
+        targetToRoot.time = timeStamp;
         // Add the chats back to the target
         targetUser.chats[targetToRoot.num] = targetToRoot;
     
@@ -392,9 +394,6 @@ function sendMessage() {
 
     // Send it back to storage
     localStorage.setItem('userData', JSON.stringify(userData));
-
-    // Set the time of the chat list to the new time
-    document.getElementById(userId).children[1].textContent = getDate(timeStamp);
 
     // Remove all data, open the chat with this user again after startup
     removeList();
