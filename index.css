@@ -167,7 +167,7 @@ nav a:hover {
 .filler {
     margin: 0;
     font-size: 8px;
-    display: grid;
+    display: none;
     flex-direction: column;
     text-align: center;
 }
@@ -193,7 +193,7 @@ nav a:hover {
     background-color: rgb(236, 233, 233);
     transform: translate(0%, 80%);
 }
-#signup {
+#login {
     border-width: 2px;
 }
 #login:hover, #signup:hover {

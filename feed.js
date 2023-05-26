@@ -181,3 +181,8 @@ function onLike(likeNum) {
 function offLike() {
     // Undo all of what onlike does
 }
+
+// A function to fill out the inspiration quote part of the page
+function getQuote() {
+    // Do this... :)
+}
