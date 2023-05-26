@@ -204,7 +204,7 @@ function openChat(userId) {
     const olEl = document.getElementById('messageList');
     
     // Remove each of the children of the list
-    const children = olEl.children;
+    const children = Array.from(olEl.children);
     for(const child of children) {
         olEl.removeChild(child);
     }
@@ -253,6 +253,7 @@ function getMessageEl(msg) {
     return liEl;
 }
 
+// Gets rid of the list of users when you are starting a new chat
 function removeList() {
     const list = document.getElementById('userChatList');
     const childs = Array.from(list.children);
@@ -261,10 +262,12 @@ function removeList() {
     }
 }
 
+// Gets rid of the select list when you are starting a new chat
 function removeSelect() {
     const list = document.getElementById('userStart');
     const childs = Array.from(list.children);
     for(const child of childs) {
+        if(child.textContent !== '--Please choose a user--')
         list.removeChild(child);
     }
 }
@@ -280,6 +283,8 @@ function startNew() {
 
     // Get the user chosen for the new chat
     const newChat = document.getElementById('userStart').value;
+    // Then you can delete the data from the select list
+    removeSelect();
 
     // If it is actually a user, start a new chat
     if(newChat !== '--Please choose a user--') {
