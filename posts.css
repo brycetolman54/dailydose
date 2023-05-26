@@ -52,14 +52,14 @@
     border-width: 1px 1px 2px 1px;
 }
 #date {
-    flex: 1;
+    flex: 0 100px;
 }
 #title {
     flex: 3;
     font-weight: bold;
 }
 #like {
-    flex: 1;
+    flex: 0 70px;
 }
 .post {
     flex: 0 20px;
@@ -76,7 +76,7 @@
     background-color: rgb(226, 242, 248);
 }
 .date {
-    flex: 1;
+    flex: 0 100px;
     border: solid black 1px;
     padding: 2px;
 }
@@ -87,7 +87,7 @@
     padding: 2px;
 }
 .like {
-    flex: 1;
+    flex: 0 70px;
     border: solid black 1px;
     padding: 2px;
 }
@@ -134,5 +134,25 @@
     to {
         font-size: 0px;
         padding: 0px;
+    }
+}
+@media (max-width: 600px) {
+    .date {
+        font-size: 12px;
+    }
+    #date {
+        font-size: 15px;
+    }
+    .title {
+        font-size: 12px;
+    }
+    #title {
+         font-size: 15px;
+    }
+    .like {
+        font-size: 12px;
+    }
+    #like {
+        font-size: 15px;
     }
 }
