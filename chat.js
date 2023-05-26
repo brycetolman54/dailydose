@@ -1,7 +1,5 @@
 /*
 - Change the time of the chat when you send a message, not just the text content of the list
-- Start up after sending a new message and after starting a new chat
-- Get rid of things already on the screen before adding more
 */
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -272,11 +270,17 @@ function removeSelect() {
     }
 }
 
+function removeText() {
+    const text = document.getElementById('messageArea');
+    text.value = '';
+}
+
 // This function adds the chat object to the chat array of each user
 function startNew() {
 
-    // Get rid of the list that was there
+    // Get rid of the list that was there, get rid of any text also
     removeList();
+    removeText();
 
     // Get the root user
     const rootUser = getRootUser();
@@ -392,6 +396,12 @@ function sendMessage() {
     // Set the time of the chat list to the new time
     document.getElementById(userId).children[1].textContent = getDate(timeStamp);
 
+    // Remove all data, open the chat with this user again after startup
+    removeList();
+    removeSelect();
+    removeText();
+    startingUp();
+    openChat(userId);
 }
 
 // This enables and disables the send button if there is input
