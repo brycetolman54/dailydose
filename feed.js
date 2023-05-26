@@ -169,10 +169,15 @@ function enablePost() {
 }
 
 // Turns a like on
-function onLike() {
-
+function onLike(likeNum) {
+    // Like num tells me which post to change the like button on and which to add and such
+    // When making the like button in rehydrate post, just add the num of the post to the onclick function
+    // Changes like button color
+    // Add this like (the post's number) to the likes array of the root user
+    // Change the onclick function of this like button (like#) to be offLike
+    // I would need to add code in the rehydrate post to see if the like button needs to be colored (check the post num against the array of likes of the root user with the includes fucntion maybe)
 }
 // Turns a like off
 function offLike() {
-
+    // Undo all of what onlike does
 }
