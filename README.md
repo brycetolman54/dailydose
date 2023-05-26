@@ -43,3 +43,9 @@ In this deliverable, I put in place the structure of my website.
 - ***Application elements:*** I used great contrast and white space. I used borders nicely to modularize the sections on each page. 
 - ***Application text content:*** My fonts are consistent. I have bold font where needed. 
 - ***Application Iamges:*** I made the image I had on my site into the background image for the top of my site. 
+
+# JavaScript Deliverable
+- ***Login:*** You can toggle between logging in and signing up. As you enter the username and password, it checks to make sure they fit the required format. When you hit login, it stores the username in the local storage to display on the other pages.
+- ***Database:*** It pulls the posts from the database to populate the feed.html page. It displays the chats with other users that are stored.
+- ***WebSocket:*** I made that chat update whenever somebody writes to another person. This will be replaced by websockets later. I also have a spot for the inspirational quote on the feed that will be filled in later by the WebSocket data rather than the one quote I have.
+- ***Application Logic:*** The chats page reloads based on user interaction by making new chats, selecting a chat to look at, and sending a message in a chat.
