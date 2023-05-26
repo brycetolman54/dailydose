@@ -138,17 +138,25 @@ function submitForm() {
     obj.chats = [];
 
     // Get the users array
-    const users = JSON.parse(localStorage.getItem('users'));
+    let users = JSON.parse(localStorage.getItem('users'));
+    if(!users) {
+        console.log('one');
+        localStorage.setItem('users', JSON.stringify([]));
+        users = JSON.parse(localStorage.getItem('users'));
+    }
 
     // Get the userData array
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    let userData = JSON.parse(localStorage.getItem('userData'));
+    if(!userData) {
+        console.log('two');
+        localStorage.setItem('userData', JSON.stringify([]));
+        userData = JSON.parse(localStorage.getItem('userData'));
+    }
 
     // Give them a number of their location in the array
     obj.num = userData.length;
 
     // Check it
-    console.log(passwordGood);
-    console.log(usernameGood);
     if(!users.includes(user) && passwordGood && usernameGood) {
         // Put the user in the list
         users.push(user);

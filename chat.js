@@ -261,6 +261,14 @@ function removeList() {
     }
 }
 
+function removeSelect() {
+    const list = document.getElementById('userStart');
+    const childs = Array.from(list.children);
+    for(const child of childs) {
+        list.removeChild(child);
+    }
+}
+
 // This function adds the chat object to the chat array of each user
 function startNew() {
 
