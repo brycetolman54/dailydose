@@ -27,6 +27,10 @@ Port:
 	
 Domain name service (DNS):
 - Connects to other DNS servers around the world
-- These are things like .com, .edu, etc.
+- These are things like .com, .edu, etc. (TLD is top level domain, it is the .com or .click)
+- The root is like google.com or byu.edu, both parts
+- The subdomains are limitless, you can have as many as you want on the root domain
 - He goes and grabs the IP address for the domain name that you put in your browser
 - If you have a site like mfc.byu.edu, you go to the .edu server first, then the .byu.edu server, then you get the mfc IP address
+- For domain names, the A (address) maps the domain name to the IP address
+- The CNAME (canonical name) maps one domain name to another 
