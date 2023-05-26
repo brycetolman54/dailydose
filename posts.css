@@ -1,4 +1,4 @@
-/* This is the styling for My Posts page */
+/* This is the styling for My Posts page
 #postTable {
     display: grid;
     margin: 0px;
@@ -29,4 +29,110 @@
 .dataRow {
     border-top: 1px solid;
     height: 5vh;
+} */
+
+.reveal {
+    display: none;
+}
+#postsTable {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+#headTable {
+    flex: 0 20px;
+    display: flex;
+    flex-direction: row;
+    /* border: solid red 2px; */
+    background-color: lightgrey;
+    font-weight: bold;
+}
+#headTable > div {
+    border: solid black;
+    border-width: 1px 1px 2px 1px;
+}
+#date {
+    flex: 1;
+}
+#title {
+    flex: 3;
+    font-weight: bold;
+}
+#like {
+    flex: 1;
+}
+.post {
+    flex: 0 20px;
+    display: flex;
+    flex-direction: column;
+    /* border: solid green 2px; */
+}
+.head {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+}
+.head:hover {
+    background-color: rgb(226, 242, 248);
+}
+.date {
+    flex: 1;
+    border: solid black 1px;
+    padding: 2px;
+}
+.title {
+    flex: 3;
+    font-weight: bold;
+    border: solid black 1px;
+    padding: 2px;
+}
+.like {
+    flex: 1;
+    border: solid black 1px;
+    padding: 2px;
+}
+.content {
+    height: auto;
+    font-size: 0px;
+    border: solid black 1px;
+    text-align: start;
+    padding: 5px;
+}
+.reveal:not(:checked) + label > .content {
+    animation: close 0.3s;
+    font-size: 0px;
+    border: solid black 0px;
+    padding: 0px;
+}
+.reveal:checked + label > .content {
+    animation: open 0.3s;
+    font-size: 15px;
+    border: solid black 1px;
+    padding: 5px;
+}
+@keyframes open {
+    from {
+        font-size: 0px;
+        border: solid black 0px;
+        padding: 0px;
+    }
+    to {
+        font-size: 15px;
+        border: solid black 1px;
+        padding: 5px;
+    }
+}
+@keyframes close {
+    from {
+        font-size: 15px;
+        border: solid black 1px;
+        padding: 5px;
+    }
+    60% {
+        border: solid black 0px;
+    }
+    to {
+        font-size: 0px;
+        padding: 0px;
+    }
 }
