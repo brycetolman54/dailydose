@@ -137,10 +137,12 @@ function submitForm() {
     // Make a space for their chats with others
     obj.chats = [];
 
+    // Make a place to hold the posts they have liked (just a number)
+    obj.likes =  [];
+
     // Get the users array
     let users = JSON.parse(localStorage.getItem('users'));
     if(!users) {
-        console.log('one');
         localStorage.setItem('users', JSON.stringify([]));
         users = JSON.parse(localStorage.getItem('users'));
     }
@@ -148,7 +150,6 @@ function submitForm() {
     // Get the userData array
     let userData = JSON.parse(localStorage.getItem('userData'));
     if(!userData) {
-        console.log('two');
         localStorage.setItem('userData', JSON.stringify([]));
         userData = JSON.parse(localStorage.getItem('userData'));
     }

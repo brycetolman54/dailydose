@@ -136,7 +136,11 @@ function addPost() {
     const content = document.getElementById('postContent').value;
 
     // Pull the posts array out of storage to update it
-    const store = JSON.parse(localStorage.getItem('posts'));
+    let store = JSON.parse(localStorage.getItem('posts'));
+    if(!store) {
+        localStorage.setItem('posts', JSON.stringify([]));
+        store = JSON.parse(localStorage.getItem('posts'));
+    }
 
     // Let's make an object to hold all this info
     let obj = new Object;
@@ -144,7 +148,7 @@ function addPost() {
     obj.content = content;
     obj.user = localStorage.getItem('username');
     obj.time = new Date();
-    obj.place = store.length + 1;
+    obj.place = store.length;
 
     // Maybe I'll put this in at a later date
     // obj.comments = [];
@@ -164,9 +168,11 @@ function enablePost() {
     }
 }
 
+// Turns a like on
 function onLike() {
 
 }
+// Turns a like off
 function offLike() {
 
 }
