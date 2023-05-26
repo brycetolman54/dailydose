@@ -13,17 +13,45 @@ function backToLogin() {
     window.location.replace('index.html');
 };
 
+function getRootUser() {
+    // Get the username
+    const username = localStorage.getItem('username');
+    // Get the array of the user objects
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    // Find the username in the list of userData and return that object
+
+    return userData.find(obj => obj.name === username);
+}
+
 function closeOtherPosts(buttonId) {
-    // Get the posts element
-    const posts = document.getElementById('posts');
-    console.log(posts);
 
-    // Get its children
-    const children = posts.children;
-    console.log(children);
+    // Get the length of the posts array from the root user
+    const rootUser = getRootUser();
+    const length = rootUser.posts.length;
 
-    // Go through the children. If the buttonId doesn't match, change its checked attribute to false
-    for(const child in children) {
-        console.log(child[0].checked);
+    // Now we loop
+    for(let i = 0; i < length; i++) {
+
+        // Get the input element with the reveali id
+        let reveal = document.getElementById(`reveal${i}`);
+        
+        // Then, if the button is not the one we are clicking, close it
+        if(i !== buttonId) {
+            reveal.checked = false;
+        }
     }
+
+
+    // Get the posts element
+    // const posts = document.getElementById('posts');
+    // console.log(posts);
+
+    // // Get its children
+    // const children = posts.childNodes;
+    // console.log(children);
+
+    // // Go through the children. If the buttonId doesn't match, change its checked attribute to false
+    // for(const child in children) {
+    //     console.log(child[0]);
+    // }
 }
