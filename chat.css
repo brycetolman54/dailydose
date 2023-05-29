@@ -124,11 +124,12 @@
     flex-direction: column;
 }
 #messageList > li {
-    flex: 1;
+    flex: 0 auto;
     list-style: none;
+    height: fit-content;
 }
 .wholeMessage {
-    margin: 10px 10px;
+    margin: 5px 10px;
 }
 .message {
     border: solid 1px;
@@ -137,15 +138,15 @@
     display: inline-block;
 }
 .time {
-    font-size: 8px;
-    padding: 2px;
+    font-size: 6px;
+    padding: 2px 0px;
     margin: 0;
 }
 #theirTime {
-    padding-left: 10px;
+    padding-left: 5px;
 }
 #mineTime {
-    padding-right: 10px;
+    padding-right: 5px;
 }
 #their {
     background-color: rgb(227, 227, 250);
