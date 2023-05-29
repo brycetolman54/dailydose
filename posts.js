@@ -96,7 +96,7 @@ function fillTable() {
 function addPost(post, allPosts) {
 
     // Grab the post itself
-    const thisPost = allPosts[allPosts.length - post.allPlace];
+    const thisPost = allPosts[allPosts.length - post.allPlace - 1];
 
     // Make an li element to add the post to
     const liEl = document.createElement('li');
@@ -156,16 +156,17 @@ function addPost(post, allPosts) {
                             // Put that in the head div
                             headDiv.appendChild(title);
 
-                            // Add the likes
-                            const like = document.createElement('div');
-                                // Add the id
-                                like.setAttribute('id',`like${post.myPlace}`);
-                                // Add the class
-                                like.classList.add('like');
-                                // Set the content
-                                like.textContent = thisPost.likes;
-                            // Put that in the head div
-                            headDiv.appendChild(like);
+                            // For later
+                            // // Add the likes
+                            // const like = document.createElement('div');
+                            //     // Add the id
+                            //     like.setAttribute('id',`like${post.myPlace}`);
+                            //     // Add the class
+                            //     like.classList.add('like');
+                            //     // Set the content
+                            //     like.textContent = `${thisPost.likes}`;
+                            // // Put that in the head div
+                            // headDiv.appendChild(like);
                     
                     // Add that head to the liEl
                     label.appendChild(headDiv);
