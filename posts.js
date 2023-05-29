@@ -96,7 +96,7 @@ function fillTable() {
 function addPost(post, allPosts) {
 
     // Grab the post itself
-    const thisPost = allPosts[allPlace.length - post.allPlace];
+    const thisPost = allPosts[allPosts.length - post.allPlace];
 
     // Make an li element to add the post to
     const liEl = document.createElement('li');
@@ -125,7 +125,7 @@ function addPost(post, allPosts) {
                 // Add the class
                 label.classList.add('label');
                 // Add event listener
-                label.addEventListener('click', `closeOtherPosts(${post.myPlace})`);
+                label.setAttribute('onclick', `closeOtherPosts(${post.myPlace})`);
 
                     // Add the head div
                     const headDiv = document.createElement('div');
@@ -168,7 +168,7 @@ function addPost(post, allPosts) {
                             headDiv.appendChild(like);
                     
                     // Add that head to the liEl
-                    liEl.appendChild(headDiv);
+                    label.appendChild(headDiv);
 
                     // Add the content div
                     const content = document.createElement('div');
@@ -178,7 +178,9 @@ function addPost(post, allPosts) {
                         content.setAttribute('id', `content${post.myPlace}`);
                         // Set the content
                         content.textContent = thisPost.content;
-                    liEl.appendChild(content);
+                    label.appendChild(content);
 
+            // Add the label to the liEl
+            liEl.appendChild(label);
     return liEl;
 }
