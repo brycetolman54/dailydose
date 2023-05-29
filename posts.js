@@ -58,7 +58,105 @@ function closeOtherPosts(buttonId) {
     // }
 }
 
+// This is to get the post's date and change it into a string
+function getDate(time) {
+    let value = '';
+    let month = time.getMonth() + 1;
+    value += month;
+    value += '/';
+    value += time.getDate();
+    value += '/';
+    value += time.getFullYear();
+    return value;
+}
+
 // This function fills in the table with our posts
 function fillTable() {
+    // Get the root user
+    const rootUser = getRootUser();
 
+    // Get the posts array from the root user
+    const posts = rootUser.posts;
+
+    // Get the parent div element of posts
+    const parent = document.getElementById('posts');
+
+    // Get all of the posts from the feed page
+    const allPosts = JSON.parse(localStorage.getItem('posts'));
+
+    // Add each post to the table
+    for(const post of posts) {
+        const newPost = addPost(post, allPosts);
+        parent.appendChild(newPost);
+    }
+
+}
+
+// This actually adds the post to the table
+function addPost(post, allPosts) {
+
+    // Grab the post itself
+    const thisPost = allPosts[allPlace.length - post.allPlace];
+
+    // Make an li element to add the post to
+    const liEl = document.createElement('li');
+        // Add the class
+        liEl.classList.add('post');
+        // Add the id
+        liEl.setAttribute('id', `post${post.myPlace}`);
+        
+        // Add the checkbox
+        const check = document.createElement('input');
+            // Add the type
+            check.setAttribute('type', 'checkbox');
+            // Add the class
+            check.classList.add('reveal');
+            // Add the id
+            check.setAttribute('id', `reveal${post.myPlace}`);
+        // Put it in the liEl
+        liEl.appendChild(check);
+        
+        // Add the label
+        const label = document.createElement('label');
+            // Add the id
+            label.setAttribute('id',`label${post.myPlace}`);
+            // Add the for
+            label.setAttribute('for',`reveal${post.myPlace}`);
+            // Add the class
+            label.classList.add('label');
+            // Add event listener
+            label.addEventListener('click', `closeOtherPosts(${post.myPlace})`);
+
+                // Add the head div
+                const headDiv = document.createElement('div');
+                    // Add the id
+                    headDiv.setAttribute('id',`head${post.myPlace}`);
+                    // Add the class
+                    headDiv.classList.add('head');
+
+                        // Add the date
+                        const date = document.createElement('div');
+                            // Add the id
+                            date.setAttribute('id',`date${post.myPlace}`);
+                            // Add the class
+                            date.classList.add('date');
+                            // Set the content
+                            date.textContent = getDate(new Date(thisPost.time));
+                        // Put that in the head div
+                        headDiv.appendChild(date);
+
+                        // Add the title
+                        const title = document.createElement('div');
+                            // Add the id
+                            title.setAttribute('id',`title${post.myPlace}`);
+                            // Add the class
+                            title.classList.add('title');
+                            // Set the content
+                            title.textContent = thisPost.title;
+                        // Put that in the head div
+                        headDiv.appendChild(title);
+
+
+
+    return liEl;
 }
