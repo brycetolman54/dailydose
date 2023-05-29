@@ -1,7 +1,3 @@
-/*
-- Change the time of the chat when you send a message, not just the text content of the list
-*/
-
 window.addEventListener('DOMContentLoaded', () => {
     const user = localStorage.getItem('username');
     if(user) {
