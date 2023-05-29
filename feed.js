@@ -213,11 +213,33 @@ function onLike(likeNum) {
     // I would need to add code in the rehydrate post to see if the like button needs to be colored (check the post num against the array of likes of the root user with the includes fucntion maybe)
 }
 // Turns a like off
-function offLike() {
+function offLike(likeNum) {
     // Undo all of what onlike does
 }
 
 // A function to fill out the inspiration quote part of the page
 function getQuote() {
     // Do this... :)
+}
+
+function closeTop() {
+    // Get the elements to change
+    let top = document.getElementById('quoteAndNew');
+    
+    // Make it disappear
+    top.style.display = 'none';
+
+    // Put in the new function
+    const bars = document.getElementById('bars');
+    bars.setAttribute('onclick', `openTop()`);
+}
+
+function openTop() {
+    // Get the element
+    let top = document.getElementById('quoteAndNew');
+    // Make it appear
+    top.style.display = 'flex';
+    // Put in the new function
+    const bars = document.getElementById('bars');
+    bars.setAttribute('onclick', `closeTop()`);
 }
