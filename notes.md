@@ -64,4 +64,5 @@ and this
    8. [May 16: JavaScript](May16.md)
    9. [May 18: More JavaScript](May18.md)
    10. [May 23: Last of JavsScript](May23.md)
-   11. [May 30: ](May30.md)
+   11. [May 25: Fetch, URL, ports, HTTP](May25.md)
+   12. [May 30: ](May30.md)
