@@ -49,3 +49,29 @@ There are three important parts to Node.js
 You need to create a `.gitignore` file and put `node_modules` in it so you never put that in your git, it is just all of the functions in the node package module
 
 You have to use `require()` in your file to get the node package that you have imported
+
+# Express
+5 objects in library:
+1. express: constructor and default middleware
+2. app: the express application
+3. req: the request object
+4. res: the response object
+5. router: adding child routing
+
+## Middleware
+- HTTP request comes in, hits express app, hits req that has middleware objects in it, goes next or to responsem sends back to server
+- This is what it looks like: `app.use([path], callback(req, res, next))`
+- The order in which you put your `use` functions in the file tells what the order of `next` is
+- `app.use(express.static('public'))` is used to staticly express the files you have written for your website
+
+## Routing
+- You can use smoething like `app.get('/store/:id/:data', (req,res) => {})` and yo can get the id and data with param.id or param.data
+
+# Daemons - PM2
+- Keeps your node service running
+```
+pm2 ls
+cd +/services/appname
+pm2 start index.js -n appname -- 5501
+pm2 save
+```
