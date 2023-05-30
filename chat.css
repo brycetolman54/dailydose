@@ -1,15 +1,4 @@
 /* This is the formatting for the Chat page */
-#bars {
-    flex: 0 40px;
-    padding: 2px 0 5px 0px;
-    border: solid;
-    border-width: 0 1.5px 0 0;
-    display: none;
-}
-#bars:hover {
-    background-color: rgb(165, 213, 220);
-    cursor: pointer;
-}
 #chatSpace {
     flex: 1;
     display: flex;

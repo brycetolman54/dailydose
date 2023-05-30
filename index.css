@@ -116,6 +116,16 @@ nav a:hover {
     margin: 0;
     color: black;
 }
+#bars {
+    flex: 0 40px;
+    padding: 2px 0 5px 0px;
+    border: solid;
+    border-width: 0 1.5px 0 0;
+}
+#bars:hover {
+    background-color: rgb(165, 213, 220);
+    cursor: pointer;
+}
 #chatNav {
     border: solid black;
     border-width: 0 2px 0 2px;
