@@ -269,6 +269,9 @@ function removeSelect() {
 function removeText() {
     const text = document.getElementById('messageArea');
     text.value = '';
+    
+    const send = document.getElementById('send');
+    send.disabled = true;
 }
 
 // This function adds the chat object to the chat array of each user
@@ -401,12 +404,22 @@ function sendMessage() {
 
 // This enables and disables the send button if there is input
 function enableSend() {
-    if(document.getElementById('messageArea').value.length > 0) {
-        document.getElementById('send').disabled = false;
+    // Get the value
+    const value = document.getElementById('messageArea');
+    const send = document.getElementById('send');
+
+    if(value.value.length > 0 && value.value !== '\u000a') {
+        send.disabled = false;
     }
     else {
-        document.getElementById('send').disabled = true;
+        send.disabled = true;
     }
+
+    if(value.value.includes("\u000a")) {
+        sendMessage();
+        send.disabled = true;
+    }
+
 }
 
 // This opens the chats page from the bars
@@ -431,10 +444,18 @@ function closeChats() {
     let messages = document.getElementById('chat');
 
     // Manipulate them on the click
-    chats.style.display = 'none';
+    // chats.style.display = 'none';
     messages.style.display = 'flex';
 
     // Reset the onclick attribute to go to open chats
     const bars = document.getElementById('bars');
     bars.setAttribute('onclick', 'openChats()');
 }
+
+/*
+- You start with the chats visisble
+- When you select a chat, they disappear
+- The bars are always there
+- When you hit the bars, it just opens up the chats (don't close the main part)
+- Figure out how to make the main part close all the way only on the small screen, not the big one
+*/

@@ -211,6 +211,8 @@ function onLike(likeNum) {
     // Add this like (the post's number) to the likes array of the root user
     // Change the onclick function of this like button (like#) to be offLike
     // I would need to add code in the rehydrate post to see if the like button needs to be colored (check the post num against the array of likes of the root user with the includes fucntion maybe)
+    // When you add to the likes array of the userData, add the spot on that list as well, so you can go see your liked posts on the my posts page and pretty much reuse the code 
+        // You are going to add the bars to the my psots page to switch between your posts and those you have liked
 }
 // Turns a like off
 function offLike(likeNum) {
