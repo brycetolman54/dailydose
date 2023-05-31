@@ -19,12 +19,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Go through each post and make it an html element
     for(const post of store) {
-        rehydratePost(post);
+        rehydratePost(post, store.length);
     }
 });
 
 // This is the actual function that we will be using to puff up the posts
-function rehydratePost(post) {
+function rehydratePost(post, length) {
     // First we need to make the element that we are going to add to the DOM
     const newElement = document.createElement('div');
 
@@ -38,40 +38,64 @@ function rehydratePost(post) {
         // Top matter
         const newTop = document.createElement('div');
         newTop.classList.add('topMatter');
+
             // User
             const user = document.createElement('p');
             user.textContent = post.user;
             user.classList.add('user');
+
             // Time Stamp
             const timeStamp = document.createElement('p');
+
                 // Date
                 const date = document.createTextNode(`${getDate(new Date(post.time))}`);
-                //timeStamp.textContent = getDate(new Date(post.time));
+                
                 // Break
                 const lineBreak = document.createElement('br');
+                
                 // Time
                 const time = document.createTextNode(`${getTime(new Date(post.time))}`);
+            
             timeStamp.appendChild(date);
             timeStamp.appendChild(lineBreak);
             timeStamp.appendChild(time);
             timeStamp.classList.add('timestamp');
+           
             // Buttons
             const buttons = document.createElement('div');
             buttons.classList.add('buttons');
-        newTop.appendChild(user);
+                
+                // Like button
+                const like = document.createElement('button');
+                    //Add class
+                    like.classList.add('like');
+                    // Add id
+                    like.setAttribute('id', `like${length - post.place}`);
+                    // Add on click
+                    like.setAttribute('onclick', `onLike(${length - post.place})`);
+                    // Add text
+                    like.textContent = 'Like';
+
+                buttons.appendChild(like);
+
+         newTop.appendChild(user);
         newTop.appendChild(timeStamp);
         newTop.appendChild(buttons);
+
         // Bottom Matter
         const newBottom = document.createElement('div');
         newBottom.classList.add('bottomMatter');
+
             // Title
             const title = document.createElement('b');
             title.textContent = post.title;
             title.classList.add('title');
+
             // Thoughts
             const thoughts = document.createElement('p');
             thoughts.textContent = post.content;
             thoughts.classList.add('thoughts');
+
         newBottom.appendChild(title);
         newBottom.appendChild(thoughts);
 
@@ -172,7 +196,7 @@ function addPost() {
     obj.user = localStorage.getItem('username');
     obj.time = new Date();
     obj.place = store.length;
-    obj.likes = 3;
+    obj.likes = 0;
 
     // Maybe I'll put this in at a later date
     // obj.comments = [];
@@ -205,18 +229,70 @@ function enablePost() {
 
 // Turns a like on
 function onLike(likeNum) {
+    // Get the posts array
+    const posts = JSON.parse(localStorage.getItem('posts'));
+
+    // Now we can update the likes counter of the post
+    posts[likeNum].likes += 1;
+
+    // Get the root user
+    const rootUser = getRootUser();
+
+    // Update their likes array
+    rootUser.likes.push(likeNum);
+
+    // Restore everything in the local storage
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    userData[rootUser.num] = rootUser;
+    localStorage.setItem('userData', JSON.stringify(userData));
+
+    localStorage.setItem('posts', JSON.stringify(posts));
+
+    // Change the button color
+    const like = document.getElementById(`like${likeNum}`);
+    like.style.backgroundColor = 'rgb(41, 195, 246)';
+
+    // Change the button onclick to be offlike
+    like.setAttribute('onclick', `offLike(${likeNum})`);
+    
+
     // Like num tells me which post to change the like button on and which to add and such
     // When making the like button in rehydrate post, just add the num of the post to the onclick function
     // Changes like button color
     // Add this like (the post's number) to the likes array of the root user
     // Change the onclick function of this like button (like#) to be offLike
     // I would need to add code in the rehydrate post to see if the like button needs to be colored (check the post num against the array of likes of the root user with the includes fucntion maybe)
+    // Also make the code in rehydrate post change the function of the like button to offlike if it is liked
     // When you add to the likes array of the userData, add the spot on that list as well, so you can go see your liked posts on the my posts page and pretty much reuse the code 
         // You are going to add the bars to the my psots page to switch between your posts and those you have liked
 }
 // Turns a like off
 function offLike(likeNum) {
-    // Undo all of what onlike does
+        // Get the posts array
+        const posts = JSON.parse(localStorage.getItem('posts'));
+
+        // Now we can update the likes counter of the post
+        posts[likeNum].likes -= 1;
+    
+        // Get the root user
+        const rootUser = getRootUser();
+    
+        // Update their likes array
+        rootUser.likes = rootUser.likes.filter(item => item !== likeNum);
+    
+        // Restore everything in the local storage
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        userData[rootUser.num] = rootUser;
+        localStorage.setItem('userData', JSON.stringify(userData));
+    
+        localStorage.setItem('posts', JSON.stringify(posts));
+
+        // Change the button color
+        const like = document.getElementById(`like${likeNum}`);
+        like.style.backgroundColor = 'purple';
+
+        // Change the button onclick to be onlike
+        like.setAttribute('onclick', `onLike(${likeNum})`);
 }
 
 // A function to fill out the inspiration quote part of the page
