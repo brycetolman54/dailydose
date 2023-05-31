@@ -223,6 +223,10 @@ function fillLikeTable() {
 
 function changePosts(which) {
     if(which === 'like') {
+        // Change the header
+        const head = document.getElementById('head');
+        head.textContent = 'Liked Posts';
+
         // Change the function
         const bar = document.getElementById('bars');
         bar.setAttribute('onclick', "changePosts('mine')");
@@ -235,6 +239,10 @@ function changePosts(which) {
         like.style.display = 'flex';
     }
     else if(which === 'mine') {
+        // Change the header
+        const head = document.getElementById('head');
+        head.textContent = 'My Posts';
+
         // Change the function
         const bar = document.getElementById('bars');
         bar.setAttribute('onclick', "changePosts('like')");
