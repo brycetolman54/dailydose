@@ -25,6 +25,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // This is the actual function that we will be using to puff up the posts
 function rehydratePost(post, length) {
+    // Get the root user likes array to compare
+    const likes = getRootUser().likes;
+
     // First we need to make the element that we are going to add to the DOM
     const newElement = document.createElement('div');
 
@@ -70,9 +73,18 @@ function rehydratePost(post, length) {
                     //Add class
                     like.classList.add('like');
                     // Add id
-                    like.setAttribute('id', `like${length - post.place}`);
-                    // Add on click
-                    like.setAttribute('onclick', `onLike(${length - post.place})`);
+                    like.setAttribute('id', `like${length - post.place - 1}`);
+                    // If the post is liked
+                    if(likes.includes(length - post.place - 1)) {
+                        // Add on click
+                        like.setAttribute('onclick', `offLike(${length - post.place - 1})`);
+                        // Add color
+                        like.style.backgroundColor = 'rgb(41, 195, 246)';
+                    }
+                    else {
+                        // Add on click
+                        like.setAttribute('onclick', `onLike(${length - post.place - 1})`);
+                    }
                     // Add text
                     like.textContent = 'Like';
 
