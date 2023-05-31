@@ -6,7 +6,8 @@ window.addEventListener('DOMContentLoaded', () => {
         elem.style.fontSize = "15px";
         elem.style.height = 'auto';
     }
-    fillTable();
+    fillMyTable();
+    fillLikeTable();
 });
 
 function backToLogin() {
@@ -71,7 +72,7 @@ function getDate(time) {
 }
 
 // This function fills in the table with our posts
-function fillTable() {
+function fillMyTable() {
     // Get the root user
     const rootUser = getRootUser();
 
@@ -86,14 +87,22 @@ function fillTable() {
 
     // Add each post to the table
     for(const post of posts) {
-        const newPost = addPost(post, allPosts);
+        const newPost = addPost(post, allPosts, -1);
         parent.appendChild(newPost);
     }
 
 }
 
 // This actually adds the post to the table
-function addPost(post, allPosts) {
+function addPost(post, allPosts, place) {
+
+    // If this is a like post
+    if(typeof(post) === 'number') {
+        let num = post;
+        post = new Object();
+        post.myPlace = num;
+        post.allPlace = place;
+    }
 
     // Grab the post itself
     const thisPost = allPosts[allPosts.length - post.allPlace - 1];
@@ -156,17 +165,19 @@ function addPost(post, allPosts) {
                             // Put that in the head div
                             headDiv.appendChild(title);
 
-                            // For later
-                            // // Add the likes
-                            // const like = document.createElement('div');
-                            //     // Add the id
-                            //     like.setAttribute('id',`like${post.myPlace}`);
-                            //     // Add the class
-                            //     like.classList.add('like');
-                            //     // Set the content
-                            //     like.textContent = `${thisPost.likes}`;
-                            // // Put that in the head div
-                            // headDiv.appendChild(like);
+                            // If it is my page
+                            if(place === -1) {
+                                // Add the likes
+                                const like = document.createElement('div');
+                                    // Add the id
+                                    like.setAttribute('id',`like${post.myPlace}`);
+                                    // Add the class
+                                    like.classList.add('like');
+                                    // Set the content
+                                    like.textContent = `${thisPost.likes}`;
+                                // Put that in the head div
+                                headDiv.appendChild(like);
+                            }
                     
                     // Add that head to the liEl
                     label.appendChild(headDiv);
@@ -184,4 +195,55 @@ function addPost(post, allPosts) {
             // Add the label to the liEl
             liEl.appendChild(label);
     return liEl;
+}
+
+function fillLikeTable() {
+    // Get the root user
+    const rootUser = getRootUser();
+
+    // Get the posts array from the root user
+    let posts = rootUser.likes;
+    posts = posts.sort((a,b) => a-b);
+    console.log(posts);
+
+    // Get the parent div element of posts
+    const parent = document.getElementById('likePosts');
+
+    // Get all of the posts from the feed page
+    const allPosts = JSON.parse(localStorage.getItem('posts'));
+
+    // Add each post to the table
+    let i = 0;
+    for(const post of posts) {
+        const newPost = addPost(post, allPosts, i);
+        parent.appendChild(newPost);
+        i++;
+    }
+}
+
+function changePosts(which) {
+    if(which === 'like') {
+        // Change the function
+        const bar = document.getElementById('bars');
+        bar.setAttribute('onclick', "changePosts('mine')");
+
+        // Get the tables to change display
+        const mine = document.getElementById('postsTable');
+        mine.style.display = 'none';
+
+        const like = document.getElementById('likeTable');
+        like.style.display = 'flex';
+    }
+    else if(which === 'mine') {
+        // Change the function
+        const bar = document.getElementById('bars');
+        bar.setAttribute('onclick', "changePosts('like')");
+
+        // Get the tables to change display
+        const mine = document.getElementById('postsTable');
+        mine.style.display = 'flex';
+
+        const like = document.getElementById('likeTable');
+        like.style.display = 'none';
+    }
 }

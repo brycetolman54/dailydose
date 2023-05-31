@@ -240,7 +240,7 @@ div > ::-webkit-scrollbar-thumb:hover, aside > ::-webkit-scrollbar-thumb:hover {
         display: none;
     }
 }
-@media (max-width: 500px) {
+/* @media (max-width: 500px) {
     #bars {
         display: block;
     }
@@ -253,4 +253,4 @@ div > ::-webkit-scrollbar-thumb:hover, aside > ::-webkit-scrollbar-thumb:hover {
     #messageList {
         height: 65vh;
     }
-}
+} */
