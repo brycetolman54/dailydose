@@ -430,7 +430,7 @@ function openChats() {
 
     // Manipulate them on the click
     chats.style.display = 'flex';
-    messages.style.display = 'none';
+    // messages.style.display = 'none';
 
     // Reset the onclick attribute to go to close chats
     const bars = document.getElementById('bars');
@@ -444,8 +444,8 @@ function closeChats() {
     let messages = document.getElementById('chat');
 
     // Manipulate them on the click
-    // chats.style.display = 'none';
-    messages.style.display = 'flex';
+    chats.style.display = 'none';
+    // messages.style.display = 'flex';
 
     // Reset the onclick attribute to go to open chats
     const bars = document.getElementById('bars');
