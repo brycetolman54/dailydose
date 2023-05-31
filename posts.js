@@ -101,7 +101,7 @@ function addPost(post, allPosts, place) {
         let num = post;
         post = new Object();
         post.myPlace = num;
-        post.allPlace = place;
+        post.allPlace = allPosts.length - place - 1;
     }
 
     // Grab the post itself
@@ -120,8 +120,15 @@ function addPost(post, allPosts, place) {
                 check.setAttribute('type', 'checkbox');
                 // Add the class
                 check.classList.add('reveal');
-                // Add the id
-                check.setAttribute('id', `reveal${post.myPlace}`);
+                // If this is a like post
+                if(place === -1) {
+                    // Add the id
+                    check.setAttribute('id', `reveal${post.myPlace}`);
+                }
+                else {
+                    // Add the id
+                    check.setAttribute('id', `revealLike${post.myPlace}`);
+                }
             // Put it in the liEl
             liEl.appendChild(check);
             
@@ -129,8 +136,15 @@ function addPost(post, allPosts, place) {
             const label = document.createElement('label');
                 // Add the id
                 label.setAttribute('id',`label${post.myPlace}`);
-                // Add the for
-                label.setAttribute('for',`reveal${post.myPlace}`);
+                // If this is a like post
+                if(place === -1) {
+                    // Add the for
+                    label.setAttribute('for', `reveal${post.myPlace}`);
+                }
+                else {
+                    // Add the id
+                    label.setAttribute('for', `revealLike${post.myPlace}`);
+                }
                 // Add the class
                 label.classList.add('label');
                 // Add event listener
