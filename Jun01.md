@@ -73,3 +73,24 @@ const cursor = db.find(query, options);
 | Less than or equal to | lte |
 | Less than | lt |
 | Greater than | gt |
+
+
+# Simon DB
+- We have to update our DB when we need to or pull from it
+- Your files will be gray in VS code when they are in gitignore
+
+# Authentication
+- You _HAVE_ to care about this
+- Don't do clear text, store a hashed version
+- When you have to authenticate, rehash and compare the hash values to see if they match (hash can go forward, not back)
+- That's not secure enough... they can just use the same hash algorithm
+- So, let's salt it (Salt:Hash): get a random ID for salt, append the id to the beginning of the hash
+- What we do is:
+  - Send the user data from the front end to the back
+  - Cast out the password, don't store it
+  - Send back a token representing the authentication from the back end
+  - Now the client will send back the cookie token that you sent from the back end when they want to login
+  - You can track who is an admin on the backend with that cookie and change front end functionality because of that
+- There is some code on the slides about how to do cookies
+- uuid: module from node to generate random user ids
+- bcrypt: module from node to hash
