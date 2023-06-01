@@ -102,10 +102,10 @@ function addPost(post, allPosts, place = -1) {
 
     // If this is a like post
     if(typeof(post) === 'number') {
-        let num = post + place;
+        let num = post;
         post = new Object();
         post.myPlace = num;
-        post.allPlace = allPosts.length - place - 1;
+        post.allPlace = place;
     }
 
     // Grab the post itself
@@ -210,7 +210,7 @@ function fillLikeTable() {
 
     // Get the posts array from the root user
     let posts = rootUser.likes;
-    posts = posts.sort((a,b) => a-b);
+    posts = posts.sort((a,b) => b - a);
 
     // Get the parent div element of posts
     const parent = document.getElementById('likePosts');
@@ -221,7 +221,7 @@ function fillLikeTable() {
     // Add each post to the table
     let i = 0;
     for(const post of posts) {
-        const newPost = addPost(begin, allPosts, i);
+        const newPost = addPost(begin + i, allPosts, post);
         parent.appendChild(newPost);
         i++;
     }

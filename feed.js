@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
         window.location.replace('index.html');
     }
 });
-
+ 
 // This loads all the posts onto the page
 window.addEventListener('DOMContentLoaded', () => {
     // Grab the data
@@ -75,7 +75,7 @@ function rehydratePost(post, length) {
                     // Add id
                     like.setAttribute('id', `like${length - post.place - 1}`);
                     // If the post is liked
-                    if(likes.includes(length - post.place - 1)) {
+                    if(likes.includes(post.place)) {
                         // Add on click
                         like.setAttribute('onclick', `offLike(${length - post.place - 1})`);
                         // Add color
@@ -251,7 +251,7 @@ function onLike(likeNum) {
     const rootUser = getRootUser();
 
     // Update their likes array
-    rootUser.likes.push(likeNum);
+    rootUser.likes.push(posts[likeNum].place);
 
     // Restore everything in the local storage
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -290,7 +290,7 @@ function offLike(likeNum) {
         const rootUser = getRootUser();
     
         // Update their likes array
-        rootUser.likes = rootUser.likes.filter(item => item !== likeNum);
+        rootUser.likes = rootUser.likes.filter(item => item !== posts[likeNum].place);
     
         // Restore everything in the local storage
         const userData = JSON.parse(localStorage.getItem('userData'));
