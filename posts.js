@@ -26,37 +26,41 @@ function getRootUser() {
 }
 
 // When we click on one post, we close all the others
-function closeOtherPosts(buttonId) {
+function closeOtherPosts(buttonId = -1) {
+
+    // First we want to make it show
+    if(buttonId !== -1) {
+        const content = document.getElementById(`content${buttonId}`);
+        content.style.display = 'flex';
+    }
 
     // Get the length of the posts array from the root user
     const rootUser = getRootUser();
-    const length = rootUser.posts.length;
+    const length = rootUser.posts.length + rootUser.likes.length;
 
     // Now we loop
     for(let i = 0; i < length; i++) {
 
+        // Set like
+        const like = i > rootUser.posts.length;
+
         // Get the input element with the reveali id
         let reveal = document.getElementById(`reveal${i}`);
-        
+
         // Then, if the button is not the one we are clicking, close it
         if(i !== buttonId) {
             reveal.checked = false;
         }
     }
+    if(buttonId === -1) {
+        for(let i = 0; i < length; i++) {
 
-
-    // Get the posts element
-    // const posts = document.getElementById('posts');
-    // console.log(posts);
-
-    // // Get its children
-    // const children = posts.childNodes;
-    // console.log(children);
-
-    // // Go through the children. If the buttonId doesn't match, change its checked attribute to false
-    // for(const child in children) {
-    //     console.log(child[0]);
-    // }
+            // Get the input element with the contenti id
+            let contents = document.getElementById(`content${i}`);
+            
+            contents.style.display = 'none';
+        }
+    }
 }
 
 // This is to get the post's date and change it into a string
@@ -77,7 +81,7 @@ function fillMyTable() {
     const rootUser = getRootUser();
 
     // Get the posts array from the root user
-    const posts = rootUser.posts;
+    const posts = rootUser.posts.sort((a,b) => b.allPlace - a.allPlace);
 
     // Get the parent div element of posts
     const parent = document.getElementById('posts');
@@ -87,18 +91,18 @@ function fillMyTable() {
 
     // Add each post to the table
     for(const post of posts) {
-        const newPost = addPost(post, allPosts, -1);
+        const newPost = addPost(post, allPosts);
         parent.appendChild(newPost);
     }
 
 }
 
 // This actually adds the post to the table
-function addPost(post, allPosts, place) {
+function addPost(post, allPosts, place = -1) {
 
     // If this is a like post
     if(typeof(post) === 'number') {
-        let num = post;
+        let num = post + place;
         post = new Object();
         post.myPlace = num;
         post.allPlace = allPosts.length - place - 1;
@@ -120,15 +124,10 @@ function addPost(post, allPosts, place) {
                 check.setAttribute('type', 'checkbox');
                 // Add the class
                 check.classList.add('reveal');
-                // If this is a like post
-                if(place === -1) {
-                    // Add the id
-                    check.setAttribute('id', `reveal${post.myPlace}`);
-                }
-                else {
-                    // Add the id
-                    check.setAttribute('id', `revealLike${post.myPlace}`);
-                }
+
+                // Add the id
+                check.setAttribute('id', `reveal${post.myPlace}`);
+
             // Put it in the liEl
             liEl.appendChild(check);
             
@@ -136,15 +135,8 @@ function addPost(post, allPosts, place) {
             const label = document.createElement('label');
                 // Add the id
                 label.setAttribute('id',`label${post.myPlace}`);
-                // If this is a like post
-                if(place === -1) {
-                    // Add the for
-                    label.setAttribute('for', `reveal${post.myPlace}`);
-                }
-                else {
-                    // Add the id
-                    label.setAttribute('for', `revealLike${post.myPlace}`);
-                }
+                // Add the for
+                label.setAttribute('for', `reveal${post.myPlace}`);
                 // Add the class
                 label.classList.add('label');
                 // Add event listener
@@ -214,11 +206,11 @@ function addPost(post, allPosts, place) {
 function fillLikeTable() {
     // Get the root user
     const rootUser = getRootUser();
+    const begin = rootUser.posts.length;
 
     // Get the posts array from the root user
     let posts = rootUser.likes;
     posts = posts.sort((a,b) => a-b);
-    console.log(posts);
 
     // Get the parent div element of posts
     const parent = document.getElementById('likePosts');
@@ -229,7 +221,7 @@ function fillLikeTable() {
     // Add each post to the table
     let i = 0;
     for(const post of posts) {
-        const newPost = addPost(post, allPosts, i);
+        const newPost = addPost(begin, allPosts, i);
         parent.appendChild(newPost);
         i++;
     }
@@ -268,4 +260,7 @@ function changePosts(which) {
         const like = document.getElementById('likeTable');
         like.style.display = 'none';
     }
+
+    // Then make sure all are closed
+    closeOtherPosts();
 }

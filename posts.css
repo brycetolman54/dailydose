@@ -95,6 +95,7 @@
     padding: 2px;
 }
 .content {
+    display: none;
     height: auto;
     font-size: 0px;
     border: solid black 1px;
