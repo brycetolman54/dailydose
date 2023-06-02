@@ -8,7 +8,7 @@ I am going to create a social media site called ***DailyDose***. The purpose of 
 
 ***DailyDose*** users will be able to do the following things on the site:
   1. _Post_ thoughts, insights, and stories to uplift others
-  2. _Comment_ and _Like_ others' posts
+  2. _Like_ others' posts
   3. _View_ a daily quote from inspirational leaders and thinkers
   4. _Chat_ with other users about Gospel topics
  
