@@ -14,7 +14,7 @@ app.use(express.static('public'));
 const apiRouter = express.Router();
 app.use('/api', apiRouter);
 
-// Add in your stuff
+// 
 
 // Return the application's default page if the path is unknown
 app.use((_req, res) => {
@@ -24,3 +24,8 @@ app.use((_req, res) => {
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
+
+//Initialize the data arrays
+let posts = [];
+let users = [];
+let userData = [];

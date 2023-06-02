@@ -21,7 +21,24 @@ window.addEventListener('DOMContentLoaded', () => {
     for(const post of store) {
         rehydratePost(post, store.length);
     }
+
+    // Display the quote as well
+    getQuote();
 });
+
+function getQuote() {
+    fetch('https://api.quotable.io/random')
+      .then((response) => response.json())
+      .then((data) => {
+        // Get the content element
+        const quoteItself = document.getElementById('thequote');
+        // Get the author element
+        const author = document.getElementById('author');
+        // Set the two things now
+        quoteItself.textContent = data.content;
+        author.textContent = data.author;
+      });
+}
 
 // This is the actual function that we will be using to puff up the posts
 function rehydratePost(post, length) {
@@ -305,11 +322,6 @@ function offLike(likeNum) {
 
         // Change the button onclick to be onlike
         like.setAttribute('onclick', `onLike(${likeNum})`);
-}
-
-// A function to fill out the inspiration quote part of the page
-function getQuote() {
-    // Do this... :)
 }
 
 function closeTop() {
