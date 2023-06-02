@@ -404,19 +404,20 @@ function sendMessage() {
 
 // This enables and disables the send button if there is input
 function enableSend() {
+
     // Get the value
     const message = document.getElementById('messageArea');
     const send = document.getElementById('send');
 
-    if(message.value.length > 0 && value.value !== '\u000a') {
+    if(message.value.length > 0 && message.value !== '\u000a') {
         send.disabled = false;
+        // If they hit enter, send it
+        if(message.value.includes("\u000a")) {
+            sendMessage();
+            send.disabled = true;
+        }
     }
     else {
-        send.disabled = true;
-    }
-
-    if(message.value.includes("\u000a")) {
-        sendMessage();
         send.disabled = true;
     }
 
