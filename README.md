@@ -49,3 +49,10 @@ In this deliverable, I put in place the structure of my website.
 - ***Database:*** It pulls the posts from the database to populate the feed.html page. It displays the chats with other users that are stored.
 - ***WebSocket:*** I made that chat update whenever somebody writes to another person. This will be replaced by websockets later. I also have a spot for the inspirational quote on the feed that will be filled in later by the WebSocket data rather than the one quote I have.
 - ***Application Logic:*** The chats page reloads based on user interaction by making new chats, selecting a chat to look at, and sending a message in a chat.
+
+# Service Deliverable
+- ***Node.js/Express HTTP Service:*** I made my server!
+- ***Static Middleware for Frontend:*** I moved my other deliverables into a `public` folder for call when my server starts up.
+- ***Calls to Third-party Endpoints:*** I called a third party for the 'Inspirational Quote' on my feed page.
+- ***Backend Service Endpoints:*** There are arrays for the _User Data_, _Posts_, and _Users_ that store the memory for the application. There are endpoints that call, update, and return the data in these arrays.
+- ***Frontend Calls Service Endpoints:*** The frontend uses the fetch function to get data from the server to then display it on the website. 
