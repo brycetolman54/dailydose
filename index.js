@@ -102,7 +102,7 @@ apiRouter.get('/chat/users', (req, res) => {
 
 // What if we want to get the chats of the root user
 apiRouter.get('/chat/:user', (req, res) => {
-    const rootUser = userData.find(obj => obj.name === user);
+    const rootUser = userData.find(obj => obj.name === req.params.user);
     res.send(rootUser.chats);
 });
 

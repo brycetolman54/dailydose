@@ -9,6 +9,7 @@ window.addEventListener('DOMContentLoaded', () => {
     else {
         window.location.replace('index.html');
     }
+    startingUp();
 });
 
 function backToLogin() {
@@ -34,24 +35,28 @@ function getUser(userId) {
 } 
 
 // This is what I want my page to do when loading, but also at other times
-function startingUp() {
+async function startingUp() {
     // Get the root user
-    const rootUser = getRootUser();
+    // const rootUser = getRootUser();
+    const response0 = await fetch(`/api/chat/${localStorage.getItem('username')}`);
+    const chats = await response0.json();
 
     // Get the list of users from storage
-    const users = JSON.parse(localStorage.getItem('users'));
+    // const users = JSON.parse(localStorage.getItem('users'));
+    const response1 = await fetch('/api/chat/users');
+    const users = await response1.json();
         
     // Fill the list with the users who are not the root user and who aren't already chatted with
     for(const user of users) {
-        if(!(user === rootUser.name) && !(rootUser.chats.find(obj => obj.name === user))) {
+        if(!(user === localStorage.getItem('username')) && !(chats.find(obj => obj.name === user))) {
             fillSelect(user);
         }
     }
 
     // Now we want to populate the conversations list with the chats we have opened
-    let chatList = rootUser.chats;
+    // let chatList = rootUser.chats;
     // Sort the array by time before using it
-    chatList = chatList.sort((a,b) => {
+    const chatList = chats.sort((a,b) => {
         if(a.time > b.time) {
             return -1;
         }
@@ -68,11 +73,6 @@ function startingUp() {
     }
 }
 
-// Function to load the user list into the new message space
-window.addEventListener('DOMContentLoaded', () => {
-    startingUp();    
-})
-
 // This will fill the select menu for making new chats
 function fillSelect(user) {
     // Get the user list element to add the options to it
@@ -88,7 +88,7 @@ function fillSelect(user) {
 }
 
 // This will fill the chats area with chats the user has
-function placeChat(chat, rootUser) {
+function placeChat(chat) {
 
     // Access the ol element to add the li element to
     const olEl = document.getElementById('userChatList');
