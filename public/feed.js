@@ -271,25 +271,31 @@ function enablePost() {
 }
 
 // Turns a like on
-function onLike(likeNum) {
+async function onLike(likeNum) {
+    // Update the post and the user's likes array
+    const response = await fetch(`/api/feed/${localStorage.getItem('username')}/like/${likeNum}`, {
+        method: 'POST',
+        headers: {'content-type': 'application:json'},
+    });
+
     // Get the posts array
-    const posts = JSON.parse(localStorage.getItem('posts'));
+    // const posts = JSON.parse(localStorage.getItem('posts'));
 
     // Now we can update the likes counter of the post
-    posts[likeNum].likes += 1;
+    // posts[likeNum].likes += 1;
 
     // Get the root user
-    const rootUser = getRootUser();
+    // const rootUser = getRootUser();
 
     // Update their likes array
-    rootUser.likes.push(posts[likeNum].place);
+    // rootUser.likes.push(posts[likeNum].place);
 
     // Restore everything in the local storage
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    userData[rootUser.num] = rootUser;
-    localStorage.setItem('userData', JSON.stringify(userData));
+    // const userData = JSON.parse(localStorage.getItem('userData'));
+    // userData[rootUser.num] = rootUser;
+    // localStorage.setItem('userData', JSON.stringify(userData));
 
-    localStorage.setItem('posts', JSON.stringify(posts));
+    // localStorage.setItem('posts', JSON.stringify(posts));
 
     // Change the button color
     const like = document.getElementById(`like${likeNum}`);
@@ -298,37 +304,33 @@ function onLike(likeNum) {
     // Change the button onclick to be offlike
     like.setAttribute('onclick', `offLike(${likeNum})`);
     
-
-    // Like num tells me which post to change the like button on and which to add and such
-    // When making the like button in rehydrate post, just add the num of the post to the onclick function
-    // Changes like button color
-    // Add this like (the post's number) to the likes array of the root user
-    // Change the onclick function of this like button (like#) to be offLike
-    // I would need to add code in the rehydrate post to see if the like button needs to be colored (check the post num against the array of likes of the root user with the includes fucntion maybe)
-    // Also make the code in rehydrate post change the function of the like button to offlike if it is liked
-    // When you add to the likes array of the userData, add the spot on that list as well, so you can go see your liked posts on the my posts page and pretty much reuse the code 
-        // You are going to add the bars to the my psots page to switch between your posts and those you have liked
 }
 // Turns a like off
-function offLike(likeNum) {
+async function offLike(likeNum) {
+        // Update the post and the user's likes array
+        const response = await fetch(`/api/feed/${localStorage.getItem('username')}/dislike/${likeNum}`, {
+            method: 'POST',
+            headers: {'content-type': 'application:json'},
+        });
+
         // Get the posts array
-        const posts = JSON.parse(localStorage.getItem('posts'));
+        // const posts = JSON.parse(localStorage.getItem('posts'));
 
         // Now we can update the likes counter of the post
-        posts[likeNum].likes -= 1;
+        // posts[likeNum].likes -= 1;
     
         // Get the root user
-        const rootUser = getRootUser();
+        // const rootUser = getRootUser();
     
         // Update their likes array
-        rootUser.likes = rootUser.likes.filter(item => item !== posts[likeNum].place);
+        // rootUser.likes = rootUser.likes.filter(item => item !== posts[likeNum].place);
     
         // Restore everything in the local storage
-        const userData = JSON.parse(localStorage.getItem('userData'));
-        userData[rootUser.num] = rootUser;
-        localStorage.setItem('userData', JSON.stringify(userData));
+        // const userData = JSON.parse(localStorage.getItem('userData'));
+        // userData[rootUser.num] = rootUser;
+        // localStorage.setItem('userData', JSON.stringify(userData));
     
-        localStorage.setItem('posts', JSON.stringify(posts));
+        // localStorage.setItem('posts', JSON.stringify(posts));
 
         // Change the button color
         const like = document.getElementById(`like${likeNum}`);
