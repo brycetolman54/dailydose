@@ -1,6 +1,6 @@
 // These are bool values to check for password and username being good
-let usernameGood = true;
-let passwordGood = true;
+let usernameGood = false;
+let passwordGood = false;
 
 function switchForm(toWhat) {
     if(toWhat === "login") {
@@ -71,7 +71,7 @@ function checkPassword() {
     let check3 = true;
     let check4 = true;
 
-    if(passWord.length > 8) {
+    if(passWord.length >= 8) {
         let element = document.querySelector('#checkbox3');
         element.innerText = "\u2714";
         element.style.color = 'green';
@@ -123,7 +123,7 @@ function checkPassword() {
     passwordGood = check1 && check2 && check3 && check4;
 }
 
-function submitForm() {
+async function submitForm() {
     // Make a new object for the user
     const obj = new Object;
 
@@ -140,31 +140,44 @@ function submitForm() {
     // Make a place to hold the posts they have liked (just a number)
     obj.likes =  [];
 
+    // Give them a number of their location in the array
+    // obj.num = userData.length;
+
     // Get the users array
-    let users = JSON.parse(localStorage.getItem('users'));
-    if(!users) {
-        localStorage.setItem('users', JSON.stringify([]));
-        users = JSON.parse(localStorage.getItem('users'));
-    }
+    // let users = JSON.parse(localStorage.getItem('users'));
+    // if(!users) {
+    //     localStorage.setItem('users', JSON.stringify([]));
+    //     users = JSON.parse(localStorage.getItem('users'));
+    // }
 
     // Get the userData array
-    let userData = JSON.parse(localStorage.getItem('userData'));
-    if(!userData) {
-        localStorage.setItem('userData', JSON.stringify([]));
-        userData = JSON.parse(localStorage.getItem('userData'));
-    }
-
-    // Give them a number of their location in the array
-    obj.num = userData.length;
+    // let userData = JSON.parse(localStorage.getItem('userData'));
+    // if(!userData) {
+    //     localStorage.setItem('userData', JSON.stringify([]));
+    //     userData = JSON.parse(localStorage.getItem('userData'));
+    // }
 
     // Check it
-    if(!users.includes(user) && passwordGood && usernameGood) {
+    // if(!users.includes(user) && passwordGood && usernameGood) {
+    if(passwordGood && usernameGood) {
+        console.log('hey');
+        // Put the data into the arrays
+        fetch('/api/login/user', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({user: user, data: obj}),
+        });
+        console.log('hey');
+
         // Put the user in the list
-        users.push(user);
-        localStorage.setItem('users', JSON.stringify(users));
+        // users.push(user);
+        // localStorage.setItem('users', JSON.stringify(users));
 
         // Put the user data in the data array
-        userData.push(obj);
-        localStorage.setItem('userData', JSON.stringify(userData));
+        // userData.push(obj);
+        // localStorage.setItem('userData', JSON.stringify(userData));
+
+        // Send us to feed.html
+        window.location.replace('feed.html');
     }
 }

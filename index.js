@@ -1,6 +1,11 @@
 const express = require('express');
 const app = express();
 
+//Initialize the data arrays
+let posts = [{my: 'hello'}];
+let users = [];
+let userData = [];
+
 // The service port. In production the fronted code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
@@ -16,25 +21,37 @@ app.use('/api', apiRouter);
 
 // We need to put a new user in the array
 apiRouter.post('/login/user', (req, res) => {
-    // Pull out the info from the put
+    // Pull out the info from the post
     const user = req.body.user;
     const data = req.body.data;
     // If the user is not already here, add them
     if(!users.includes(user)) {
         users.push(user);
+        // We have to mark the place of the guy in the array
+        data.num = userData.length;
         userData.push(data);
     }
 });
 
 // What if we need to get the posts
-apiRouter.get('/feed/posts', (req, res) => {
+apiRouter.get('/feed/posts', (_req, res) => {
     res.send(posts);
 });
 
 // What if we need to add a new post
-apiRouter.post('/feed/post', (req, res) => {
+apiRouter.post('/feed/post/:user', (req, res) => {
+    // Add the post to all the posts
     const post = req.body;
-    posts.push(post);
+    post.place = posts.length;
+    posts.unshift(post);
+
+    // Add the post to the posts of the user
+    const theUser = userData.find(obj => obj.name === user);
+    userObj = new Object();
+    userObj.myPlace = theUser.posts.length;
+    userObj.allPlace = posts.length;
+    theUser.posts.push(userObj);
+    userData[theUser.num] = theUser;
 });
 
 // What if we need to get the likes of the person that we are starting the page for
@@ -108,8 +125,3 @@ app.use((_req, res) => {
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
-
-//Initialize the data arrays
-let posts = [];
-let users = [];
-let userData = [];

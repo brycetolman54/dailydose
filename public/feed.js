@@ -14,17 +14,24 @@ window.addEventListener('DOMContentLoaded', () => {
  
 // This loads all the posts onto the page
 window.addEventListener('DOMContentLoaded', () => {
-    // Grab the data
-    const store = JSON.parse(localStorage.getItem('posts'));
-
-    // Go through each post and make it an html element
-    for(const post of store) {
-        rehydratePost(post, store.length);
-    }
+ 
+    // Fill the feed with all the posts
+    fillFeed()
 
     // Display the quote as well
     getQuote();
 });
+
+async function fillFeed() {
+    // Grab the data
+    const response = await fetch('/api/feed/posts');
+    const store = await response.json();
+
+    // Go through each post and make its html element
+    for(const post of store) {
+        rehydratePost(post, store.length);
+    }
+}
 
 function getQuote() {
     fetch('https://api.quotable.io/random')
@@ -45,7 +52,6 @@ async function rehydratePost(post, length) {
     // Get the root user likes array to compare
     const username = localStorage.getItem('username');
     const likes = await fetch(`/api/feed/${username}`);
-    localStorage.setItem('likes', likes);
 
     // First we need to make the element that we are going to add to the DOM
     const newElement = document.createElement('div');
@@ -195,30 +201,30 @@ function getRootUser() {
 }
 
 // This allows us to add more posts to our local storage
-function addPost() {
+async function addPost() {
 
     // Let's get the root user to add the post to his posts
-    const rootUser = getRootUser();
+    // const rootUser = getRootUser();
 
     // Also get the length of the root users posts array to set that in the object
-    const rootLength = rootUser.posts.length;
+    // const rootLength = rootUser.posts.length;
 
     // Make an object to hold that place in the user's posts and the place in the overall posts
-    const rootObj = new Object();
+    // const rootObj = new Object();
 
     // Add the rootLength place
-    rootObj.myPlace = rootLength;
+    // rootObj.myPlace = rootLength;
 
     // Let's get what we need from the form
     const title = document.getElementById('postTitle').value;
     const content = document.getElementById('postContent').value;
 
     // Pull the posts array out of storage to update it
-    let store = JSON.parse(localStorage.getItem('posts'));
-    if(!store) {
-        localStorage.setItem('posts', JSON.stringify([]));
-        store = JSON.parse(localStorage.getItem('posts'));
-    }
+    // let store = JSON.parse(localStorage.getItem('posts'));
+    // if(!store) {
+    //     localStorage.setItem('posts', JSON.stringify([]));
+    //     store = JSON.parse(localStorage.getItem('posts'));
+    // }
 
     // Let's make an object to hold all this info
     let obj = new Object;
@@ -226,27 +232,32 @@ function addPost() {
     obj.content = content;
     obj.user = localStorage.getItem('username');
     obj.time = new Date();
-    obj.place = store.length;
+    // obj.place = store.length;
     obj.likes = 0;
 
     // Maybe I'll put this in at a later date
     // obj.comments = [];
 
     // Add the overall place to the rootObj
-    rootObj.allPlace = store.length;
+    // rootObj.allPlace = store.length;
 
     // Add the rootObj to the root users posts
-    rootUser.posts.push(rootObj);
+    // rootUser.posts.push(rootObj);
 
     // Replace the root user in the userData array
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    userData[rootUser.num] = rootUser;
-    localStorage.setItem('userData', JSON.stringify(userData));
+    // const userData = JSON.parse(localStorage.getItem('userData'));
+    // userData[rootUser.num] = rootUser;
+    // localStorage.setItem('userData', JSON.stringify(userData));
 
     // Now we can actually store the data
-    store.unshift(obj);
-    localStorage.setItem('posts', JSON.stringify(store));
+    // store.unshift(obj);
+    // localStorage.setItem('posts', JSON.stringify(store));
     
+    await fetch(`/feed/post/${username}`, {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(obj),
+    });
 }
 
 function enablePost() {
