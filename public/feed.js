@@ -51,7 +51,8 @@ function getQuote() {
 async function rehydratePost(post, length) {
     // Get the root user likes array to compare
     const username = localStorage.getItem('username');
-    const likes = await fetch(`/api/feed/${username}`);
+    const response = await fetch(`/api/feed/${username}`);
+    const likes = await response.json();
 
     // First we need to make the element that we are going to add to the DOM
     const newElement = document.createElement('div');
@@ -253,7 +254,7 @@ async function addPost() {
     // store.unshift(obj);
     // localStorage.setItem('posts', JSON.stringify(store));
     
-    await fetch(`/feed/post/${username}`, {
+    await fetch(`/api/feed/post/${obj.user}`, {
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify(obj),

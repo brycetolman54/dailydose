@@ -37,7 +37,7 @@
                     </p>
                     <!-- <a href="https://www.churchofjesuschrist.org/study/general-conference/1979/04/and-peter-went-out-and-wept-bitterly?lang=eng" id="quoteReference">(General Conference)</a> -->
                 </aside>
-                <form method="post" id="newpost" action="feed.html" onsubmit="addPost()">
+                <form method="get" id="newpost" action="feed.html" onsubmit="addPost()">
                     <p id="newPostHead"><b>New Post</b></p>
                     <label for="text">Post title</label>
                     <input type="text" id="postTitle" name="postTitle" placeholder="Enter a title (max 60 characters)" pattern=".{1,50}" title="Your title is too long" required oninput="enablePost()"/>

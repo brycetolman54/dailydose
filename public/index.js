@@ -160,14 +160,12 @@ async function submitForm() {
     // Check it
     // if(!users.includes(user) && passwordGood && usernameGood) {
     if(passwordGood && usernameGood) {
-        console.log('hey');
         // Put the data into the arrays
         fetch('/api/login/user', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({user: user, data: obj}),
         });
-        console.log('hey');
 
         // Put the user in the list
         // users.push(user);

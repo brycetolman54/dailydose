@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 //Initialize the data arrays
-let posts = [{my: 'hello'}];
+let posts = [];
 let users = [];
 let userData = [];
 
@@ -46,17 +46,24 @@ apiRouter.post('/feed/post/:user', (req, res) => {
     posts.unshift(post);
 
     // Add the post to the posts of the user
-    const theUser = userData.find(obj => obj.name === user);
+    const theUser = userData.find(obj => obj.name === req.params.user);
     userObj = new Object();
     userObj.myPlace = theUser.posts.length;
     userObj.allPlace = posts.length;
     theUser.posts.push(userObj);
     userData[theUser.num] = theUser;
+
+    res.send('good');
+});
+
+// REMOVE THESE
+apiRouter.get('/allData', (req, res) => {
+    res.send({users, userData, posts});
 });
 
 // What if we need to get the likes of the person that we are starting the page for
 apiRouter.get('/feed/:user', (req, res) => {
-    const rootUser = userData.find(obj => obj.name === user);
+    const rootUser = userData.find(obj => obj.name === req.params.user);
     res.send(rootUser.likes);
 });
 
