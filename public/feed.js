@@ -41,9 +41,11 @@ function getQuote() {
 }
 
 // This is the actual function that we will be using to puff up the posts
-function rehydratePost(post, length) {
+async function rehydratePost(post, length) {
     // Get the root user likes array to compare
-    const likes = getRootUser().likes;
+    const username = localStorage.getItem('username');
+    const likes = await fetch(`/api/feed/${username}`);
+    localStorage.setItem('likes', likes);
 
     // First we need to make the element that we are going to add to the DOM
     const newElement = document.createElement('div');
