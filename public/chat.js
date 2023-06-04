@@ -40,6 +40,8 @@ async function startingUp() {
     // const rootUser = getRootUser();
     const response0 = await fetch(`/api/chat/${localStorage.getItem('username')}`);
     const chats = await response0.json();
+    // Store the chats on the local for later use
+    localStorage.setItem('chats', JSON.stringify(chats));
 
     // Get the list of users from storage
     // const users = JSON.parse(localStorage.getItem('users'));
@@ -69,7 +71,7 @@ async function startingUp() {
     });
 
     for(const chat of chatList) {
-        placeChat(chat, rootUser);
+        placeChat(chat);
     }
 }
 
@@ -166,9 +168,8 @@ function getTime(time) {
 
 // This will open a chat when it is clicked on from the side menu
 function openChat(userId) {
-
     // Get the root user
-    const rootUser = getRootUser();
+    // const rootUser = getRootUser();
 
     // Start by enabling input in the text box
     document.getElementById('messageArea').disabled = false;
@@ -182,10 +183,11 @@ function openChat(userId) {
 
     // Let's make the box stay colored when we click on it
     const value = document.getElementById(userId);
-    document.getElementById(userId).style.backgroundColor = 'lightblue';
+    value.style.backgroundColor = 'lightblue';
 
     // Now we need the root users chat list that corresponds to this person
-    const chat = rootUser.chats.find(obj => obj.name === userId);
+    // const chat = rootUser.chats.find(obj => obj.name === userId);
+    const chat = JSON.parse(localStorage.getItem('chats')).find(obj => obj.name === userId);
 
     // Get the actual messages out of that object
     const messages = chat.messages;
@@ -275,14 +277,15 @@ function removeText() {
 }
 
 // This function adds the chat object to the chat array of each user
-function startNew() {
+async function startNew() {
 
     // Get rid of the list that was there, get rid of any text also
     removeList();
     removeText();
 
     // Get the root user
-    const rootUser = getRootUser();
+    // const rootUser = getRootUser();
+    const chats = JSON.parse(localStorage.getItem('chats'));
 
     // Get the user chosen for the new chat
     const newChat = document.getElementById('userStart').value;
@@ -293,10 +296,10 @@ function startNew() {
     if(newChat !== '--Please choose a user--') {
 
         // Get the user data array
-        const userData = JSON.parse(localStorage.getItem('userData'));
+        // const userData = JSON.parse(localStorage.getItem('userData'));
 
         // Get the user's object
-        const target = userData.find(obj => obj.name === newChat);
+        // const target = userData.find(obj => obj.name === newChat);
 
         // Create a new object for the chat in the root users object
         const rootObj = new Object();
@@ -307,34 +310,45 @@ function startNew() {
             // Add the messages array
             rootObj.messages = [];
             // Add the number
-            rootObj.num = rootUser.chats.length;
+            rootObj.num = chats.length;
 
         // Add the object to the root users chats
-        rootUser.chats.push(rootObj);
+        chats.push(rootObj);
+        // Push that back to the server
+        await fetch(`/api/chat/${localStorage.getItem('username')}/update/chats`, {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(chats),
+        });
 
         // Create the object for the chat in the target users object
         const targetObj = new Object();
             // Add the root user
-            targetObj.name = `${rootUser.name}`;
+            targetObj.name = `${localStorage.getItem('username')}`;
             // Add the time
             targetObj.time = new Date();
             // Add the messages array
             targetObj.messages = [];
             // Add the number
-            targetObj.num = target.chats.length;
+            // targetObj.num = target.chats.length;
 
-        // Add the object to the target users chats
-        target.chats.push(targetObj);
+        // Add the object to the target users chats on the server
+        // target.chats.push(targetObj);
+        await fetch(`/api/chat/new/with/${newChat}`, {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(targetObj),
+        });
 
         // Add the root and target users back into the userData array
-        userData[rootUser.num] = rootUser;
-        userData[target.num] = target;
+        // userData[rootUser.num] = rootUser;
+        // userData[target.num] = target;
 
         // Put it back to the local storage
-        localStorage.setItem('userData', JSON.stringify(userData));
+        // localStorage.setItem('userData', JSON.stringify(userData));
 
         // Reload the chats, then choose the one you just made
-        startingUp();
+        await startingUp();
         openChat(newChat);
     }
 }

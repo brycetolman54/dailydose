@@ -3,8 +3,8 @@ const app = express();
 
 //Initialize the data arrays
 let posts = [];
-let users = [];
-let userData = [];
+let users = ["brycetolman","bobby"];
+let userData = [{"name":"brycetolman","posts":[],"chats":[],"likes":[],"num":0},{"name":"bobby","posts":[],"chats":[],"likes":[],"num":1}];
 
 // The service port. In production the fronted code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -34,7 +34,7 @@ apiRouter.post('/login/user', (req, res) => {
 });
 
 // What if we need to get the posts
-apiRouter.get('/feed/posts', (_req, res) => {
+apiRouter.get('/*/posts', (_req, res) => {
     res.send(posts);
 });
 
@@ -43,7 +43,6 @@ apiRouter.post('/feed/post/:user', (req, res) => {
     // Add the post to all the posts
     const post = req.body;
     post.place = posts.length;
-    posts.unshift(post);
 
     // Add the post to the posts of the user
     const theUser = userData.find(obj => obj.name === req.params.user);
@@ -53,6 +52,8 @@ apiRouter.post('/feed/post/:user', (req, res) => {
     theUser.posts.push(userObj);
     userData[theUser.num] = theUser;
 
+    // Add the post now
+    posts.unshift(post);
     res.send('good');
 });
 
@@ -109,11 +110,35 @@ apiRouter.get('/chat/:user', (req, res) => {
 // What if we want to get the chat of the partner
 apiRouter.get('/chat/:user/with/:user2', (req, res) => {
     // Get the userData for the person we are chatting with
-    const toUser = userData.find(obj => obj.name === user2);
+    const toUser = userData.find(obj => obj.name === req.params.user2);
     // Get the chats with the rootUser from that guy's data
-    const rootUserChat = toUser.chats.find(obj => obj.name === user);
+    const rootUserChat = toUser.chats.find(obj => obj.name === req.params.user);
     // Send that back
     res.send(rootUserChat);
+});
+
+// We want to update the chats of the root user
+apiRouter.post('/chat/:user/update/chats', (req, res) => {
+    // Get the data of the user
+    const theUser = userData.find(obj => obj.name === req.params.user);
+    // Set his chats equal to the req body
+    theUser.chats = req.body;
+    // Now we can reset the userData with the new user's data
+    userData[theUser.num] = theUser;
+    res.send('done');
+});
+
+// We want to update the chats of the user with who we are chatting
+apiRouter.post('/chat/new/with/:user', (req, res) => {
+    // Get the user
+    const theUser = userData.find(obj => obj.name === req.params.user);
+    // Set his chats equal to the new chats with req body after adding the num attribute
+    const chat = req.body;
+    chat.num = theUser.chats.length;
+    theUser.chats.push(chat);
+    // Update the userData array
+    userData[theUser.num] = theUser;
+    res.send('done');
 });
 
 // We want to set right the storage data of the rootUser once it has been updated
@@ -139,9 +164,17 @@ apiRouter.put('/chat/:user/replace/messages', (req, res) => {
 });
 
 // Now we need to pull the posts of the root user for the posts page to display them
-
+apiRouter.get('/posts/mine/:user', (req, res) => {
+    // Get the user
+    const theUser = userData.find(obj => obj.name === req.params.user);
+    res.send(theUser.posts);
+});
 // Also we need to get the likes of our rootuser for the liked posts table
-
+apiRouter.get('/posts/liked/:user', (req, res) => {
+    // Get the user
+    const theUser = userData.find(obj => obj.name === req.params.user);
+    res.send(theUser.likes);
+}); 
 // Return the application's default page if the path is unknown
 app.use((_req, res) => {
     res.sendFile('index.html', {root: 'public'});
