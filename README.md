@@ -37,6 +37,7 @@ In this deliverable, I put in place the structure of my website.
 -  ***WebSocket:*** The _Chat_ page and the inspirational quote on the _Feed_ page show realtime data and data being pulled from another server.
 
 # CSS Deliverable
+In this deliverable, I added style to my content and some rough functionality with it.
 - ***Header, Footer, and Main Content Body:*** I added styling for each part of each of my HTML pages.
 - ***Navigation Elements:*** I put the navigation elements in a box, spaced evenly and separated by lines. I made the links light up when they are hovered over.
 - ***Responsive to window resizing:*** I make the header and footer disappear if the screen gets too small. I make the inspirational quote move to the top of the feed page if the window gets too small. The login/sign up buttons resize for a smaller window.
@@ -45,14 +46,22 @@ In this deliverable, I put in place the structure of my website.
 - ***Application Iamges:*** I made the image I had on my site into the background image for the top of my site. 
 
 # JavaScript Deliverable
+In this deliverable, I added all the functionality to my website.
 - ***Login:*** You can toggle between logging in and signing up. As you enter the username and password, it checks to make sure they fit the required format. When you hit login, it stores the username in the local storage to display on the other pages.
 - ***Database:*** It pulls the posts from the database to populate the feed.html page. It displays the chats with other users that are stored.
 - ***WebSocket:*** I made that chat update whenever somebody writes to another person. This will be replaced by websockets later. I also have a spot for the inspirational quote on the feed that will be filled in later by the WebSocket data rather than the one quote I have.
 - ***Application Logic:*** The chats page reloads based on user interaction by making new chats, selecting a chat to look at, and sending a message in a chat.
 
 # Service Deliverable
+In this deliverable, I created an HTTP server and moved most of the functionality to it. I set up many service endpoints for my site.
 - ***Node.js/Express HTTP Service:*** I made my server!
 - ***Static Middleware for Frontend:*** I moved my other deliverables into a `public` folder for call when my server starts up.
 - ***Calls to Third-party Endpoints:*** I called a third party for the 'Inspirational Quote' on my feed page.
 - ***Backend Service Endpoints:*** There are arrays for the _User Data_, _Posts_, and _Users_ that store the memory for the application. There are endpoints that call, update, and return the data in these arrays.
 - ***Frontend Calls Service Endpoints:*** The frontend uses the fetch function to get data from the server to then display it on the website. 
+
+# Database Deliverable
+In this deliverable, I set up my database on MongoDB and begin to access it from my server.
+- ***MongoDB Atlas Database Created:*** I created my MongoDB Atlas account and access it from my server.
+- ***Endpoints for Data:*** I use the endpoints on my server to update the data that is stored in my database.
+- ***Stores Data in MongoDB:*** I store a couple of arrays of data in MongoDB that hold the data received from my frontend.
