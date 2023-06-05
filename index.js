@@ -108,14 +108,14 @@ apiRouter.get('/chat/:user', (req, res) => {
 });
 
 // What if we want to get the chat of the partner
-apiRouter.get('/chat/:user/with/:user2', (req, res) => {
-    // Get the userData for the person we are chatting with
-    const toUser = userData.find(obj => obj.name === req.params.user2);
-    // Get the chats with the rootUser from that guy's data
-    const rootUserChat = toUser.chats.find(obj => obj.name === req.params.user);
-    // Send that back
-    res.send(rootUserChat);
-});
+// apiRouter.get('/chat/:user/with/:user2', (req, res) => {
+//     // Get the userData for the person we are chatting with
+//     const toUser = userData.find(obj => obj.name === req.params.user2);
+//     // Get the chats with the rootUser from that guy's data
+//     const rootUserChat = toUser.chats.find(obj => obj.name === req.params.user);
+//     // Send that back
+//     res.send(rootUserChat);
+// });
 
 // We want to update the chats of the root user
 apiRouter.post('/chat/:user/update/chats', (req, res) => {
@@ -142,25 +142,30 @@ apiRouter.post('/chat/new/with/:user', (req, res) => {
 });
 
 // We want to set right the storage data of the rootUser once it has been updated
-apiRouter.put('/chat/:user/update/msg', (req, res) => {
-    const data = req.body;
-    userData[data.num] = data;
-});
+// apiRouter.put('/chat/:user/update/msg', (req, res) => {
+//     const data = req.body;
+//     userData[data.num] = data;
+// });
 
 // We want to do the same for the user with whom we are chatting
-apiRouter.put('/chat/:user/replace/messages', (req, res) => {
-    // Get the new chat sent to us from the server
-    const userChat = req.body;
-    // Get the user whose chats we are updating
-    const theUser = userData.find(obj => obj.name === user);
-    // Get that user's chats
-    const allChats = theUser.chats;
-    // Replace the appropriate chat
-    allChats[userChat.num] = userChat;
-    // Replace the chats for the user
-    theUser.chats = allChats;
-    // Replace the user in userData
+apiRouter.post('/chat/:user/update/messages/with/:user2', (req, res) => {
+    // Get the user whose messages we are updating
+    const theUser = userData.find(obj => obj.name === req.params.user);
+    // Find the right chats with the second user
+    const theChat = theUser.chats.find(obj => obj.name === req.params.user2);
+    // Now get the info from the req body
+    const time = req.body.time;
+    const msg = req.body.msg;
+    // Now update the time of the chat for the user's chat
+    theChat.time = time;
+    // Now push the message onto the messages array of the chat
+    theChat.messages.push(msg);
+    // Put the chat back
+    theUser.chats[theChat.num] = theChat;
+    // Put the user back
     userData[theUser.num] = theUser;
+    
+    res.send('done');
 });
 
 // Now we need to pull the posts of the root user for the posts page to display them

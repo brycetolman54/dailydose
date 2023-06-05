@@ -10,18 +10,13 @@ window.addEventListener('DOMContentLoaded', () => {
     else {
         window.location.replace('index.html');
     }
-});
- 
-// This loads all the posts onto the page
-window.addEventListener('DOMContentLoaded', () => {
- 
+
     // Fill the feed with all the posts
     fillFeed()
-
     // Display the quote as well
     getQuote();
 });
-
+ 
 async function fillFeed() {
     // Grab the data
     const response = await fetch('/api/feed/posts');

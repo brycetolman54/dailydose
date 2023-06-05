@@ -354,15 +354,16 @@ async function startNew() {
 }
 
 // This will deal with sending the message from one user to the other
-function sendMessage() {
+async function sendMessage() {
 
     // Get the userId by looking at the header value
     const userId = document.getElementById('userChatter').textContent;
 
     // Get the userData for the user and the root, get all userData
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    const rootUser = getRootUser();
-    const targetUser = getUser(userId);
+    // const userData = JSON.parse(localStorage.getItem('userData'));
+    // const rootUser = getRootUser();
+    // const targetUser = getUser(userId);
+    const chats = JSON.parse(localStorage.getItem('chats'));
 
     // Build the message object in prep to stick it in the array
     const targetObj = new Object();
@@ -370,7 +371,7 @@ function sendMessage() {
         let msg = document.getElementById('messageArea').value;
         targetObj.message = msg;
         // Get the time
-        timeStamp = new Date();
+        const timeStamp = new Date();
         targetObj.time = timeStamp;
         // Set whose the message is
         targetObj.whose = 'their';
@@ -388,31 +389,44 @@ function sendMessage() {
     // We have to find the right chat in order to add to the messages
 
         // Add the message to the chats for root
-        const rootToTarget = rootUser.chats.find(obj => obj.name === userId);
+        const rootToTarget = chats.find(obj => obj.name === userId);
         rootToTarget.messages.push(rootObj);
         rootToTarget.time = timeStamp;
-        // Add the chats back to the root
-        rootUser.chats[rootToTarget.num] = rootToTarget;
+        // Update the chats of the root user
+        chats[rootToTarget.num] = rootToTarget;
+        // Add the chats back to the server
+        await fetch(`/api/chat/${localStorage.getItem('username')}/update/chats`, {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(chats),
+        });
+
+        // Send the message to the server for the other user
+        await fetch(`/api/chat/${userId}/update/messages/with/${localStorage.getItem('username')}`, {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({msg: targetObj, time: timeStamp}),
+        });
 
         // Add the message to the chats for the target
-        const targetToRoot = targetUser.chats.find(obj => obj.name === rootUser.name);
-        targetToRoot.messages.push(targetObj);
-        targetToRoot.time = timeStamp;
+        // const targetToRoot = targetUser.chats.find(obj => obj.name === rootUser.name);
+        // targetToRoot.messages.push(targetObj);
+        // targetToRoot.time = timeStamp;
         // Add the chats back to the target
-        targetUser.chats[targetToRoot.num] = targetToRoot;
+        // targetUser.chats[targetToRoot.num] = targetToRoot;
     
         // Replace the user data objects 
-        userData[rootUser.num] = rootUser;
-        userData[targetUser.num] = targetUser;
+        // userData[rootUser.num] = rootUser;
+        // userData[targetUser.num] = targetUser;
 
     // Send it back to storage
-    localStorage.setItem('userData', JSON.stringify(userData));
+    // localStorage.setItem('userData', JSON.stringify(userData));
 
     // Remove all data, open the chat with this user again after startup
     removeList();
     removeSelect();
     removeText();
-    startingUp();
+    await startingUp();
     openChat(userId);
 }
 
