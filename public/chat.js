@@ -480,11 +480,3 @@ function closeChats() {
     const bars = document.getElementById('bars');
     bars.setAttribute('onclick', 'openChats()');
 }
-
-/*
-- You start with the chats visisble
-- When you select a chat, they disappear
-- The bars are always there
-- When you hit the bars, it just opens up the chats (don't close the main part)
-- Figure out how to make the main part close all the way only on the small screen, not the big one
-*/
