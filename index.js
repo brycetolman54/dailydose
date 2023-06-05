@@ -1,10 +1,14 @@
+// Start using express
 const express = require('express');
+// Get the app to use for later
 const app = express();
+// Get the DB info to use its functions and retrieve data and such
+const db = require('./database.js');
 
 //Initialize the data arrays
-let posts = [];
-let users = ["brycetolman","bobby"];
-let userData = [{"name":"brycetolman","posts":[],"chats":[],"likes":[],"num":0},{"name":"bobby","posts":[],"chats":[],"likes":[],"num":1}];
+// let posts = [];
+// let users = ["brycetolman","bobby"];
+// let userData = [{"name":"brycetolman","posts":[],"chats":[],"likes":[],"num":0},{"name":"bobby","posts":[],"chats":[],"likes":[],"num":1}];
 
 // The service port. In production the fronted code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
