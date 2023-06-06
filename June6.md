@@ -78,9 +78,16 @@ const list = React.createElement(
 - Since we have the HTML and JS together, we can write them for one component and thus modularize things in our page
 - You can define new elements and then make a function to create the element
 ``` 
-ReactDOM.render(<Hello name="lee"></Hello>)
-const Hello = ({name}) => {
+const Hello = ({ phrase }) => {
+  return (
+    <div>
+      <p>Hello {phrase}</p>
+    </div>
+  );
+};
 
+ReactDOM.render(<Hello phrase="function" />,
+                   document.querySelector("#root"));
 ```
 
 ## States
@@ -100,3 +107,54 @@ const Hello = () => {
 ```
 
 ## How to set it up in our server
+- We don't want a multi-page application
+- We want a single page that we change based on what the user does
+- We just inject different components into that one HTML page
+
+### React Router
+- The Browser Router is the top level. It wraps the whole application
+- The NavLink is a router that triggers the component change
+- The Routes section defines the mapping between the path from the NavLink to the actualy component to render
+
+```
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <BrowserRouter>
+    <div className='app'>
+      <nav>
+        <NavLink to='/'>Home</NavLink>
+        <NavLink to='/about'>About</NavLink>
+        <NavLink to='/users'>Users</NavLink>
+      </nav>
+
+      <main>
+        <Routes>
+          <Route path='/' element={<Home />} exact />
+          <Route path='/about' element={<About />} />
+          <Route path='/users' element={<Users />} />
+          <Route path='*' element={<Navigate to='/' replace />} />
+        </Routes>
+      </main>
+    </div>
+  </BrowserRouter>
+);
+```
+
+### Toolchains
+- Runs tools in a sequence to get from one thing to another
+- `npm run build` calls `vite build` which makes the JSX to JS, then minimizes it for you and puts it in your files
+- `npm run dev` calls vite again so that you can automatically update the browser you are working on, like LiveServer
+```
+npm create vite@latest demoVite -- --template react
+--> The create is like install and run
+--> Will get latest version of vite
+--> Will put in template files for using vite and react
+cd demovite
+npm install
+npm run dev
+```
+- This will create a nice example for you, the package.json has a lot of things, and it tells you the scripts that you can use with vite for production
+- You need one html file, an `index.html` that will call your `main.jsx` that calls all other `.jsx` files that you will use in your application
+- We want our backend service in a `service` directory, the `index.html` in our root directory, and the other `.jsx` files in a `source` directory
+- You have to get the deployReact script now to update your server stuff
+- When you are trying to call endpoints from your server and using vite, you just redirect that request from vite to the server with the `vite.config.js` file
