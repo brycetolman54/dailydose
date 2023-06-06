@@ -45,3 +45,58 @@ socket.send('I am listening');
 // If we want to make the web socket secure like the HTTP, include:
 const protocol = window.location.protocol === 'http
 ```
+
+# React
+- This is done with JSX, putting HTML and JS together. It's really a flavor of JS.
+- This allows you to separate things by functionality and not file type
+- The browser can't read JSX, so we use Babel to convert it into JS for the browser to read
+```
+// Example conversion
+
+//JSX
+const i = 3;
+const list = (
+  <ol class='big'>
+    <li>Item {i}</li>
+    <li>Item {3+i}</li>
+  </ol>
+);
+
+// JS
+const i = 3;
+const list = React.createElement(
+  'ol',
+  { class: 'big' },
+  React.createElement('li', null, 'Item ', i),
+  React.createElement('li', null, 'Item ', 3 + i)
+);
+
+```
+
+## Components
+- We want to separate things into components that we build the page out of. 
+- Since we have the HTML and JS together, we can write them for one component and thus modularize things in our page
+- You can define new elements and then make a function to create the element
+``` 
+ReactDOM.render(<Hello name="lee"></Hello>)
+const Hello = ({name}) => {
+
+```
+
+## States
+- You have states of the component that you can change as well
+```
+const Hello = () => {
+  const [attribute, setAttribute] = React.useState('attributeValue');
+  --> This defines the attribute's value, the attribute name is specified 
+  
+  function changeColor() {
+    setColor(color === "red" ? "green" : "red");
+  }
+  --> This updates the color
+  
+  obj = new Object{color: color};
+  --> This uses the color as you defined it 
+```
+
+## How to set it up in our server
