@@ -48,15 +48,10 @@ apiRouter.post('/feed/post/:user', async (req, res) => {
 
 });
 
-// REMOVE THESE
-apiRouter.get('/allData', (req, res) => {
-    res.send({users, userData, posts});
-});
-
 // What if we need to get the likes of the person that we are starting the page for
-apiRouter.get('/feed/:user', (req, res) => {
-    const rootUser = userData.find(obj => obj.name === req.params.user);
-    res.send(rootUser.likes);
+apiRouter.get('/feed/:user', async (req, res) => {
+    const likes = await DB.getLikes(req.params.user);
+    res.send(likes);
 });
 
 // What if we need to like a post

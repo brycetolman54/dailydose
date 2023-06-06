@@ -88,7 +88,16 @@ async function addPost(post) {
     posts.insertOne(post);
 
 };
+async function getLikes(user) {
+    
+    // Get the user
+    const theUser = await getUserData(user);
 
+    // Now get his likes and return them
+    const likes  = theUser.likes;
+    return likes;
+
+}
 
 // Export the functions so you can use them in your index.js file
-module.exports = { addUser, getUser, getPosts, addPost, getUserData };
+module.exports = { addUser, getUser, getPosts, addPost, getUserData, getLikes };
