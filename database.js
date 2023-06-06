@@ -172,7 +172,7 @@ async function updateHisMessages(user, user2, body) {
     const theChat = allChats.find(obj => obj.name === user2);
     // Get the info from the body
     theChat.time = body.time;
-    theChat.messages.push(body.message);
+    theChat.messages.push(body.msg);
     // Put it all back
     allChats[theChat.num] = theChat;
     userData.updateOne(
