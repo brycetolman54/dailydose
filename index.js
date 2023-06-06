@@ -42,7 +42,7 @@ apiRouter.get('/*/posts', async (_req, res) => {
 apiRouter.post('/feed/post/:user', async (req, res) => {
 
     // Add the post to all the posts
-    DB.addPost(req.body);
+    await DB.addPost(req.body);
 
     res.send('good');
 

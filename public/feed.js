@@ -211,6 +211,8 @@ async function addPost() {
         headers: {'content-type': 'application/json'},
         body: JSON.stringify(obj),
     });
+
+    window.location.replace('feed.html');
 }
 
 // Turns on the post button when a title and content are put

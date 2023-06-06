@@ -81,13 +81,17 @@ async function addPost(post) {
     const theUser = await getUserData(post.user);
     userObj = new Object();
     userObj.myPlace = theUser.posts.length;
-    userObj.allPlace = posts.length;
-    theUser.posts.push(userObj);
+    userObj.allPlace = long;
+    userData.updateOne(
+        {name: theUser.name},
+        {$push: {posts: userObj}},
+    );
 
     // Insert the post into the array
-    posts.insertOne(post);
+   await posts.insertOne(post);
 
 };
+// Get the likes array so you can populate the feed and the tables
 async function getLikes(user) {
     
     // Get the user
@@ -97,7 +101,15 @@ async function getLikes(user) {
     const likes  = theUser.likes;
     return likes;
 
-}
+};
+// Like Posts
+async function like() {
+
+};
+// Unlike posts
+async function unlike() {
+
+};
 
 // Export the functions so you can use them in your index.js file
-module.exports = { addUser, getUser, getPosts, addPost, getUserData, getLikes };
+module.exports = { addUser, getUser, getPosts, addPost, getUserData, getLikes, like, unlike };
