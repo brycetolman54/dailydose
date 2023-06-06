@@ -66,4 +66,5 @@ and this
    10. [May 23: Last of JavsScript](May23.md)
    11. [May 25: Fetch, URL, ports, HTTP](May25.md)
    12. [May 30: Web Services](May30.md)
-   13. [June 1: Database](Jun01.md)
+   13. [June 1: Database](June01.md)
+   14. [June 6: Websockets](June06.md)
