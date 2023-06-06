@@ -27,6 +27,8 @@ const users = db.collection('users');
     process.exit(1);
 });
 
+/**********************************************************************************************************************************/
+
 // Add a user
 async function addUser(body) {
     // Put the result in the arrays
@@ -142,8 +144,9 @@ async function getUsers() {
 async function getUserChats(user) {
     const theUser = await getUserData(user);
     const chats = theUser.chats;
+    const orderChats = chats.sort((a,b) => a.num - b.num);
     return chats;
-}
+};
 // Update the chat list of the main user
 async function updateChats(user, chat) {
     userData.updateOne(
@@ -160,18 +163,38 @@ async function updateHisChats(user, chat) {
         {name: user},
         {$push: {chats: chat}}
     );
-}
+};
+// Update the message of the person we are talking with
+async function updateHisMessages(user, user2, body) { 
+    // Get the chats of the person we are updating
+    const allChats = await getUserChats(user);
+    // Get the right chat
+    const theChat = allChats.find(obj => obj.name === user2);
+    // Get the info from the body
+    theChat.time = body.time;
+    theChat.messages.push(body.message);
+    // Put it all back
+    allChats[theChat.num] = theChat;
+    userData.updateOne(
+        {name: user},
+        {$set: {chats: allChats}}
+    );
+};
 // Get user posts
 async function getUserPosts(user) {
     const theUser = await getUserData(user);
     const mine = theUser.posts;
     return mine;
 };
+// Get the posts the user has liked
 async function getLiked(user) {
     const theUser = await getUserData(user);
     const liked = theUser.likes;
     return liked;
-}
+};
+
+/******************************************************************************************************************************************************/
 
 // Export the functions so you can use them in your index.js file
-module.exports = { addUser, getUser, getPosts, addPost, getUserData, getLikes, like, unlike, getUsers, getUserPosts, getLiked, getUserChats, updateChats, updateHisChats };
+module.exports = { addUser, getUser, getPosts, addPost, getUserData, getLikes, like, unlike, getUsers, 
+    getUserPosts, getLiked, getUserChats, updateChats, updateHisChats, updateHisMessages };

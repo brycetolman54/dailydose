@@ -101,29 +101,16 @@ apiRouter.post('/chat/new/with/:user', async (req, res) => {
 
 });
 
-// We want to set right the storage data of the rootUser once it has been updated
-apiRouter.put('/chat/:user/update/msg', (req, res) => {
-    const data = req.body;
-    userData[data.num] = data;
-});
+// // We want to set right the storage data of the rootUser once it has been updated
+// apiRouter.put('/chat/:user/update/msg', (req, res) => {
+//     const data = req.body;
+//     userData[data.num] = data;
+// });
 
 // We want to do the same for the user with whom we are chatting
-apiRouter.post('/chat/:user/update/messages/with/:user2', (req, res) => {
-    // Get the user whose messages we are updating
-    const theUser = userData.find(obj => obj.name === req.params.user);
-    // Find the right chats with the second user
-    const theChat = theUser.chats.find(obj => obj.name === req.params.user2);
-    // Now get the info from the req body
-    const time = req.body.time;
-    const msg = req.body.msg;
-    // Now update the time of the chat for the user's chat
-    theChat.time = time;
-    // Now push the message onto the messages array of the chat
-    theChat.messages.push(msg);
-    // Put the chat back
-    theUser.chats[theChat.num] = theChat;
-    // Put the user back
-    userData[theUser.num] = theUser;
+apiRouter.post('/chat/:user/update/messages/with/:user2', async (req, res) => {
+    
+    await DB.updateHisMessages(req.params.user, req.params.user2, req.body);
     
     res.send('done');
 });
