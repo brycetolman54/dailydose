@@ -31,8 +31,8 @@ async function startingUp() {
         
     // Fill the list with the users who are not the root user and who aren't already chatted with
     for(const user of users) {
-        if(!(user === localStorage.getItem('username')) && !(chats.find(obj => obj.name === user))) {
-            fillSelect(user);
+        if(!(user.user === localStorage.getItem('username')) && !(chats.find(obj => obj.name === user.user))) {
+            fillSelect(user.user);
         }
     }
 

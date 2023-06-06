@@ -72,15 +72,16 @@ apiRouter.post('/feed/:user/dislike/:post', async (req, res) =>{
 
 // Now if we need to get the users
 apiRouter.get('/chat/users', async (_req, res) => {
+    console.log('hey');
     const users = await DB.getUsers();
     res.send(users);    
 });
 
 // What if we want to get the chats of the root user
-// apiRouter.get('/chat/:user', (req, res) => {
-//     const rootUser = userData.find(obj => obj.name === req.params.user);
-//     res.send(rootUser.chats);
-// });
+apiRouter.get('/chat/:user', async (req, res) => {
+    const chats = await DB.getUserChats(req.params.user);
+    res.send(chats);
+});
 
 // We want to update the chats of the root user
 apiRouter.post('/chat/:user/update/chats', (req, res) => {

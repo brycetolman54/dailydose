@@ -138,7 +138,12 @@ async function getUsers() {
     const allUsers = await response.toArray();
     return allUsers;
 };
-// Chat functions
+// Get the user's chat
+async function getUserChats(user) {
+    const theUser = await getUserData(user);
+    const chats = theUser.chats;
+    return chats;
+}
 
 // Get user posts
 async function getUserPosts(user) {
@@ -153,4 +158,4 @@ async function getLiked(user) {
 }
 
 // Export the functions so you can use them in your index.js file
-module.exports = { addUser, getUser, getPosts, addPost, getUserData, getLikes, like, unlike, getUsers, getUserPosts, getLiked };
+module.exports = { addUser, getUser, getPosts, addPost, getUserData, getLikes, like, unlike, getUsers, getUserPosts, getLiked, getUserChats };
