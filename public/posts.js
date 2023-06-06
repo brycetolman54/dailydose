@@ -19,16 +19,6 @@ function backToLogin() {
     window.location.replace('index.html');
 };
 
-// function getRootUser() {
-//     // Get the username
-//     const username = localStorage.getItem('username');
-//     // Get the array of the user objects
-//     const userData = JSON.parse(localStorage.getItem('userData'));
-//     // Find the username in the list of userData and return that object
-
-//     return userData.find(obj => obj.name === username);
-// }
-
 // When we click on one post, we close all the others
 async function closeOtherPosts(buttonId = -1) {
 
@@ -39,8 +29,6 @@ async function closeOtherPosts(buttonId = -1) {
     }
 
     // Get the length of the posts array from the root user
-    // const rootUser = getRootUser();
-    // const length = rootUser.posts.length + rootUser.likes.length;
     const result0 = await fetch(`/api/posts/mine/${localStorage.getItem('username')}`);
     const length0 = await result0.json().length;
     const result1 = await fetch(`/api/posts/liked/${localStorage.getItem('username')}`);
@@ -86,11 +74,8 @@ function getDate(time) {
 
 // This function fills in the table with our posts
 async function fillMyTable() {
-    // Get the root user
-    // const rootUser = getRootUser();
 
     // Get the posts array from the root user
-    // const posts = rootUser.posts.sort((a,b) => b.allPlace - a.allPlace);
     const result0 = await fetch(`/api/posts/mine/${localStorage.getItem('username')}`);
     const almost = await result0.json();
     const posts = almost.sort((a,b) => b.allPlace - a.allPlace);
@@ -100,7 +85,6 @@ async function fillMyTable() {
     const parent = document.getElementById('posts');
 
     // Get all of the posts from the feed page
-    // const allPosts = JSON.parse(localStorage.getItem('posts'));
     const result1 = await fetch('/api/posts/posts');
     const allPosts = await result1.json();
     // Set it in local for later use
@@ -128,7 +112,6 @@ function addPost(post, allPosts, place = -1) {
 
     // Grab the post itself
     const thisPost = allPosts[allPosts.length - post.allPlace - 1];
-    // console.log(thisPost, allPosts, allPosts.length, post.allPlace);
 
     // Make an li element to add the post to
     const liEl = document.createElement('li');
@@ -223,14 +206,8 @@ function addPost(post, allPosts, place = -1) {
 }
 
 async function fillLikeTable(begin) {
-    // Get the root user
-    // const rootUser = getRootUser();
-    // const begin = rootUser.posts.length;
-    
 
     // Get the posts array from the root user
-    // let posts = rootUser.likes;
-    // posts = posts.sort((a,b) => b - a);
     const result = await fetch(`/api/posts/liked/${localStorage.getItem('username')}`);
     const almost = await result.json();
     const posts = almost.sort((a,b) => (b - a));
@@ -239,7 +216,6 @@ async function fillLikeTable(begin) {
     const parent = document.getElementById('likePosts');
 
     // Get all of the posts from the feed page
-    // const allPosts = JSON.parse(localStorage.getItem('posts'));
     const allPosts = JSON.parse(localStorage.getItem('allPosts'));
 
     // Add each post to the table

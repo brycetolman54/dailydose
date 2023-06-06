@@ -45,16 +45,50 @@ async function getUser(userId) {
     const array = await result.toArray();
     return array;
 };
+// Gets the user data
+async function getUserData(userId) {
+    const result = userData.find({name: `${userId}`});
+    const theUser = await result.toArray();
+    return theUser[0];
+};
 // This is to get all posts
-function getPosts() {
+async function getPosts() {
     const postList = posts.find();
-    return postList.toArray();
+    const postsArray = await postList.toArray();
+    const orderPosts = postsArray.sort((a,b) => {
+        if(a.time > b.time) {
+            return -1;
+        }
+        else if (a.time < b.time) {
+        }
+        else {
+            return 0;
+        }
+    });
+    return orderPosts;
 };
 // This is to add a post
-function addPost(post) {
+async function addPost(post) {
+
+    // Get all posts
+    const allPosts = await getPosts();
+
+    // Give the post a place 
+    const long = allPosts.length;
+    post.place = long;
+
+    // Add the post to the posts of the user
+    const theUser = await getUserData(post.user);
+    userObj = new Object();
+    userObj.myPlace = theUser.posts.length;
+    userObj.allPlace = posts.length;
+    theUser.posts.push(userObj);
+
+    // Insert the post into the array
+    posts.insertOne(post);
 
 };
 
 
 // Export the functions so you can use them in your index.js file
-module.exports = { addUser, getUser, getPosts, addPost };
+module.exports = { addUser, getUser, getPosts, addPost, getUserData };

@@ -21,39 +21,31 @@ app.use('/api', apiRouter);
 // We need to put a new user in the array
 apiRouter.post('/login/user', async (req, res) => {
 
-    //     data.num = userData.length;
-
     // If the user isn't in the array, add him
     const array = await DB.getUser(req.body.user);
     if( array.length === 0) {
         await DB.addUser(req.body);
     }
     res.send('done');
+
 });
 
 // What if we need to get the posts
-apiRouter.get('/*/posts', (_req, res) => {
-    const posts = DB.getPosts();
+apiRouter.get('/*/posts', async (_req, res) => {
+
+    const posts = await DB.getPosts();
     res.send(posts);
+
 });
 
 // What if we need to add a new post
-apiRouter.post('/feed/post/:user', (req, res) => {
+apiRouter.post('/feed/post/:user', async (req, res) => {
+
     // Add the post to all the posts
-    const post = req.body;
-    post.place = posts.length;
+    DB.addPost(req.body);
 
-    // Add the post to the posts of the user
-    const theUser = userData.find(obj => obj.name === req.params.user);
-    userObj = new Object();
-    userObj.myPlace = theUser.posts.length;
-    userObj.allPlace = posts.length;
-    theUser.posts.push(userObj);
-    userData[theUser.num] = theUser;
-
-    // Add the post now
-    posts.unshift(post);
     res.send('good');
+
 });
 
 // REMOVE THESE
