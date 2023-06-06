@@ -186,41 +186,12 @@ function backToLogin() {
     window.location.replace('index.html');
 };
 
-function getRootUser() {
-    // Get the username
-    const username = localStorage.getItem('username');
-    // Get the array of the user objects
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    // Find the username in the list of userData and return that object
-
-    return userData.find(obj => obj.name === username);
-}
-
 // This allows us to add more posts to our local storage
 async function addPost() {
-
-    // Let's get the root user to add the post to his posts
-    // const rootUser = getRootUser();
-
-    // Also get the length of the root users posts array to set that in the object
-    // const rootLength = rootUser.posts.length;
-
-    // Make an object to hold that place in the user's posts and the place in the overall posts
-    // const rootObj = new Object();
-
-    // Add the rootLength place
-    // rootObj.myPlace = rootLength;
 
     // Let's get what we need from the form
     const title = document.getElementById('postTitle').value;
     const content = document.getElementById('postContent').value;
-
-    // Pull the posts array out of storage to update it
-    // let store = JSON.parse(localStorage.getItem('posts'));
-    // if(!store) {
-    //     localStorage.setItem('posts', JSON.stringify([]));
-    //     store = JSON.parse(localStorage.getItem('posts'));
-    // }
 
     // Let's make an object to hold all this info
     let obj = new Object;
@@ -233,22 +204,8 @@ async function addPost() {
 
     // Maybe I'll put this in at a later date
     // obj.comments = [];
-
-    // Add the overall place to the rootObj
-    // rootObj.allPlace = store.length;
-
-    // Add the rootObj to the root users posts
-    // rootUser.posts.push(rootObj);
-
-    // Replace the root user in the userData array
-    // const userData = JSON.parse(localStorage.getItem('userData'));
-    // userData[rootUser.num] = rootUser;
-    // localStorage.setItem('userData', JSON.stringify(userData));
-
-    // Now we can actually store the data
-    // store.unshift(obj);
-    // localStorage.setItem('posts', JSON.stringify(store));
     
+    // Send it off to be made
     await fetch(`/api/feed/post/${obj.user}`, {
         method: 'POST',
         headers: {'content-type': 'application/json'},
@@ -256,6 +213,7 @@ async function addPost() {
     });
 }
 
+// Turns on the post button when a title and content are put
 function enablePost() {
     if(document.getElementById('postTitle').value.length > 0 && document.getElementById('postContent').value.length > 0) {
         document.getElementById('postIt').disabled = false;
@@ -273,25 +231,6 @@ async function onLike(likeNum) {
         headers: {'content-type': 'application:json'},
     });
 
-    // Get the posts array
-    // const posts = JSON.parse(localStorage.getItem('posts'));
-
-    // Now we can update the likes counter of the post
-    // posts[likeNum].likes += 1;
-
-    // Get the root user
-    // const rootUser = getRootUser();
-
-    // Update their likes array
-    // rootUser.likes.push(posts[likeNum].place);
-
-    // Restore everything in the local storage
-    // const userData = JSON.parse(localStorage.getItem('userData'));
-    // userData[rootUser.num] = rootUser;
-    // localStorage.setItem('userData', JSON.stringify(userData));
-
-    // localStorage.setItem('posts', JSON.stringify(posts));
-
     // Change the button color
     const like = document.getElementById(`like${likeNum}`);
     like.style.backgroundColor = 'rgb(41, 195, 246)';
@@ -302,39 +241,22 @@ async function onLike(likeNum) {
 }
 // Turns a like off
 async function offLike(likeNum) {
-        // Update the post and the user's likes array
-        const response = await fetch(`/api/feed/${localStorage.getItem('username')}/dislike/${likeNum}`, {
-            method: 'POST',
-            headers: {'content-type': 'application:json'},
-        });
+        
+    // Update the post and the user's likes array
+    const response = await fetch(`/api/feed/${localStorage.getItem('username')}/dislike/${likeNum}`, {
+        method: 'POST',
+        headers: {'content-type': 'application:json'},
+    });
 
-        // Get the posts array
-        // const posts = JSON.parse(localStorage.getItem('posts'));
+    // Change the button color
+    const like = document.getElementById(`like${likeNum}`);
+    like.style.backgroundColor = 'purple';
 
-        // Now we can update the likes counter of the post
-        // posts[likeNum].likes -= 1;
-    
-        // Get the root user
-        // const rootUser = getRootUser();
-    
-        // Update their likes array
-        // rootUser.likes = rootUser.likes.filter(item => item !== posts[likeNum].place);
-    
-        // Restore everything in the local storage
-        // const userData = JSON.parse(localStorage.getItem('userData'));
-        // userData[rootUser.num] = rootUser;
-        // localStorage.setItem('userData', JSON.stringify(userData));
-    
-        // localStorage.setItem('posts', JSON.stringify(posts));
-
-        // Change the button color
-        const like = document.getElementById(`like${likeNum}`);
-        like.style.backgroundColor = 'purple';
-
-        // Change the button onclick to be onlike
-        like.setAttribute('onclick', `onLike(${likeNum})`);
+    // Change the button onclick to be onlike
+    like.setAttribute('onclick', `onLike(${likeNum})`);
 }
 
+// Closes the top of the screen
 function closeTop() {
     // Get the elements to change
     let top = document.getElementById('quoteAndNew');
@@ -346,7 +268,7 @@ function closeTop() {
     const bars = document.getElementById('bars');
     bars.setAttribute('onclick', `openTop()`);
 }
-
+// Opens the top of the screen
 function openTop() {
     // Get the element
     let top = document.getElementById('quoteAndNew');

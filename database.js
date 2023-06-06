@@ -2,10 +2,10 @@
 const { MongoClient } = require('mongodb');
 
 // Get the info from your login file for the DB
-const config = require('./dbconfig.json');
+const config = require('./dbConfig.json');
 
 // Make the url to enter the DB
-const url = `mongodb+srv://${donfig.userName}:${config.password}@${config.hostname}`;
+const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 
 // Start the client 
 const client = new MongoClient(url);
@@ -22,11 +22,39 @@ const users = db.collection('users');
 (async function testConnection() {
     await client.connect();
     await db.command({ping: 1});
-})().catch((err) => {
-    console.log(`Unable to connect to the database with ${dbconfig.hostname} because ${ex.message}`);
+})().catch((ex) => {
+    console.log(`Unable to connect to the database with ${config.hostname} because ${ex.message}`);
     process.exit(1);
 });
 
+// Add a user
+async function addUser(body) {
+    // Put the result in the arrays
+    const user = await users.insertOne({user: body.user});
+    const result = userData.find()
+    const array = await result.toArray()
+    const long = array.length;
+    body.data.num = long;
+    const data = await userData.insertOne(body.data);   
+    return {user, data};
+};
+// See if we have a user there already
+async function getUser(userId) {
+    // See if you can find him in the array
+    const result = users.find({user: `${userId}`});
+    const array = await result.toArray();
+    return array;
+};
+// This is to get all posts
+function getPosts() {
+    const postList = posts.find();
+    return postList.toArray();
+};
+// This is to add a post
+function addPost(post) {
+
+};
+
 
 // Export the functions so you can use them in your index.js file
-module.exports = {};
+module.exports = { addUser, getUser, getPosts, addPost };

@@ -3,12 +3,7 @@ const express = require('express');
 // Get the app to use for later
 const app = express();
 // Get the DB info to use its functions and retrieve data and such
-const db = require('./database.js');
-
-//Initialize the data arrays
-// let posts = [];
-// let users = ["brycetolman","bobby"];
-// let userData = [{"name":"brycetolman","posts":[],"chats":[],"likes":[],"num":0},{"name":"bobby","posts":[],"chats":[],"likes":[],"num":1}];
+const DB = require('./database.js');
 
 // The service port. In production the fronted code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -24,21 +19,21 @@ var apiRouter = express.Router();
 app.use('/api', apiRouter);
 
 // We need to put a new user in the array
-apiRouter.post('/login/user', (req, res) => {
-    // Pull out the info from the post
-    const user = req.body.user;
-    const data = req.body.data;
-    // If the user is not already here, add them
-    if(!users.includes(user)) {
-        users.push(user);
-        // We have to mark the place of the guy in the array
-        data.num = userData.length;
-        userData.push(data);
+apiRouter.post('/login/user', async (req, res) => {
+
+    //     data.num = userData.length;
+
+    // If the user isn't in the array, add him
+    const array = await DB.getUser(req.body.user);
+    if( array.length === 0) {
+        await DB.addUser(req.body);
     }
+    res.send('done');
 });
 
 // What if we need to get the posts
 apiRouter.get('/*/posts', (_req, res) => {
+    const posts = DB.getPosts();
     res.send(posts);
 });
 
