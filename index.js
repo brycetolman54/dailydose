@@ -71,24 +71,15 @@ apiRouter.post('/feed/:user/dislike/:post', async (req, res) =>{
 });
 
 // Now if we need to get the users
-apiRouter.get('/chat/users', (req, res) => {
+apiRouter.get('/chat/users', async (_req, res) => {
+    const users = await DB.getUsers();
     res.send(users);    
 });
 
 // What if we want to get the chats of the root user
-apiRouter.get('/chat/:user', (req, res) => {
-    const rootUser = userData.find(obj => obj.name === req.params.user);
-    res.send(rootUser.chats);
-});
-
-// What if we want to get the chat of the partner
-// apiRouter.get('/chat/:user/with/:user2', (req, res) => {
-//     // Get the userData for the person we are chatting with
-//     const toUser = userData.find(obj => obj.name === req.params.user2);
-//     // Get the chats with the rootUser from that guy's data
-//     const rootUserChat = toUser.chats.find(obj => obj.name === req.params.user);
-//     // Send that back
-//     res.send(rootUserChat);
+// apiRouter.get('/chat/:user', (req, res) => {
+//     const rootUser = userData.find(obj => obj.name === req.params.user);
+//     res.send(rootUser.chats);
 // });
 
 // We want to update the chats of the root user
@@ -143,17 +134,17 @@ apiRouter.post('/chat/:user/update/messages/with/:user2', (req, res) => {
 });
 
 // Now we need to pull the posts of the root user for the posts page to display them
-apiRouter.get('/posts/mine/:user', (req, res) => {
-    // Get the user
-    const theUser = userData.find(obj => obj.name === req.params.user);
-    res.send(theUser.posts);
+apiRouter.get('/posts/mine/:user', async (req, res) => {
+    const mine = await DB.getUserPosts(req.params.user);
+    res.send(mine);
 });
 // Also we need to get the likes of our rootuser for the liked posts table
-apiRouter.get('/posts/liked/:user', (req, res) => {
-    // Get the user
-    const theUser = userData.find(obj => obj.name === req.params.user);
-    res.send(theUser.likes);
+apiRouter.get('/posts/liked/:user', async (req, res) => {
+    const liked = await DB.getLiked(req.params.user);
+    res.send(liked);
 }); 
+
+
 // Return the application's default page if the path is unknown
 app.use((_req, res) => {
     res.sendFile('index.html', {root: 'public'});

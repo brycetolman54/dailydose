@@ -132,6 +132,25 @@ async function unlike(post, user) {
         {$pull: {likes: allPosts[post].place}}
     );
 };
+// To get the users for the chat
+async function getUsers() {
+    const response = users.find();
+    const allUsers = await response.toArray();
+    return allUsers;
+};
+// Chat functions
+
+// Get user posts
+async function getUserPosts(user) {
+    const theUser = await getUserData(user);
+    const mine = theUser.posts;
+    return mine;
+};
+async function getLiked(user) {
+    const theUser = await getUserData(user);
+    const liked = theUser.likes;
+    return liked;
+}
 
 // Export the functions so you can use them in your index.js file
-module.exports = { addUser, getUser, getPosts, addPost, getUserData, getLikes, like, unlike };
+module.exports = { addUser, getUser, getPosts, addPost, getUserData, getLikes, like, unlike, getUsers, getUserPosts, getLiked };

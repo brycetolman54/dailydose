@@ -17,34 +17,15 @@ function backToLogin() {
     window.location.replace('index.html');
 };
 
-function getRootUser() {
-    // Get the username
-    const username = localStorage.getItem('username');
-    // Get the array of the user objects
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    // Find the username in the list of userData and return that object
-
-    return userData.find(obj => obj.name === username);
-}
-
-function getUser(userId) {
-    // Get the array of the user objects
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    // Find the username in the list of userData and return that object
-    return userData.find(obj => obj.name === userId);
-} 
-
 // This is what I want my page to do when loading, but also at other times
 async function startingUp() {
     // Get the root user
-    // const rootUser = getRootUser();
     const response0 = await fetch(`/api/chat/${localStorage.getItem('username')}`);
     const chats = await response0.json();
     // Store the chats on the local for later use
     localStorage.setItem('chats', JSON.stringify(chats));
 
     // Get the list of users from storage
-    // const users = JSON.parse(localStorage.getItem('users'));
     const response1 = await fetch('/api/chat/users');
     const users = await response1.json();
         
@@ -56,7 +37,6 @@ async function startingUp() {
     }
 
     // Now we want to populate the conversations list with the chats we have opened
-    // let chatList = rootUser.chats;
     // Sort the array by time before using it
     const chatList = chats.sort((a,b) => {
         if(a.time > b.time) {
@@ -168,8 +148,6 @@ function getTime(time) {
 
 // This will open a chat when it is clicked on from the side menu
 function openChat(userId) {
-    // Get the root user
-    // const rootUser = getRootUser();
 
     // Start by enabling input in the text box
     document.getElementById('messageArea').disabled = false;
@@ -186,7 +164,6 @@ function openChat(userId) {
     value.style.backgroundColor = 'lightblue';
 
     // Now we need the root users chat list that corresponds to this person
-    // const chat = rootUser.chats.find(obj => obj.name === userId);
     const chat = JSON.parse(localStorage.getItem('chats')).find(obj => obj.name === userId);
 
     // Get the actual messages out of that object
@@ -360,9 +337,6 @@ async function sendMessage() {
     const userId = document.getElementById('userChatter').textContent;
 
     // Get the userData for the user and the root, get all userData
-    // const userData = JSON.parse(localStorage.getItem('userData'));
-    // const rootUser = getRootUser();
-    // const targetUser = getUser(userId);
     const chats = JSON.parse(localStorage.getItem('chats'));
 
     // Build the message object in prep to stick it in the array
@@ -407,20 +381,6 @@ async function sendMessage() {
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({msg: targetObj, time: timeStamp}),
         });
-
-        // Add the message to the chats for the target
-        // const targetToRoot = targetUser.chats.find(obj => obj.name === rootUser.name);
-        // targetToRoot.messages.push(targetObj);
-        // targetToRoot.time = timeStamp;
-        // Add the chats back to the target
-        // targetUser.chats[targetToRoot.num] = targetToRoot;
-    
-        // Replace the user data objects 
-        // userData[rootUser.num] = rootUser;
-        // userData[targetUser.num] = targetUser;
-
-    // Send it back to storage
-    // localStorage.setItem('userData', JSON.stringify(userData));
 
     // Remove all data, open the chat with this user again after startup
     removeList();

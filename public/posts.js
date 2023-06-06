@@ -9,9 +9,11 @@ window.addEventListener('DOMContentLoaded', () => {
     loadPage();
 });
 
+let length = 0;
 async function loadPage() {
-    const length = await fillMyTable();
-    fillLikeTable(length);
+    const length0 = await fillMyTable();
+    const length1 = fillLikeTable(length0);
+    length = length0 + length1;
 }
 
 function backToLogin() {
@@ -29,11 +31,13 @@ async function closeOtherPosts(buttonId = -1) {
     }
 
     // Get the length of the posts array from the root user
-    const result0 = await fetch(`/api/posts/mine/${localStorage.getItem('username')}`);
-    const length0 = await result0.json().length;
-    const result1 = await fetch(`/api/posts/liked/${localStorage.getItem('username')}`);
-    const length1 = await result1.json().length;
-    const length = length0 + length1;
+    // const result0 = await fetch(`/api/posts/mine/${localStorage.getItem('username')}`);
+    // const first = await result0.json()
+    // const length0 = first.length;
+    // const result1 = await fetch(`/api/posts/liked/${localStorage.getItem('username')}`);
+    // const length1 = await result1.json().length;
+    // const length1 = second.length;
+    // const length = length0 + length1;
 
     // Now we loop
     for(let i = 0; i < length; i++) {
@@ -225,6 +229,7 @@ async function fillLikeTable(begin) {
         parent.appendChild(newPost);
         i++;
     }
+    return Number(i);
 }
 
 function changePosts(which) {
