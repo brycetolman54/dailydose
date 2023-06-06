@@ -148,8 +148,13 @@ async function submitForm() {
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({user: user, data: obj}),
         });
-
         // Send us to feed.html
-        window.location.replace('feed.html');
+        location.replace('./feed.html');
+    }
+}
+
+function checkEnter(event) {
+    if(event.key === 'Enter') {
+        submitForm();
     }
 }
