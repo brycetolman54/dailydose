@@ -144,7 +144,23 @@ async function getUserChats(user) {
     const chats = theUser.chats;
     return chats;
 }
-
+// Update the chat list of the main user
+async function updateChats(user, chat) {
+    userData.updateOne(
+        {name: user},
+        {$set: {chats: chat}}
+    );
+};
+// Update the list of the user we are talking to
+async function updateHisChats(user, chat) {
+    // Get the user's chats
+    const chats = getUserChats(user);
+    chat.num = chats.length;
+    userData.updateOne(
+        {name: user},
+        {$push: {chats: chat}}
+    );
+}
 // Get user posts
 async function getUserPosts(user) {
     const theUser = await getUserData(user);
@@ -158,4 +174,4 @@ async function getLiked(user) {
 }
 
 // Export the functions so you can use them in your index.js file
-module.exports = { addUser, getUser, getPosts, addPost, getUserData, getLikes, like, unlike, getUsers, getUserPosts, getLiked, getUserChats };
+module.exports = { addUser, getUser, getPosts, addPost, getUserData, getLikes, like, unlike, getUsers, getUserPosts, getLiked, getUserChats, updateChats, updateHisChats };

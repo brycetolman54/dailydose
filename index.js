@@ -72,7 +72,7 @@ apiRouter.post('/feed/:user/dislike/:post', async (req, res) =>{
 
 // Now if we need to get the users
 apiRouter.get('/chat/users', async (_req, res) => {
-    console.log('hey');
+    
     const users = await DB.getUsers();
     res.send(users);    
 });
@@ -84,34 +84,28 @@ apiRouter.get('/chat/:user', async (req, res) => {
 });
 
 // We want to update the chats of the root user
-apiRouter.post('/chat/:user/update/chats', (req, res) => {
-    // Get the data of the user
-    const theUser = userData.find(obj => obj.name === req.params.user);
-    // Set his chats equal to the req body
-    theUser.chats = req.body;
-    // Now we can reset the userData with the new user's data
-    userData[theUser.num] = theUser;
+apiRouter.post('/chat/:user/update/chats', async (req, res) => {
+    
+    await DB.updateChats(req.params.user, req.body);
+
     res.send('done');
+
 });
 
 // We want to update the chats of the user with who we are chatting
-apiRouter.post('/chat/new/with/:user', (req, res) => {
-    // Get the user
-    const theUser = userData.find(obj => obj.name === req.params.user);
-    // Set his chats equal to the new chats with req body after adding the num attribute
-    const chat = req.body;
-    chat.num = theUser.chats.length;
-    theUser.chats.push(chat);
-    // Update the userData array
-    userData[theUser.num] = theUser;
+apiRouter.post('/chat/new/with/:user', async (req, res) => {
+
+    await DB.updateHisChats(req.params.user, req.body);
+
     res.send('done');
+
 });
 
 // We want to set right the storage data of the rootUser once it has been updated
-// apiRouter.put('/chat/:user/update/msg', (req, res) => {
-//     const data = req.body;
-//     userData[data.num] = data;
-// });
+apiRouter.put('/chat/:user/update/msg', (req, res) => {
+    const data = req.body;
+    userData[data.num] = data;
+});
 
 // We want to do the same for the user with whom we are chatting
 apiRouter.post('/chat/:user/update/messages/with/:user2', (req, res) => {
