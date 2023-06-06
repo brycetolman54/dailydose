@@ -55,30 +55,18 @@ apiRouter.get('/feed/:user', async (req, res) => {
 });
 
 // What if we need to like a post
-apiRouter.post('/feed/:user/like/:post', (req, res) => {
+apiRouter.post('/feed/:user/like/:post', async (req, res) => {
     
-    // Add the post to the user's likes
-    const theUser = userData.find(obj => obj.name === req.params.user);
-    userData[theUser.num].likes.push(posts[req.params.post].place);
-
-    // Increase the post's like count
-    posts[req.params.post].likes += 1;
-
-    // res.send({one: req.params.user, two: req.params.post, three: theUser, four: posts});
+    await DB.like(req.params.post, req.params.user);
+    
     res.send('good');
 });
 
 // what if we dislike a post
-apiRouter.post('/feed/:user/dislike/:post', (req, res) =>{
+apiRouter.post('/feed/:user/dislike/:post', async (req, res) =>{
     
-    // Add the post to the user's likes
-    const theUser = userData.find(obj => obj.name === req.params.user);
-    userData[theUser.num].likes = theUser.likes.filter(item => item !== posts[req.params.post].place);
+    await DB.unlike(req.params.post, req.params.user);
 
-    // Increase the post's like count
-    posts[req.params.post].likes -= 1;
-
-    // res.send({one: req.params.user, two: req.params.post, three: theUser, four: posts});
     res.send('good');
 });
 

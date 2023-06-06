@@ -103,12 +103,34 @@ async function getLikes(user) {
 
 };
 // Like Posts
-async function like() {
+async function like(post, user) {
+    // Increase the post's like count (after getting all posts)
+    const allPosts = await getPosts();
+    await posts.updateOne(
+        {place: allPosts[post].place},
+        {$inc: {likes: 1}}
+    )
 
+    // Now get the user and update his likes array
+    await userData.updateOne(
+        {name: user},
+        {$push: {likes: allPosts[post].place}}
+    );
 };
 // Unlike posts
-async function unlike() {
+async function unlike(post, user) {
+    // Decrease the post's like count (after getting all posts)
+    const allPosts = await getPosts();
+    posts.updateOne(
+        {place: allPosts[post].place},
+        {$inc: {likes: -1}}
+    )
 
+    // Now get the user and update his likes array
+    userData.updateOne(
+        {name: user},
+        {$pull: {likes: allPosts[post].place}}
+    );
 };
 
 // Export the functions so you can use them in your index.js file
