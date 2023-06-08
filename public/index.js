@@ -186,7 +186,7 @@ async function submitForm(which) {
         }
         else if(which === 'login') {
             const errMsg = document.getElementById('error');
-            errMsg.textContent = '** Username and/or password incorrect **';
+            errMsg.textContent = '** Incorrect username or password **';
             localStorage.removeItem('username');
         }
     }

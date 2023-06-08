@@ -82,7 +82,7 @@ apiRouter.get('/auth/:user', async (req, res) => {
         res.send({user: user.user, authenticated: token === user.token});
         return;
     }
-    res.status(404).send({msg: 'This user is unknown'});
+    res.status(401).send({msg: 'This user is unknown'});
 });
 
 // Make a secure router for the one above to use to verify credentials for endpoints

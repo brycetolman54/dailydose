@@ -9,18 +9,22 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         else {
             window.location.replace('index.html');
+            return;
         }
     }
     else {
         window.location.replace('index.html');
+        return;
     }
     startingUp();
 });
 
 async function getAuthen(user) {
     const result = await fetch(`/api/auth/${user}`);
-    const theResult = await response.json();
-    return theResult.authenticated;
+    if(result.ok) {
+        return true;
+    }
+    return false;
 }
 
 async function backToLogin() {

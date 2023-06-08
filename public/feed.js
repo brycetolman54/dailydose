@@ -1,8 +1,17 @@
 // This loads the username into the corner of the page
 window.addEventListener('DOMContentLoaded', () => {
+    // Check the user
+    checkUser();
+    // Fill the feed with all the posts
+    fillFeed()
+    // Display the quote as well
+    getQuote();
+});
+
+async function checkUser() {
     const user = localStorage.getItem('username');
     if(user) {
-        if(getAuthen(user)) {
+        if(await getAuthen(user)) {
             let elem = document.querySelector('#userInfo');
             elem.textContent = user;
             elem.style.fontSize = "15px";
@@ -15,17 +24,14 @@ window.addEventListener('DOMContentLoaded', () => {
     else {
         window.location.replace('index.html');
     }
-
-    // Fill the feed with all the posts
-    fillFeed()
-    // Display the quote as well
-    getQuote();
-});
+}
 
 async function getAuthen(user) {
     const result = await fetch(`/api/auth/${user}`);
-    const theResult = await response.json();
-    return theResult.authenticated;
+    if(result.ok) {
+        return true;
+    }
+    return false;
 }
  
 async function fillFeed() {
