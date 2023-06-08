@@ -1,7 +1,12 @@
 window.addEventListener('DOMContentLoaded', () => {
+    checkUser();
+    loadPage();
+});
+
+async function checkUser() {
     const user = localStorage.getItem('username');
     if(user) {
-        if(getAuthen(user)) {
+        if(await getAuthen(user)) {
             let elem = document.querySelector('#userInfo');
             elem.textContent = user;
             elem.style.fontSize = "15px";
@@ -9,15 +14,12 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         else {
             window.location.replace('index.html');
-            return;
         }
     }
     else {
         window.location.replace('index.html');
-        return;
     }
-    loadPage();
-});
+}
 
 async function getAuthen(user) {
     const result = await fetch(`/api/auth/${user}`);
