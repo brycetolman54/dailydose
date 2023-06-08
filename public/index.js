@@ -179,9 +179,14 @@ async function submitForm(which) {
         if(response.ok) {
             location.replace('./feed.html');
         }
-        else {
+        else if(which === 'signup') {
             const errMsg = document.getElementById('error');
-            errMsg.textContent = response.msg;
+            errMsg.textContent = '** That user already exists **';
+            localStorage.removeItem('username');
+        }
+        else if(which === 'login') {
+            const errMsg = document.getElementById('error');
+            errMsg.textContent = '** Username and/or password incorrect **';
             localStorage.removeItem('username');
         }
     }

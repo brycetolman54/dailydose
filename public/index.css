@@ -157,6 +157,13 @@ nav a:hover {
 #topbuttons {
     flex: 0;
 }
+#error {
+    flex: 0 15px;
+    padding: 5px 0;
+    color: red;
+    font-size: 12px;
+    font-weight: bold;
+}
 #submit {
     background-color: blue;
     color: white;

@@ -57,7 +57,7 @@ apiRouter.post(`/auth/signup`, async (req, res) => {
 
 // This gets the authToken for a user's provided credentials
 apiRouter.post('/auth/login', async (req, res) => {
-    const user = DB.getUser(req.body.user);
+    const user = await DB.getUser(req.body.user);
     if(user) {
         if(await bcrypt.compare(req.body.password, user.password)) {
             setAuthCookie(res, user.token);
