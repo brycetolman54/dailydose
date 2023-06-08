@@ -34,7 +34,7 @@ async function getAuthen(user) {
     return false;
 }
 
-async function backToLogin() {
+async function backToLogin() { 
     localStorage.removeItem('username');
     await fetch('/api/auth/logout');
     window.location.replace('index.html');

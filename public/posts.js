@@ -41,7 +41,7 @@ async function loadPage() {
     length = length0 + length1;
 }
 
-async function backToLogin() {
+async function backToLogin() { 
     localStorage.removeItem('username');
     await fetch('/api/auth/logout');
     window.location.replace('index.html');

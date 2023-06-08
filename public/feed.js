@@ -203,7 +203,7 @@ function getTime(time) {
 }
 
 // This takes us back to the login page if we click on the username
-async function backToLogin() {
+async function backToLogin() { 
     localStorage.removeItem('username');
     await fetch('/api/auth/logout');
     window.location.replace('index.html');
