@@ -10,6 +10,10 @@ function switchForm(toWhat) {
         element2.style.borderWidth = '1px';
         const func = document.getElementById('submit');
         func.setAttribute('onclick', "submitForm('login')");
+        const username = document.getElementById('loginText');
+        username.setAttribute('onkeydown',`checkEnter(event, 'login')`);
+        const password = document.getElementById('password');
+        password.setAttribute('onkeydown',`checkEnter(event, 'login')`);
 
         let filler = document.querySelectorAll('.filler');
         for(let fill of filler) {
@@ -23,6 +27,11 @@ function switchForm(toWhat) {
         element2.style.borderWidth = '1px';
         const func = document.getElementById('submit');
         func.setAttribute('onclick', "submitForm('signup')");
+        const username = document.getElementById('loginText');
+        username.setAttribute('onkeydown',`checkEnter(event, 'signup')`);
+        const password = document.getElementById('password');
+        password.setAttribute('onkeydown',`checkEnter(event, 'signup')`);
+
 
         let filler = document.querySelectorAll('.filler');
         for(let fill of filler) {
@@ -150,11 +159,21 @@ async function submitForm(which) {
     // Check it
     if(passwordGood && usernameGood) {
         // Put the data into the arrays
-        await fetch(`/api/auth/${which}`, {
-            method: 'POST',
-            headers: {'content-type': 'application/json'},
-            body: JSON.stringify({user: user, data: obj, password: password}),
-        });
+        let response = '';
+        if(which === 'signup') {
+            response = await fetch(`/api/auth/signup`, {
+                method: 'POST',
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify({user: user, data: obj, password: password}),
+            });
+        }
+        else if(which === 'login') {
+            response = await fetch(`/api/auth/login`, {
+                method: 'POST',
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify({user: user, data: obj, password: password}),
+            });
+        }
 
         // Now navigate to the feed or remove the username, based on if the user is authentic
         if(response.ok) {
@@ -168,8 +187,8 @@ async function submitForm(which) {
     }
 }
 
-function checkEnter(event) {
+function checkEnter(event, which) {
     if(event.key === 'Enter') {
-        submitForm();
+        submitForm(which);
     }
 }

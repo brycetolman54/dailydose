@@ -28,7 +28,7 @@
                     </div>
                     <div class="login">
                         <label for="text">Username:</label>
-                        <input type="text" id="loginText" name="userName" placeholder="Enter your username" required pattern="\w{5,15}" oninput="checkUsername()" onkeydown="checkEnter(event)"/>
+                        <input type="text" id="loginText" name="userName" placeholder="Enter your username" required pattern="\w{5,15}" oninput="checkUsername()" onkeydown="checkEnter(event, 'login')"/>
                     </div>
                     <div class="filler">
                         <div id="require1" class="require">
@@ -42,7 +42,7 @@
                     </div>
                     <div class="login">
                         <label for="password">Password:</label>
-                        <input type="password" id="password" name="passWord" placeholder="Enter your password" required pattern="(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&amp;\*\(\)])[\S]{8,}" oninput="checkPassword()" onkeydown="checkEnter(event)"/>
+                        <input type="password" id="password" name="passWord" placeholder="Enter your password" required pattern="(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&amp;\*\(\)])[\S]{8,}" oninput="checkPassword()" onkeydown="checkEnter(event, 'login')"/>
                     </div>
                     <div class="filler">
                         <div id="require2" class="require">

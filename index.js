@@ -31,20 +31,6 @@ const authCookieName = 'token';
 var apiRouter = express.Router();
 app.use('/api', apiRouter);
 
-// Make a secure router for the one above to use to verify credentials for endpoints
-var secureApiRouter = express.Router();
-apiRouter.use(secureApiRouter);
-secureApiRouter.use(async (req, res, next) => {
-    authToken = req.cookies[authCookieName];
-    const user = await DB.getUserByToken(authToken);
-    if(user) {
-        next();
-    }
-    else {
-        res.status(401).send({msg: 'User does not exist'});
-    }
-});
-
 // This function actually sets the cookie in the HTTP response
 function setAuthCookie(res, authToken) {
     res.cookie(authCookieName, authToken, {
@@ -55,7 +41,7 @@ function setAuthCookie(res, authToken) {
 };
 
 // This guy creates a token for a new user
-apiRouter.post('/auth/signup', async (req, res) => {
+apiRouter.post(`/auth/signup`, async (req, res) => {
     if(await DB.getUser(req.body.user)) {
         res.status(409).send({msg: 'This user already exists'});
     }
@@ -97,6 +83,20 @@ apiRouter.get('/auth/:user', async (req, res) => {
         return;
     }
     res.status(404).send({msg: 'This user is unknown'});
+});
+
+// Make a secure router for the one above to use to verify credentials for endpoints
+var secureApiRouter = express.Router();
+apiRouter.use(secureApiRouter);
+secureApiRouter.use(async (req, res, next) => {
+    authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+    if(user) {
+        next();
+    }
+    else {
+        res.status(401).send({msg: 'User does not exist'});
+    }
 });
 
 // // We need to put a new user in the array
