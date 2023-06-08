@@ -1,5 +1,5 @@
-window.addEventListener('DOMContentLoaded', () => {
-    const check = checkUser();
+window.addEventListener('DOMContentLoaded', async () => {
+    const check = await checkUser();
     if(check) {
         return;
     }

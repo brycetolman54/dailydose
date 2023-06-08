@@ -1,7 +1,7 @@
 // This loads the username into the corner of the page
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
     // Check the user
-    const check = checkUser();
+    const check = await checkUser();
     if(check) {
         return;
     }
