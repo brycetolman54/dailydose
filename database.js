@@ -18,6 +18,10 @@ const posts = db.collection('posts');
 const userData = db.collection('userData');
 const users = db.collection('users');
 
+// Get the bcrypt and uuid to hash passwords and provide tokens
+const bcrypt = require('bcrypt');
+const uuid = require('uuid');
+
 // Asynchronously test the connection
 (async function testConnection() {
     await client.connect();
@@ -196,5 +200,20 @@ async function getLiked(user) {
 /******************************************************************************************************************************************************/
 
 // Export the functions so you can use them in your index.js file
-module.exports = { addUser, getUser, getPosts, addPost, getUserData, getLikes, like, unlike, getUsers, 
-    getUserPosts, getLiked, getUserChats, updateChats, updateHisChats, updateHisMessages };
+module.exports = { 
+    addUser, 
+    getUser, 
+    getPosts, 
+    addPost, 
+    getUserData, 
+    getLikes, 
+    like, 
+    unlike, 
+    getUsers, 
+    getUserPosts, 
+    getLiked, 
+    getUserChats, 
+    updateChats, 
+    updateHisChats, 
+    updateHisMessages 
+};
