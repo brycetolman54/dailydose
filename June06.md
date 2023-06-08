@@ -3,6 +3,9 @@
 - HTTP is a client to server communication, that's not what we want. We want the server to communicate to us by its initiative, not just when we ask it for something.
 - So we got ***WEBSOCKET***, which runs under the HTTP protocol
 - How do we do it?
+- You can use the `on connection` callback to specify what happens upon connecting
+- You can use the `on message` callback to specify what happens when you receive a message
+- You can use the `send` to send messages
 ```
 // To server
 GET /chat HTTP/2
