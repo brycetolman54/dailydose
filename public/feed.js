@@ -1,7 +1,10 @@
 // This loads the username into the corner of the page
 window.addEventListener('DOMContentLoaded', () => {
     // Check the user
-    checkUser();
+    const check = checkUser();
+    if(check) {
+        return;
+    }
     // Fill the feed with all the posts
     fillFeed()
     // Display the quote as well
@@ -16,6 +19,7 @@ async function checkUser() {
             elem.textContent = user;
             elem.style.fontSize = "15px";
             elem.style.height = 'auto';
+            return false;
         }
         else {
             window.location.replace('index.html');
@@ -24,6 +28,7 @@ async function checkUser() {
     else {
         window.location.replace('index.html');
     }
+    return true;
 }
 
 async function getAuthen(user) {

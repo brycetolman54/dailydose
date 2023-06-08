@@ -1,5 +1,8 @@
 window.addEventListener('DOMContentLoaded', () => {
-    checkUser();
+    const check = checkUser();
+    if(check) {
+        return;
+    }
     loadPage();
 });
 
@@ -11,6 +14,7 @@ async function checkUser() {
             elem.textContent = user;
             elem.style.fontSize = "15px";
             elem.style.height = 'auto';
+            return false;
         }
         else {
             window.location.replace('index.html');
@@ -19,6 +23,7 @@ async function checkUser() {
     else {
         window.location.replace('index.html');
     }
+    return true;
 }
 
 async function getAuthen(user) {
