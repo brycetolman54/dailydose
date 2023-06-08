@@ -4,6 +4,10 @@ const express = require('express');
 const app = express();
 // Get the DB info to use its functions and retrieve data and such
 const DB = require('./database.js');
+// Get the encrypting guy
+const bcrypt = require('bcrypt');
+// Get the cookie parser
+const cookieParser = require('cookie-parser');
 
 // The service port. In production the fronted code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -56,7 +60,7 @@ apiRouter.post('/auth/signup', async (req, res) => {
         res.status(409).send({msg: 'This user already exists'});
     }
     else {
-        const user = await DB.addUser(req.body.user, req.body.password);
+        const user = await DB.addUser(req.body.user, req.body.password, req.body.data);
 
         // Set the cookie
         setAuthCookie(res, user.token);

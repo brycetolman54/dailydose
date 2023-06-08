@@ -155,10 +155,14 @@ async function submitForm(which) {
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({user: user, data: obj, password: password}),
         });
+
+        // Now navigate to the feed or remove the username, based on if the user is authentic
         if(response.ok) {
             location.replace('./feed.html');
         }
         else {
+            const errMsg = document.getElementById('error');
+            errMsg.textContent = response.msg;
             localStorage.removeItem('username');
         }
     }

@@ -34,20 +34,38 @@ const uuid = require('uuid');
 /**********************************************************************************************************************************/
 
 // Add a user
-async function addUser(body) {
-    // Put the result in the arrays
-    const user = await users.insertOne({user: body.user});
-    const result = userData.find()
-    const array = await result.toArray()
+async function addUser(user, password, data) {
+
+    // Hash the password
+    const newPassword = await bcrypt.hash(password, 10);
+
+    // Make the user object
+    const allUser = {
+        user: user,
+        password: newPassword,
+        token: uuid.v4(),
+    }
+    
+    // Put the user in the array
+    await users.insertOne(allUser);
+
+    // Put the user data into its array
+    const result = userData.find();
+    const array = await result.toArray();
     const long = array.length;
-    body.data.num = long;
-    const data = await userData.insertOne(body.data);   
-    return {user, data};
+    data.num = long;
+    await userData.insertOne(data);
+
+    return allUser;
 };
 // See if we have a user there already
 async function getUser(userId) {
     return users.findOne({user: userId});
 };
+// Get the user by their token for the secure router
+function getUserByToken(token) {
+    return users.findOne({token: token});
+}
 // Gets the user data
 async function getUserData(userId) {
     const result = userData.find({name: `${userId}`});
@@ -212,5 +230,6 @@ module.exports = {
     getUserChats, 
     updateChats, 
     updateHisChats, 
-    updateHisMessages 
+    updateHisMessages,
+    getUserByToken,
 };
