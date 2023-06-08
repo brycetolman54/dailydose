@@ -3,18 +3,30 @@ let usernameGood = false;
 let passwordGood = false;
 
 function switchForm(toWhat) {
+
+    // Make the error message leave if there is one
+    const error = document.getElementById('error');
+    error.textContent = '';
+    
     if(toWhat === "login") {
+        // Make the border on the login and signup change
         let element = document.querySelector('#login');
         element.style.borderWidth = '2px';
         let element2 = document.querySelector('#signup');
         element2.style.borderWidth = '1px';
+
+        // Change the onclick and onkeydown functions to be login and clear the username and password
         const func = document.getElementById('submit');
         func.setAttribute('onclick', "submitForm('login')");
         const username = document.getElementById('loginText');
+        username.value = '';
+        localStorage.removeItem('username');
         username.setAttribute('onkeydown',`checkEnter(event, 'login')`);
         const password = document.getElementById('password');
+        password.value = '';
         password.setAttribute('onkeydown',`checkEnter(event, 'login')`);
 
+        // Clear the checkboxes since it is login and not sign up
         let filler = document.querySelectorAll('.filler');
         for(let fill of filler) {
             fill.style.display = 'none';
@@ -28,8 +40,11 @@ function switchForm(toWhat) {
         const func = document.getElementById('submit');
         func.setAttribute('onclick', "submitForm('signup')");
         const username = document.getElementById('loginText');
+        username.value = '';
+        localStorage.removeItem('username');
         username.setAttribute('onkeydown',`checkEnter(event, 'signup')`);
         const password = document.getElementById('password');
+        password.value = '';
         password.setAttribute('onkeydown',`checkEnter(event, 'signup')`);
 
 
