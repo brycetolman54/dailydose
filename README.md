@@ -65,3 +65,10 @@ In this deliverable, I set up my database on MongoDB and begin to access it from
 - ***MongoDB Atlas Database Created:*** I created my MongoDB Atlas account and access it from my server.
 - ***Endpoints for Data:*** I use the endpoints on my server to update the data that is stored in my database.
 - ***Stores Data in MongoDB:*** I store a couple of arrays of data in MongoDB that hold the data received from my frontend.
+
+# Login Deliverable
+In this deliverable, I added user registration and user authentication to my site.
+- ***User Registration:*** New users are added to the database with a unique token when a new account is created.
+- ***Exisiting User:*** The site checks the authentication of a user using the username and password provided by the user.
+- ***User MondoDB to store credentials:*** All users' login information and tokens are stored on MongoDB.
+- ***Restricts Functionality:*** You cannot access any page on the site except for the login page until you create an account of log in to an existing account.
