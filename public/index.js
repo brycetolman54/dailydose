@@ -8,6 +8,8 @@ function switchForm(toWhat) {
         element.style.borderWidth = '2px';
         let element2 = document.querySelector('#signup');
         element2.style.borderWidth = '1px';
+        const func = document.getElementById('submit');
+        func.setAttribute('onclick', "submitForm('login')");
 
         let filler = document.querySelectorAll('.filler');
         for(let fill of filler) {
@@ -19,6 +21,8 @@ function switchForm(toWhat) {
         element.style.borderWidth = '2px';
         let element2 = document.querySelector('#login');
         element2.style.borderWidth = '1px';
+        const func = document.getElementById('submit');
+        func.setAttribute('onclick', "submitForm('signup')");
 
         let filler = document.querySelectorAll('.filler');
         for(let fill of filler) {
@@ -123,9 +127,12 @@ function checkPassword() {
     passwordGood = check1 && check2 && check3 && check4;
 }
 
-async function submitForm() {
+async function submitForm(which) {
     // Make a new object for the user
     const obj = new Object;
+
+    // Get the password
+    const password = document.getElementById('password').value;
 
     // Get the user
     const user = document.getElementById('loginText').value;
@@ -143,13 +150,17 @@ async function submitForm() {
     // Check it
     if(passwordGood && usernameGood) {
         // Put the data into the arrays
-        await fetch('/api/login/user', {
+        await fetch(`/api/auth/${which}`, {
             method: 'POST',
             headers: {'content-type': 'application/json'},
-            body: JSON.stringify({user: user, data: obj}),
+            body: JSON.stringify({user: user, data: obj, password: password}),
         });
-        // Send us to feed.html
-        location.replace('./feed.html');
+        if(response.ok) {
+            location.replace('./feed.html');
+        }
+        else {
+            localStorage.removeItem('username');
+        }
     }
 }
 

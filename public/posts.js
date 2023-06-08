@@ -1,13 +1,27 @@
 window.addEventListener('DOMContentLoaded', () => {
     const user = localStorage.getItem('username');
     if(user) {
-        let elem = document.querySelector('#userInfo');
-        elem.textContent = user;
-        elem.style.fontSize = "15px";
-        elem.style.height = 'auto';
+        if(getAuthen(user)) {
+            let elem = document.querySelector('#userInfo');
+            elem.textContent = user;
+            elem.style.fontSize = "15px";
+            elem.style.height = 'auto';
+        }
+        else {
+            window.location.replace('index.html');
+        }
+    }
+    else {
+        window.location.replace('index.html');
     }
     loadPage();
 });
+
+async function getAuthen(user) {
+    const result = await fetch(`/api/auth/${user}`);
+    const theResult = await response.json();
+    return theResult.authenticated;
+}
 
 let length = 0;
 async function loadPage() {
@@ -16,8 +30,9 @@ async function loadPage() {
     length = length0 + length1;
 }
 
-function backToLogin() {
+async function backToLogin() {
     localStorage.removeItem('username');
+    await fetch('/api/auth/logout');
     window.location.replace('index.html');
 };
 

@@ -46,10 +46,7 @@ async function addUser(body) {
 };
 // See if we have a user there already
 async function getUser(userId) {
-    // See if you can find him in the array
-    const result = users.find({user: `${userId}`});
-    const array = await result.toArray();
-    return array;
+    return users.findOne({user: userId});
 };
 // Gets the user data
 async function getUserData(userId) {

@@ -2,10 +2,15 @@
 window.addEventListener('DOMContentLoaded', () => {
     const user = localStorage.getItem('username');
     if(user) {
-        let elem = document.querySelector('#userInfo');
-        elem.textContent = user;
-        elem.style.fontSize = "15px";
-        elem.style.height = 'auto';
+        if(getAuthen(user)) {
+            let elem = document.querySelector('#userInfo');
+            elem.textContent = user;
+            elem.style.fontSize = "15px";
+            elem.style.height = 'auto';
+        }
+        else {
+            window.location.replace('index.html');
+        }
     }
     else {
         window.location.replace('index.html');
@@ -16,6 +21,12 @@ window.addEventListener('DOMContentLoaded', () => {
     // Display the quote as well
     getQuote();
 });
+
+async function getAuthen(user) {
+    const result = await fetch(`/api/auth/${user}`);
+    const theResult = await response.json();
+    return theResult.authenticated;
+}
  
 async function fillFeed() {
     // Grab the data
@@ -181,8 +192,9 @@ function getTime(time) {
 }
 
 // This takes us back to the login page if we click on the username
-function backToLogin() {
+async function backToLogin() {
     localStorage.removeItem('username');
+    await fetch('/api/auth/logout');
     window.location.replace('index.html');
 };
 

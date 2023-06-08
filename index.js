@@ -51,12 +51,12 @@ function setAuthCookie(res, authToken) {
 };
 
 // This guy creates a token for a new user
-apiRouter.post('/auth/create', async (req, res) => {
+apiRouter.post('/auth/signup', async (req, res) => {
     if(await DB.getUser(req.body.user)) {
         res.status(409).send({msg: 'This user already exists'});
     }
     else {
-        const user = await DB.createUser(req.body.user, req.body.password);
+        const user = await DB.addUser(req.body.user, req.body.password);
 
         // Set the cookie
         setAuthCookie(res, user.token);
@@ -95,17 +95,17 @@ apiRouter.get('/auth/:user', async (req, res) => {
     res.status(404).send({msg: 'This user is unknown'});
 });
 
-// We need to put a new user in the array
-secureApiRouter.post('/login/user', async (req, res) => {
+// // We need to put a new user in the array
+// secureApiRouter.post('/login/user', async (req, res) => {
 
-    // If the user isn't in the array, add him
-    const array = await DB.getUser(req.body.user);
-    if( array.length === 0) {
-        await DB.addUser(req.body);
-    }
-    res.send('done');
+//     // If the user isn't in the array, add him
+//     const array = await DB.getUser(req.body.user);
+//     if( array.length === 0) {
+//         await DB.addUser(req.body);
+//     }
+//     res.send('done');
 
-});
+// });
 
 // What if we need to get the posts
 secureApiRouter.get('/*/posts', async (_req, res) => {
