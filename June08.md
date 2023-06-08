@@ -38,3 +38,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(<UseEffectHookDemo /
   - `useEffect` can take two parameters: a function to do when rerendered and something that makes it not rerender every time (an empty array [])
   - The second parameter, the array, takes things. Each thing in the array, when it is changed, will cause the rerender
 - You can only use hooks in function components at the top level of function scope, no loops or conditional
+
+
