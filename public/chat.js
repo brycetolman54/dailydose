@@ -480,12 +480,13 @@ function webSocketChat() {
     // Set the protocol based on what the http server is
     const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
     // Make the WebSocket connection at this url
-    const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
-    // When we open the connection, make a green dot appear by the user's name
-    socket.onopen = () => {
-
+    const socket = new WebSocket(`${protocol}://${window.location.host}/ws?user=${localStorage.getItem('username')}`);
+    // When we open the connection
+    socket.onopen = (e) => {
+        console.log(`chats open for ${localStorage.getItem('username')}`);
     };
     // when 
 
 
 }  
+webSocketChat();

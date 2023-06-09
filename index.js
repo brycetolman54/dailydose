@@ -217,4 +217,4 @@ const httpServer = app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
 
-// chatFunction(httpServer);
+chatFunction(httpServer);

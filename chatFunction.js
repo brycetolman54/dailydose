@@ -9,7 +9,7 @@ function chatFunction(httpServer) {
      
     // First we need to create a WebSocket object
     // We include noserver because we want it to work on the same http server that everything else is hosted on
-    const wss = new WebSocketServer({noserver: true});
+    const wss = new WebSocketServer({noServer: true});
 
     // Now we upgrade the server we already have
     httpServer.on('upgrade', (request, socket, head) => {
@@ -22,9 +22,13 @@ function chatFunction(httpServer) {
     let connections = [];
 
     // This is what we can do when we are connected
-    wss.on('connection', (ws) => {
+    wss.on('connection', (ws, request) => {
+        // Get the URL so we can get the user and thus set the connection right
+        // the request.url gets the whole url, the split('?') splits it into before the ? and after, the [1] gets the after, the new URLSear... converts that string from the split into an object with what is before '=' as the identifier and what is after as the value
+        const urlParam = new URLSearchParams(request.url.split('?')[1]);
+        const user = urlParam.get('user');
         // Create the connection for this user with the server
-        const connection = {id: localStorage.getItem('username'), alive: true, ws: ws};
+        const connection = {id: user, alive: true, ws: ws};
         // Push that connection into our array
         connections.push(connection);
 
@@ -41,10 +45,22 @@ function chatFunction(httpServer) {
 - Include a bit at the beginning of each message that will tell if it is a notice or a messagecc n
 */
 
-        // We want to send a message to a specific person
-        // When we send it, we just want to reload their page and open the chat with the user that sent the message
-        ws.on('message', function message(data) => {
-            const c = 
+        // We want to send a message to either a specific person or all people
+        ws.on('message', function message(data) {
+            // If it's a message, send it to the one person
+            if(data.which === 'message') {
+                const c = connections.find(obj => obj.id === data.to);
+                c.ws.send(data);
+            }
+            // If it is not, send the notification to all
+            else if(data.which === 'notification') {
+                connections.forEach((c) => {
+                    // We don't need to send it to ourselves
+                    if(c.id !== connection.id) {
+                        c.ws.send(data);
+                    }
+                });
+            }
         });
 
         // We need to remove the user from the connections array when they close the connection
