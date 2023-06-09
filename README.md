@@ -72,3 +72,11 @@ In this deliverable, I added user registration and user authentication to my sit
 - ***Exisiting User:*** The site checks the authentication of a user using the username and password provided by the user.
 - ***User MondoDB to store credentials:*** All users' login information and tokens are stored on MongoDB.
 - ***Restricts Functionality:*** You cannot access any page on the site except for the login page until you create an account of log in to an existing account.
+
+# WebSocket Deliverable
+In this deliverable, I created a WebSocket server for my app that pushes messages up through the chat for users to communicate with one another.
+For this deliverable I enabled realtime reporting of votes from other users.
+- ***Backend Listens for WebSocket Connection:*** - The Server listens for connectionfrom WebSocket
+- ***Frontend makes WebSocket Connection:*** - The frontend connects to the WebSocket server when a chat is opened by the user.
+- ***Data Sent Over WebSocket Connection:*** - The messages sent between users are sent over the WebSocket connection when they are sent.
+- ***WebSocket Data Displayed:*** - The messages people send one another are put into the Datbase and are also displayed on the users' screens when sent.
