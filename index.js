@@ -8,6 +8,8 @@ const DB = require('./database.js');
 const bcrypt = require('bcrypt');
 // Get the cookie parser
 const cookieParser = require('cookie-parser');
+// Pull in the WebSockets server
+const {chatFunction} = require('./chatFunction.js');
 
 // The service port. In production the fronted code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
