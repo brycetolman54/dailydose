@@ -38,6 +38,7 @@
     border-bottom: solid;
     border-bottom-width: 1px;
     cursor: pointer;
+    align-items: center;
 }
 .chatuser {
     flex: 1;
@@ -47,6 +48,16 @@
 }
 .chatGroup:hover {
     background-color: lightblue;
+}
+.littleDot {
+    flex: 0 5px;
+    background-color: white;
+    border: solid grey 2px;
+    border-radius: 100%;
+    width: 5px;
+    height: 5px;
+    justify-self: center;
+    margin: 0 5px;
 }
 .date {
     flex: 1;

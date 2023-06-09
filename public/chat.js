@@ -123,9 +123,15 @@ function placeChat(chat) {
             // Set the date
             p.textContent = getDate(new Date(chat.time));
 
+        // Create the div that will hold the little green dot
+        const dot = document.createElement('div');
+            // Add the class
+            dot.classList.add('littleDot');
+
         // Now we put it all in the li element
         liEl.appendChild(div);
         liEl.appendChild(p);
+        liEl.appendChild(dot);
 
     // Now we can put the the li in the ol
     olEl.appendChild(liEl);
@@ -173,6 +179,9 @@ function getTime(time) {
 
 // This will open a chat when it is clicked on from the side menu
 function openChat(userId) {
+
+    // Store the opened chat in the local storage for reference
+    localStorage.setItem('openedChat', userId);
 
     // Start by enabling input in the text box
     document.getElementById('messageArea').disabled = false;
@@ -465,3 +474,18 @@ function closeChats() {
     const bars = document.getElementById('bars');
     bars.setAttribute('onclick', 'openChats()');
 }
+
+// This is to deal with the WebSockets part of the chat
+function webSocketChat() {
+    // Set the protocol based on what the http server is
+    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+    // Make the WebSocket connection at this url
+    const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+    // When we open the connection, make a green dot appear by the user's name
+    socket.onopen = () => {
+
+    };
+    // when 
+
+
+}  
