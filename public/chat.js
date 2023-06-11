@@ -3,7 +3,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     if(check) {
         return;
     }
-    startingUp();
+    await startingUp();
     webSocketChat();
 });
 
