@@ -32,14 +32,14 @@
                         <ol id="messageList"></ol>
                     </div>
                     <div id="newMessage">
-                        <textarea id="messageArea" name="message" required oninput="enableSend()" disabled></textarea>
+                        <textarea id="messageArea" name="message" required oninput="enableSend()" disabled onkeydown="checkEnter(event)"></textarea>
                         <button id="send" disabled="false" onclick="sendMessage()">Send</button>
                     </div>
                 </div>
                 <aside id="chats">
                     <h3 id="chatHead">Conversations</h3>
                     <div id="container">
-                        <ol id="userChatList"></ol>
+                        <ol id="userChatList"></ol> 
                     </div>
                     <div id="startNew">
                         <label id="startLabel">Start a new message with</label>

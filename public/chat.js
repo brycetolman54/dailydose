@@ -1,4 +1,4 @@
-
+// Puts these here so I can always reference them
 let protocol = '';
 let socket = '';
 
@@ -52,6 +52,10 @@ window.addEventListener('DOMContentLoaded', async () => {
             else {
                 const userLine = document.getElementById(`${msg.from}`);
                 userLine.style.backgroundColor = 'rgb(202, 202, 251)';
+                // Delete all chats
+                // Add code here to update the DB when a chat is unseen and not
+                // You have to do a fetch
+                // Update the code for when you make the user list, so the unseen chats be purpley when loaded
             }
         }
     }
@@ -356,8 +360,6 @@ async function startNew() {
     removeList();
     removeText();
 
-    // Get the root user
-    // const rootUser = getRootUser();
     const chats = JSON.parse(localStorage.getItem('chats'));
 
     // Get the user chosen for the new chat
@@ -384,6 +386,8 @@ async function startNew() {
             rootObj.messages = [];
             // Add the number
             rootObj.num = chats.length;
+            // Add the unseen placeholder
+            rootObj.unseen = false;
 
         // Add the object to the root users chats
         chats.push(rootObj);
@@ -487,6 +491,14 @@ async function sendMessage() {
     openChat(userId);
 }
 
+// Notices when you press enter, to send the message and to keep the new line from showing up
+function checkEnter(event) {
+    if(event.key === 'Enter') {
+        event.preventDefault();
+        sendMessage();
+    }
+}
+
 // This enables and disables the send button if there is input
 function enableSend() {
 
@@ -494,13 +506,8 @@ function enableSend() {
     const message = document.getElementById('messageArea');
     const send = document.getElementById('send');
 
-    if(message.value.length > 0 && message.value !== '\u000a') {
+    if(message.value.length > 0) {
         send.disabled = false;
-        // If they hit enter, send it
-        if(message.value.includes("\u000a")) {
-            sendMessage();
-            send.disabled = true;
-        }
     }
     else {
         send.disabled = true;
@@ -539,7 +546,7 @@ function closeChats() {
     bars.setAttribute('onclick', 'openChats()');
 }
 
-// This is to deal with the WebSockets part of the chat
+// Changes the status of users who connect to the chat
 function changeStatus(who, status) {
     // Get the element for the person
     const person = document.getElementById(who);
