@@ -36,7 +36,22 @@ window.addEventListener('DOMContentLoaded', async () => {
             changeStatus(msg.who, msg.status);
         }
         else if(msg.which === 'message') {
-            console.log(`hey there ${msg.to}, from ${msg.from}`);
+            // Put up the message immediately if you have the chat open
+            if(localStorage.getItem('openedChat') === msg.from) {
+                // Now we can get the ol element that we need to add the message to
+                const olEl = document.getElementById('messageList');
+                // Now we can add the message
+                const liEl = getMessageEl(msg.msg);
+                // Add it to the list
+                olEl.appendChild(liEl);
+                // Scroll down again
+                let scrollElement = document.getElementById('messageList');
+                scrollElement.scrollTop = scrollElement.scrollHeight;
+            }
+            // Else, highlight the chat
+            else {
+                
+            }
         }
     }
 });
@@ -466,7 +481,7 @@ async function sendMessage() {
     removeList();
     removeSelect();
     removeText();
-    socket.send(JSON.stringify({which: 'message', from: `${localStorage.getItem('username')}`, to: `${userId}` }));
+    socket.send(JSON.stringify({which: 'message', from: `${localStorage.getItem('username')}`, to: `${userId}`, msg: targetObj }));
     await startingUp();
     openChat(userId);
 }
