@@ -61,7 +61,6 @@ function chatFunction(httpServer) {
             // If it's a message, send it to the one person
             if(msg.which === 'message') {
                 const c = connections.find(obj => obj.id === msg.to);
-                console.log(event);
                 c.ws.send(JSON.stringify(msg));
             }
             // If it is not, send the notification to all

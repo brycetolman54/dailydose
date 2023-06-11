@@ -41,6 +41,11 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+window.addEventListener('unload', () => {
+    localStorage.removeItem('active');
+    localStorage.removeItem('openedChat');
+});
+
 async function checkUser() {
     const user = localStorage.getItem('username');
     if(user) {
@@ -545,8 +550,8 @@ function changeStatus(who, status) {
             dot.style.backgroundColor = 'rgb(234, 233, 233)';
             dot.style.border = 'solid grey 1px';
             const active = JSON.parse(localStorage.getItem('active'));
-            active.filter((user) => user !== who);
-            localStorage.setItem('active', JSON.stringify(active));
+            const result = active.filter((user) => user !== who);
+            localStorage.setItem('active', JSON.stringify(result));
         }
     }
 }
