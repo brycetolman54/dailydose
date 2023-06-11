@@ -4,6 +4,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         return;
     }
     startingUp();
+    webSocketChat();
 });
 
 async function checkUser() {
@@ -479,14 +480,55 @@ function closeChats() {
 function webSocketChat() {
     // Set the protocol based on what the http server is
     const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
-    // Make the WebSocket connection at this url
+    // Make the WebSocket connection at this url, for this user
     const socket = new WebSocket(`${protocol}://${window.location.host}/ws?user=${localStorage.getItem('username')}`);
+    
     // When we open the connection
-    socket.onopen = (e) => {
+    socket.onopen = () => {
+        // Print it out
         console.log(`chats open for ${localStorage.getItem('username')}`);
+        // Tell the world
+        // socket.send(JSON.stringify({which: 'notification', status: 'on', who: `${localStorage.getItem('username')}`}));
     };
-    // when 
 
+    // When the connection closes
+    socket.onclose = () => {
+        // Print it out
+        console.log(`chats closed for ${localStorage.getItem('username')}`);
+        // Tell the world
+        // socket.send(JSON.stringify({which: 'notification', status: 'off', who: `${localStorage.getItem('username')}`}));
+    }
 
+    // When you receive a message
+    socket.onmessage = async (event) => {
+        // Get the data sent
+        const msg = JSON.parse(event.data);
+        // Check to see what type it is
+        if(msg.which === 'notification') {
+            // Turn the green light on or off
+            changeStatus(msg.who, msg.status);
+        }
+        else if(msg.which === 'message') {
+
+        }
+    }
 }  
-webSocketChat();
+
+function changeStatus(who, status) {
+    // Get the element for the person
+    const person = document.getElementById(who);
+    // If the person is there, do stuff
+    if(person) {
+        // Get the dot
+        const dot = person.children[2];
+        // Change the look of the dot
+        if(status === 'on') {
+            dot.style.backgroundColor = 'green';
+            dot.style.border = 'solid green 1px';
+        }
+        else if(status === 'off') {
+            dot.style.backgroundColor = 'rgb(234, 233, 233)';
+            dot.style.border = 'solid grey 1px';
+        }
+    }
+}

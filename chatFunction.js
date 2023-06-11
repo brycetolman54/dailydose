@@ -29,6 +29,14 @@ function chatFunction(httpServer) {
         const user = urlParam.get('user');
         // Create the connection for this user with the server
         const connection = {id: user, alive: true, ws: ws};
+        // Send out a message to everybody that you are here adn to yourself that everybody else is here
+        connections.forEach((c) => {
+            // To them
+            c.ws.send(JSON.stringify({which: 'notification', status: 'on', who: user}));
+            // To you
+            connection.ws.send(JSON.stringify({which: 'notification', status: 'on', who: c.id}));
+        });
+        // Send yourself a message that everybody else is here
         // Push that connection into our array
         connections.push(connection);
 
@@ -40,24 +48,27 @@ function chatFunction(httpServer) {
 - if it isn't higlight the user's chat in the side menu (add something to remove this when a chat is opened)
 - We need to add something to hold this color when a chat hasn't been opened that has been sent to
 - When you log on, send a notification to all that changes your dot to green
-- When you log off, send a notification to all that changes your dot back
+- When you log off, send a notification to all that changes your dot back (do this and the above in this code, not the front end)
+- On connection, send a message to yourself for each connection already active
 - You have to deal with receiving messages, logon notices, and log off notices
 - Include a bit at the beginning of each message that will tell if it is a notice or a messagecc n
 */
 
         // We want to send a message to either a specific person or all people
-        ws.on('message', function message(data) {
+        ws.on('message', (event)  => {
+            // Get the data out of the thing  
+            const msg = JSON.parse(event.toString());
             // If it's a message, send it to the one person
-            if(data.which === 'message') {
+            if(msg.which === 'message') {
                 const c = connections.find(obj => obj.id === data.to);
-                c.ws.send(data);
+                c.ws.send(event);
             }
             // If it is not, send the notification to all
-            else if(data.which === 'notification') {
+            else if(msg.which === 'notification') {
                 connections.forEach((c) => {
                     // We don't need to send it to ourselves
                     if(c.id !== connection.id) {
-                        c.ws.send(data);
+                        c.ws.send(event);
                     }
                 });
             }
@@ -66,8 +77,15 @@ function chatFunction(httpServer) {
         // We need to remove the user from the connections array when they close the connection
         // o is what we are looking for, i is the index of that
         ws.on('close', () => {
+            // Send out a message that the person has left the chat
+            connections.forEach((c) => {
+                if(c.id !== connection.id) {
+                    // To them
+                    c.ws.send(JSON.stringify({which: 'notification', status: 'off', who: user}));
+                }
+            });
             connections.findIndex((o, i) => {
-                if(o.id = connections.id) {
+                if(o.id === connection.id) {
                     connections.splice(i, 1);
                     // This return makes the function stop 
                     return true;

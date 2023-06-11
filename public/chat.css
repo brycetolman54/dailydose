@@ -51,8 +51,8 @@
 }
 .littleDot {
     flex: 0 5px;
-    background-color: white;
-    border: solid grey 2px;
+    background-color: rgb(234, 233, 233);
+    border: solid grey 1px;
     border-radius: 100%;
     width: 5px;
     height: 5px;
