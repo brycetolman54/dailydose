@@ -1,10 +1,44 @@
+
+let protocol = '';
+let socket = '';
+
 window.addEventListener('DOMContentLoaded', async () => {
     const check = await checkUser();
     if(check) {
         return;
     }
     await startingUp();
-    webSocketChat();
+
+    // Set the protocol based on what the http server is
+    protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+    // Make the WebSocket connection at this url, for this user
+    socket = new WebSocket(`${protocol}://${window.location.host}/ws?user=${localStorage.getItem('username')}`);
+
+    // When we open the connection
+    socket.onopen = () => {
+        // Print it out
+        console.log(`chats open for ${localStorage.getItem('username')}`);
+    };
+
+    // When the connection closes
+    socket.onclose = () => {
+        // Print it out
+        console.log(`chats closed for ${localStorage.getItem('username')}`);
+    }
+
+    // When you receive a message
+    socket.onmessage = async (event) => {
+        // Get the data sent
+        const msg = JSON.parse(event.data);
+        // Check to see what type it is
+        if(msg.which === 'notification') {
+            // Turn the green light on or off
+            changeStatus(msg.who, msg.status);
+        }
+        else if(msg.which === 'message') {
+            console.log(`hey there ${msg.to}, from ${msg.from}`);
+        }
+    }
 });
 
 async function checkUser() {
@@ -128,6 +162,12 @@ function placeChat(chat) {
         const dot = document.createElement('div');
             // Add the class
             dot.classList.add('littleDot');
+            // If the dot is active, make it green
+            const active = localStorage.getItem('active');
+            if(active && active.includes(chat.name)) {
+                dot.style.backgroundColor = 'green';
+                dot.style.border = 'solid green 1px';
+            }
 
         // Now we put it all in the li element
         liEl.appendChild(div);
@@ -421,6 +461,7 @@ async function sendMessage() {
     removeList();
     removeSelect();
     removeText();
+    socket.send(JSON.stringify({which: 'message', from: `${localStorage.getItem('username')}`, to: `${userId}` }));
     await startingUp();
     openChat(userId);
 }
@@ -463,7 +504,8 @@ function openChats() {
 
 // This closes the chats page from the bars
 function closeChats() {
-        // Get the elements to manipulate
+    
+    // Get the elements to manipulate
     let chats = document.getElementById('chats');
     let messages = document.getElementById('chat');
 
@@ -477,43 +519,6 @@ function closeChats() {
 }
 
 // This is to deal with the WebSockets part of the chat
-function webSocketChat() {
-    // Set the protocol based on what the http server is
-    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
-    // Make the WebSocket connection at this url, for this user
-    const socket = new WebSocket(`${protocol}://${window.location.host}/ws?user=${localStorage.getItem('username')}`);
-    
-    // When we open the connection
-    socket.onopen = () => {
-        // Print it out
-        console.log(`chats open for ${localStorage.getItem('username')}`);
-        // Tell the world
-        // socket.send(JSON.stringify({which: 'notification', status: 'on', who: `${localStorage.getItem('username')}`}));
-    };
-
-    // When the connection closes
-    socket.onclose = () => {
-        // Print it out
-        console.log(`chats closed for ${localStorage.getItem('username')}`);
-        // Tell the world
-        // socket.send(JSON.stringify({which: 'notification', status: 'off', who: `${localStorage.getItem('username')}`}));
-    }
-
-    // When you receive a message
-    socket.onmessage = async (event) => {
-        // Get the data sent
-        const msg = JSON.parse(event.data);
-        // Check to see what type it is
-        if(msg.which === 'notification') {
-            // Turn the green light on or off
-            changeStatus(msg.who, msg.status);
-        }
-        else if(msg.which === 'message') {
-
-        }
-    }
-}  
-
 function changeStatus(who, status) {
     // Get the element for the person
     const person = document.getElementById(who);
@@ -525,10 +530,23 @@ function changeStatus(who, status) {
         if(status === 'on') {
             dot.style.backgroundColor = 'green';
             dot.style.border = 'solid green 1px';
+            const active = JSON.parse(localStorage.getItem('active'));
+            if(active) {
+                active.push(who);
+                localStorage.setItem('active', JSON.stringify(active));
+            }
+            else {
+                const array = [];
+                array.push(who);
+                localStorage.setItem('active', JSON.stringify(array));
+            }
         }
         else if(status === 'off') {
             dot.style.backgroundColor = 'rgb(234, 233, 233)';
             dot.style.border = 'solid grey 1px';
+            const active = JSON.parse(localStorage.getItem('active'));
+            active.filter((user) => user !== who);
+            localStorage.setItem('active', JSON.stringify(active));
         }
     }
 }
