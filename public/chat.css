@@ -50,6 +50,7 @@
     background-color: lightblue;
 }
 .littleDot {
+    /* color: rgb(202, 202, 251); */
     flex: 0 5px;
     background-color: rgb(234, 233, 233);
     border: solid grey 1px;

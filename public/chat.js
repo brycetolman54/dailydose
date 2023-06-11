@@ -50,7 +50,8 @@ window.addEventListener('DOMContentLoaded', async () => {
             }
             // Else, highlight the chat
             else {
-                
+                const userLine = document.getElementById(`${msg.from}`);
+                userLine.style.backgroundColor = 'rgb(202, 202, 251)';
             }
         }
     }
