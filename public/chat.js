@@ -62,9 +62,6 @@ window.addEventListener('DOMContentLoaded', async () => {
                 // Scroll down again
                 let scrollElement = document.getElementById('messageList');
                 scrollElement.scrollTop = scrollElement.scrollHeight;
-                // I need to update the chat in the local storage as well
-
-
             }
             // Else, highlight the chat
             else {
@@ -501,6 +498,19 @@ async function sendMessage() {
         // Update the chats of the root user
         chats[rootToTarget.num] = rootToTarget;
         localStorage.setItem('chats', JSON.stringify(chats));
+
+        // Place the message on your screen after deleting the text
+        removeText();
+        // Now we can get the ol element that we need to add the message to
+        const olEl = document.getElementById('messageList');
+        // Now we can add the message
+        const liEl = getMessageEl(rootObj);
+        // Add it to the list
+        olEl.appendChild(liEl);
+        // Scroll down again
+        let scrollElement = document.getElementById('messageList');
+        scrollElement.scrollTop = scrollElement.scrollHeight;
+
         // Add the chats back to the server
         await fetch(`/api/chat/${localStorage.getItem('username')}/update/chats`, {
             method: 'POST',
@@ -521,8 +531,6 @@ async function sendMessage() {
     chatList.removeChild(moveUser);
     // Add the user to the top of list again
     chatList.prepend(moveUser);
-    // Get rid of the text
-    removeText();
     // Send the message to the other user
     socket.send(JSON.stringify({which: 'message', from: `${localStorage.getItem('username')}`, to: `${userId}`, msg: targetObj }));
 }
