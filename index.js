@@ -175,7 +175,7 @@ secureApiRouter.post('/chat/:user/update/chats', async (req, res) => {
 
 });
 
-// We want to update the chats of the user with who we are chatting
+// We want to update the chats of the user with whom we are chatting
 secureApiRouter.post('/chat/new/with/:user', async (req, res) => {
 
     await DB.updateHisChats(req.params.user, req.body);

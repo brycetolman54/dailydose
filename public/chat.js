@@ -9,6 +9,12 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
     await startingUp();
 
+    // See if there is a new chat
+    const newChat = localStorage.getItem('newChat');
+    if(newChat) {
+        openChat(newChat);
+    }
+
     // Set the protocol based on what the http server is
     protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
     // Make the WebSocket connection at this url, for this user
@@ -47,6 +53,9 @@ window.addEventListener('DOMContentLoaded', async () => {
                 // Scroll down again
                 let scrollElement = document.getElementById('messageList');
                 scrollElement.scrollTop = scrollElement.scrollHeight;
+                // I need to update the chat in the local storage as well
+
+
             }
             // Else, highlight the chat
             else {
@@ -58,7 +67,18 @@ window.addEventListener('DOMContentLoaded', async () => {
                 // Update the code for when you make the user list, so the unseen chats be purpley when loaded
             }
         }
+        else if(msg.which === 'startNew') {
+            // Add the new chat number
+            msg.chat.num = JSON.parse(localStorage.getItem('chats')).length;
+            // Add the chat to the top of the list
+            placeChat(msg.chat, 'before');
+            // Remove his name from select
+            const selectList = document.getElementById('userStart');
+            const user = selectList.querySelector(`#${msg.from}`);
+            selectList.removeChild(user);
+        }
     }
+
 });
 
 window.addEventListener('unload', () => {
@@ -155,7 +175,7 @@ function fillSelect(user) {
 }
 
 // This will fill the chats area with chats the user has
-function placeChat(chat) {
+function placeChat(chat, where = 'after') {
 
     // Access the ol element to add the li element to
     const olEl = document.getElementById('userChatList');
@@ -189,7 +209,7 @@ function placeChat(chat) {
             dot.classList.add('littleDot');
             // If the dot is active, make it green
             const active = localStorage.getItem('active');
-            if(active && active.includes(chat.name)) {
+            if(active && active.includes(chat.name) || where === 'before') {
                 dot.style.backgroundColor = 'green';
                 dot.style.border = 'solid green 1px';
             }
@@ -200,7 +220,12 @@ function placeChat(chat) {
         liEl.appendChild(dot);
 
     // Now we can put the the li in the ol
-    olEl.appendChild(liEl);
+    if(where === 'after') {
+        olEl.appendChild(liEl);
+    }
+    else if(where === 'before') {
+        olEl.prepend(liEl);
+    }
 }
 
 // This gets the time for the date element of the user list
@@ -245,6 +270,9 @@ function getTime(time) {
 
 // This will open a chat when it is clicked on from the side menu
 function openChat(userId) {
+
+    // Get rid of the new chat
+    localStorage.removeItem('newChat');
 
     // Store the opened chat in the local storage for reference
     localStorage.setItem('openedChat', userId);
@@ -356,16 +384,10 @@ function removeText() {
 // This function adds the chat object to the chat array of each user
 async function startNew() {
 
-    // Get rid of the list that was there, get rid of any text also
-    removeList();
-    removeText();
-
     const chats = JSON.parse(localStorage.getItem('chats'));
 
     // Get the user chosen for the new chat
     const newChat = document.getElementById('userStart').value;
-    // Then you can delete the data from the select list
-    removeSelect();
 
     // If it is actually a user, start a new chat
     if(newChat !== '--Please choose a user--') {
@@ -406,27 +428,24 @@ async function startNew() {
             targetObj.time = new Date();
             // Add the messages array
             targetObj.messages = [];
-            // Add the number
-            // targetObj.num = target.chats.length;
+            // Placeholder for later
+            targetObj.unseen = false;
 
         // Add the object to the target users chats on the server
-        // target.chats.push(targetObj);
         await fetch(`/api/chat/new/with/${newChat}`, {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify(targetObj),
         });
 
-        // Add the root and target users back into the userData array
-        // userData[rootUser.num] = rootUser;
-        // userData[target.num] = target;
+        // Store the new chat
+        localStorage.setItem('newChat', newChat);
 
-        // Put it back to the local storage
-        // localStorage.setItem('userData', JSON.stringify(userData));
+        // Let them know you started a chat with them
+        await socket.send(JSON.stringify({which: 'startNew', chat: targetObj, to: `${newChat}`, from: `${localStorage.getItem('username')}`}));
 
-        // Reload the chats, then choose the one you just made
-        await startingUp();
-        openChat(newChat);
+        // Reload the page
+        window.location.reload();
     }
 }
 

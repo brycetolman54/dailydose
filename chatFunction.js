@@ -46,12 +46,6 @@ function chatFunction(httpServer) {
 - When you receive the message, check to see if the sender is the same as the open chat
 - If it is, just put the message on the screen
 - if it isn't higlight the user's chat in the side menu (add something to remove this when a chat is opened)
-- We need to add something to hold this color when a chat hasn't been opened that has been sent to
-- When you log on, send a notification to all that changes your dot to green
-- When you log off, send a notification to all that changes your dot back (do this and the above in this code, not the front end)
-- On connection, send a message to yourself for each connection already active
-- You have to deal with receiving messages, logon notices, and log off notices
-- Include a bit at the beginning of each message that will tell if it is a notice or a messagecc n
 */
 
         // We want to send a message to either a specific person or all people
@@ -71,6 +65,11 @@ function chatFunction(httpServer) {
                         c.ws.send(event);
                     }
                 });
+            }
+            // What if you have started a new chat
+            else if(msg.which === 'startNew') {
+                const c = connections.find(obj => obj.id === msg.to);
+                c.ws.send(JSON.stringify(msg));
             }
         });
 
