@@ -26,7 +26,7 @@
                     <div id="error">
                         <!-- Inserted by code -->
                     </div>
-                    <div class="login">
+                    <div class="login"> 
                         <label for="text">Username:</label>
                         <input type="text" id="loginText" name="userName" placeholder="Enter your username" required pattern="\w{5,15}" oninput="checkUsername()" onkeydown="checkEnter(event, 'login')"/>
                     </div>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="login">
                         <label for="password">Password:</label>
-                        <input type="password" id="password" name="passWord" placeholder="Enter your password" required pattern="(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&amp;\*\(\)])[\S]{8,}" oninput="checkPassword()" onkeydown="checkEnter(event, 'login')"/>
+                        <input type="password" id="password" name="passWord" placeholder="Enter your password" required pattern="(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])[\S]{8,}" oninput="checkPassword()" onkeydown="checkEnter(event, 'login')"/>
                     </div>
                     <div class="filler">
                         <div id="require2" class="require">
@@ -56,10 +56,6 @@
                         <div id="require4" class="require">
                             <div id="checkbox5" class="checkbox">&#x2716</div>
                             <div id="passwordcheck">A <b>number</b></div>
-                        </div>
-                        <div id="require5" class="require">
-                            <div id="checkbox6" class="checkbox">&#x2716</div>
-                            <div id="passwordcheck">A <b>symbol</b>: !@#$%^&*()</div>
                         </div>
                     </div>
                 </div>

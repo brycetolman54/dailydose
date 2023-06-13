@@ -97,7 +97,6 @@ function checkPassword() {
     let check1 = true;
     let check2 = true;
     let check3 = true;
-    let check4 = true;
 
     if(passWord.length >= 8) {
         let element = document.querySelector('#checkbox3');
@@ -135,20 +134,8 @@ function checkPassword() {
         element.style.color = 'red';
         check3 = false;
     }
-    if(/[!@#$%^&amp;\*\(\)]/.test(passWord)) {
-        let element = document.querySelector('#checkbox6');
-        element.innerText = "\u2714";
-        element.style.color = 'green';
-        check4 = true;
-    }
-    else {
-        let element = document.querySelector('#checkbox6');
-        element.innerText = "\u2716";
-        element.style.color = 'red';
-        check4 = false;
-    }
 
-    passwordGood = check1 && check2 && check3 && check4;
+    passwordGood = check1 && check2 && check3;
 }
 
 async function submitForm(which) {
