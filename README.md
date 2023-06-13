@@ -1,6 +1,6 @@
 
 
- - Here are my notes: [Notes](notes.md)
+ - Here are my notes: [Notes](notes/notes.md)
 
 # Startup specifications:
 ## The Idea
