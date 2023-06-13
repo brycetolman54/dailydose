@@ -49,3 +49,32 @@
      - No real-time response
   10. _Server Side Request Forgery_:
       - They can hack your back end
+
+# Progressive Web Application
+- You write one application, and it runs everywhere
+
+# TypeScript
+- You make files with this like `file.tsx`
+- You can define types now: `function func(param: number)` will only take a number as the parameter
+- Interfaces are somewhat like base classes in C++, but you don't have to declare the type of the variable for an interface when you declare it
+- If you define an interface, any object you define later that follows that definition, even without explicitly declaring it the type of the interface, it will be classified as under that interface
+- When you do a `querySelector`, you have to define what you are looking for with `document.querySelector<HTMLElement>('#id')`
+```
+inheritance Book {
+  title: string;
+  id: number;
+}
+
+// The function only takes variable book of the type Book
+function catalog(book: Book) {
+  console.log(book.title, book.id);
+}
+
+// Since we have defined myBook with the same definition as Book is, it is a Book, even though it is not explicitly declared
+const myBook = {title: 'Hey there', id: 596};
+// Only becase myBook is a Book can it be taken into this function
+catalog(myBook);
+```
+
+# Performance
+- 
