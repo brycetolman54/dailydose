@@ -68,11 +68,16 @@ window.addEventListener('DOMContentLoaded', async () => {
             }
             // Else, highlight the chat
             else {
+                // Move the box to the top
+                const chatList = document.getElementById('userChatList');
+                const moveUser = chatList.querySelector(`#${msg.from}`);
+                chatList.removeChild(moveUser);
+                chatList.prepend(moveUser);
+                // Change the color of the box
                 const userLine = document.getElementById(`${msg.from}`);
-                userLine.style.backgroundColor = 'rgb(218, 218, 247)';
-                // Delete all chats
-                // Add code here to update the DB when a chat is unseen and not
-                // You have to do a fetch
+                userLine.style.backgroundColor = 'rgb(226, 226, 251)';
+                // Update the unseen value in DB
+
                 // Update the code for when you make the user list, so the unseen chats be purpley when loaded
             }
         }
@@ -285,18 +290,17 @@ function openChat(userId) {
     // Get rid of the new chat
     localStorage.removeItem('newChat');
 
+    const closeUser = localStorage.getItem('openedChat', userId);
+    if(closeUser) {
+        const closer = document.getElementById(`${closeUser}`);
+        closer.style.backgroundColor = 'white';
+    }
+
     // Store the opened chat in the local storage for reference
     localStorage.setItem('openedChat', userId);
 
     // Start by enabling input in the text box
     document.getElementById('messageArea').disabled = false;
-
-    // Now remove the color from the rest of the users in the chatlist
-    const userList = document.getElementById('userChatList');
-    const users = userList.children;
-    for(const user of users) {
-        user.style.backgroundColor = 'white';
-    }
 
     // Let's make the box stay colored when we click on it
     const value = document.getElementById(userId);
@@ -496,6 +500,7 @@ async function sendMessage() {
         rootToTarget.time = timeStamp;
         // Update the chats of the root user
         chats[rootToTarget.num] = rootToTarget;
+        localStorage.setItem('chats', JSON.stringify(chats));
         // Add the chats back to the server
         await fetch(`/api/chat/${localStorage.getItem('username')}/update/chats`, {
             method: 'POST',
@@ -510,9 +515,6 @@ async function sendMessage() {
             body: JSON.stringify({msg: targetObj, time: timeStamp}),
         });
 
-    // Remove all data, open the chat with this user again after startup
-    
-    // Change this...
     // Remove the chat from the list
     const chatList = document.getElementById('userChatList');
     const moveUser = chatList.querySelector(`#${userId}`);
