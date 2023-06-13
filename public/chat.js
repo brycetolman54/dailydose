@@ -513,12 +513,16 @@ async function sendMessage() {
     // Remove all data, open the chat with this user again after startup
     
     // Change this...
-    removeList();
-    removeSelect();
+    // Remove the chat from the list
+    const chatList = document.getElementById('userChatList');
+    const moveUser = chatList.querySelector(`#${userId}`);
+    chatList.removeChild(moveUser);
+    // Add the user to the top of list again
+    chatList.prepend(moveUser);
+    // Get rid of the text
     removeText();
+    // Send the message to the other user
     socket.send(JSON.stringify({which: 'message', from: `${localStorage.getItem('username')}`, to: `${userId}`, msg: targetObj }));
-    await startingUp();
-    openChat(userId);
 }
 
 // Notices when you press enter, to send the message and to keep the new line from showing up
