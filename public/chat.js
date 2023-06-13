@@ -42,6 +42,15 @@ window.addEventListener('DOMContentLoaded', async () => {
             changeStatus(msg.who, msg.status);
         }
         else if(msg.which === 'message') {
+            // Push the message onto local storage
+            const chats = JSON.parse(localStorage.getItem('chats'));
+            const theChat = chats.find(obj => obj.name === msg.from);
+            const messages = theChat.messages;
+            messages.push(msg.msg);
+            theChat.messages = messages;
+            chats[theChat.num] = theChat;
+            localStorage.setItem('chats', JSON.stringify(chats));
+
             // Put up the message immediately if you have the chat open
             if(localStorage.getItem('openedChat') === msg.from) {
                 // Now we can get the ol element that we need to add the message to
@@ -60,7 +69,7 @@ window.addEventListener('DOMContentLoaded', async () => {
             // Else, highlight the chat
             else {
                 const userLine = document.getElementById(`${msg.from}`);
-                userLine.style.backgroundColor = 'rgb(202, 202, 251)';
+                userLine.style.backgroundColor = 'rgb(218, 218, 247)';
                 // Delete all chats
                 // Add code here to update the DB when a chat is unseen and not
                 // You have to do a fetch
@@ -68,8 +77,10 @@ window.addEventListener('DOMContentLoaded', async () => {
             }
         }
         else if(msg.which === 'startNew') {
-            // Add the new chat number
-            msg.chat.num = JSON.parse(localStorage.getItem('chats')).length;
+            // Add the chat to local storage
+            const chats = JSON.parse(localStorage.getItem('chats'));
+            chats.push(msg.chat);
+            localStorage.setItem('chats', JSON.stringify(chats));
             // Add the chat to the top of the list
             placeChat(msg.chat, 'before');
             // Remove his name from select
@@ -406,8 +417,6 @@ async function startNew() {
             rootObj.time = new Date();
             // Add the messages array
             rootObj.messages = [];
-            // Add the number
-            rootObj.num = chats.length;
             // Add the unseen placeholder
             rootObj.unseen = false;
 
@@ -502,6 +511,8 @@ async function sendMessage() {
         });
 
     // Remove all data, open the chat with this user again after startup
+    
+    // Change this...
     removeList();
     removeSelect();
     removeText();

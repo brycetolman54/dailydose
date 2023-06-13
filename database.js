@@ -175,9 +175,6 @@ async function updateChats(user, chat) {
 };
 // Update the list of the user we are talking to
 async function updateHisChats(user, chat) {
-    // Get the user's chats
-    const chats = getUserChats(user);
-    chat.num = chats.length;
     userData.updateOne(
         {name: user},
         {$push: {chats: chat}}
