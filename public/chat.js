@@ -62,6 +62,14 @@ window.addEventListener('DOMContentLoaded', async () => {
                 // Scroll down again
                 let scrollElement = document.getElementById('messageList');
                 scrollElement.scrollTop = scrollElement.scrollHeight;
+                // Make the box blue
+                const userLine = document.getElementById(`${msg.from}`);
+                userLine.style.backgroundColor = 'lightblue';
+                // Update the unseen value in DB
+                await fetch(`/api/chat/${localStorage.getItem('username')}/with/${msg.from}/unseen/false`, {
+                    method: 'POST',
+                    headers: {'content-type': 'application/json'}, 
+                });
             }
             // Else, highlight the chat
             else {
@@ -73,8 +81,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                 // Change the color of the box
                 const userLine = document.getElementById(`${msg.from}`);
                 userLine.style.backgroundColor = 'rgb(226, 226, 251)';
-                // Update the unseen value in DB
-
+                
                 // Update the code for when you make the user list, so the unseen chats be purpley when loaded
             }
         }
@@ -201,6 +208,10 @@ function placeChat(chat, where = 'after') {
         liEl.setAttribute('id', `${chat.name}`);
         // Set the onclick function to open the chat later
         liEl.setAttribute('onclick', `openChat('${chat.name}')`);
+        // If it is an unseen chat, make it purple
+        if(chat.unseen) {
+            liEl.style.backgroundColor = 'rgb(226, 226, 251)';
+        }
         
         // Create the div class that will hold the user's name
         const div = document.createElement('div');
@@ -282,7 +293,13 @@ function getTime(time) {
 }
 
 // This will open a chat when it is clicked on from the side menu
-function openChat(userId) {
+async function openChat(userId) {
+
+    // Update the chat so it is not unseen
+    await fetch(`/api/chat/${localStorage.getItem('username')}/with/${userId}/unseen/false`, {
+        method: 'POST',
+        headers: {'content-type': 'application/json'}
+    });
 
     // Get rid of the new chat
     localStorage.removeItem('newChat');
@@ -523,6 +540,12 @@ async function sendMessage() {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({msg: targetObj, time: timeStamp}),
+        });
+
+        // Update the unseen value in DB
+        await fetch(`/api/chat/${userId}/with/${localStorage.getItem('username')}/unseen/true`, {
+            method: 'POST',
+            headers: {'content-type': 'application/json'}, 
         });
 
     // Remove the chat from the list

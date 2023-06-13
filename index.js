@@ -197,11 +197,25 @@ secureApiRouter.get('/posts/mine/:user', async (req, res) => {
     const mine = await DB.getUserPosts(req.params.user);
     res.send(mine);
 });
+
 // Also we need to get the likes of our rootuser for the liked posts table
 secureApiRouter.get('/posts/liked/:user', async (req, res) => {
     const liked = await DB.getLiked(req.params.user);
     res.send(liked);
 }); 
+
+// Be able to update the unseen value of a post
+secureApiRouter.post('/chat/:user1/with/:user2/unseen/:bool', async (req, res) => {
+    if(req.params.bool === 'true') {
+        await DB.updateUnseen(req.params.user1, true, req.params.user2);
+    }
+    else if(req.params.bool === 'false') {
+        await DB.updateUnseen(req.params.user1, false, req.params.user2);
+    }
+
+    res.send('done');
+
+});
 
 // Default error message
 app.use(function (err, req, res, next) {

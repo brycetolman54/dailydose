@@ -163,19 +163,19 @@ async function getUsers() {
 async function getUserChats(user) {
     const theUser = await getUserData(user);
     const chats = theUser.chats;
-    const orderChats = chats.sort((a,b) => a.num - b.num);
+    const orderChats = chats.sort((a,b) => a.time - b.time);
     return chats;
 };
 // Update the chat list of the main user
 async function updateChats(user, chat) {
-    userData.updateOne(
+    await userData.updateOne(
         {name: user},
         {$set: {chats: chat}}
     );
 };
 // Update the list of the user we are talking to
 async function updateHisChats(user, chat) {
-    userData.updateOne(
+    await userData.updateOne(
         {name: user},
         {$push: {chats: chat}}
     );
@@ -185,13 +185,13 @@ async function updateHisMessages(user, user2, body) {
     // Get the chats of the person we are updating
     const allChats = await getUserChats(user);
     // Get the right chat
-    const theChat = allChats.find(obj => obj.name === user2);
+    const theChat = allChats.findIndex((obj, ind) => obj.name === user2);
     // Get the info from the body
-    theChat.time = body.time;
-    theChat.messages.push(body.msg);
+    allChats[theChat].time = body.time;
+    allChats[theChat].messages.push(body.msg);
     // Put it all back
-    allChats[theChat.num] = theChat;
-    userData.updateOne(
+    // allChats[theChat.num] = theChat;
+    await userData.updateOne(
         {name: user},
         {$set: {chats: allChats}}
     );
@@ -208,6 +208,21 @@ async function getLiked(user) {
     const liked = theUser.likes;
     return liked;
 };
+// Update unseen
+async function updateUnseen(user1, status, user2) {
+    // Get the chats
+    const allChats = await getUserChats(user1);
+    // Find the chat
+    const theChat = allChats.findIndex(obj => obj.name === user2);
+    // Update the status
+    allChats[theChat].unseen = status;
+    // Return it all
+    // allChats[theChat.num] = theChat;
+    await userData.updateOne(
+        {name: user1},
+        {$set: {chats: allChats}}
+    )
+}
 
 /******************************************************************************************************************************************************/
 
@@ -229,4 +244,5 @@ module.exports = {
     updateHisChats, 
     updateHisMessages,
     getUserByToken,
+    updateUnseen,
 };
