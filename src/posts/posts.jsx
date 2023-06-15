@@ -7,13 +7,11 @@ import './posts.css';
 export function Posts() {
 
     const [posts, setPosts] = React.useState([]);
-    const [allPosts, setAllPosts] = React.useState([]);
 
     React.useEffect(() => {
     fetch('/api/posts/posts')
         .then((response) => response.json())
-        .then((allPosts) => {
-            setAllPosts(allPosts);
+        .then(async (allPosts) => {
 
             return fetch(`/api/posts/mine/${localStorage.getItem('username')}`)
                 .then((response) => response.json())
@@ -56,10 +54,10 @@ export function Posts() {
         }
     }
     else {
-        posts.push(
-            <li key='0'>
-                <div>No Posts Yet</div>
-            </li>
+        postRows.push(
+            <div key='1'>
+                <div className='empty'>Waiting for posts...</div>
+            </div>
         )
     }
 

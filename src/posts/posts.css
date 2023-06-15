@@ -30,7 +30,9 @@
     border-top: 1px solid;
     height: 5vh;
 } */
-
+.empty {
+    border: solid black 1px;
+}
 .reveal {
     display: none;
 }
