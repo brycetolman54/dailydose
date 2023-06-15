@@ -24,11 +24,11 @@ export function Posts() {
                         }
 
                         setPosts(newPosts);
-                        localStorage.setItem('posts', JSON.stringify(posts));
+                        localStorage.setItem('myPosts', JSON.stringify(newPosts));
                     })
             })
             .catch(() => {
-                const postsText = localStorage.getItem('posts');
+                const postsText = localStorage.getItem('myPosts');
                 if(postsText) {
                     setPosts(JSON.parse(postsText));
                 } 

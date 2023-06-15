@@ -11,12 +11,36 @@ export function Feed() {
 
     React.useEffect(() => {
         fetch('https://api.quotable.io/random')
-        .then((response) => response.json())
-        .then((data) => {
-          setQuote(data.content);
-          setAuthor(data.author);
-        });
+            .then((response) => response.json())
+            .then((data) => {
+            setQuote(data.content);
+            setAuthor(data.author);
+            });
     }, []);
+
+    const [allPosts, setAllPosts] = React.useState([]);
+
+    React.useEffect(() => {
+        fetch('/api/feed/posts')
+            .then(response => response.json())
+            .then(thePosts => {
+                localStorage.setItem('feedPosts', JSON.stringify(thePosts));
+            })
+            .catch(() => {
+                const postText = localStorage.getItem('feedPosts');
+                if(postText) {
+                    setAllPosts(JSON.parse(postText));
+                }
+            });
+    }, [allPosts]);
+
+    const postsArray = [];
+    if(postsArray.length) {
+        for(const [i, post] of postsArray) {
+
+        }
+    }
+
 
     return (
         <main>
@@ -34,14 +58,14 @@ export function Feed() {
                 </aside>
                 <div id="newpost">
                     <p id="newPostHead"><b>New Post</b></p>
-                    <label for="text">Post title</label>
-                    <input type="text" id="postTitle" name="postTitle" placeholder="Enter a title (max 60 characters)" pattern=".{1,50}" title="Your title is too long" required oninput="enablePost()"/>
-                    <label for="textarea">Post text</label>
-                    <textarea id="postContent" name="newPost" placeholder="Share your thoughts" required oninput="enablePost()"></textarea>
-                    <button id="postIt" disabled onclick="addPost()">Post</button>
+                    <label htmlFor="text">Post title</label>
+                    {/* <input type="text" id="postTitle" name="postTitle" placeholder="Enter a title (max 60 characters)" pattern=".{1,50}" title="Your title is too long" required oninput="enablePost()"/> */}
+                    <label htmlFor="textarea">Post text</label>
+                    {/* <textarea id="postContent" name="newPost" placeholder="Share your thoughts" required oninput="enablePost()"></textarea> */}
+                    {/* <button id="postIt" disabled onclick="addPost()">Post</button> */}
                 </div>
             </div>
-            <div id="feedfield"></div>
+            <div id="feedfield">{postsArray}</div>
         </div>
         </main>
     );
