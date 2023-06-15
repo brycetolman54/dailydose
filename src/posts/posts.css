@@ -33,15 +33,15 @@
 .empty {
     border: solid black 1px;
 }
-.reveal {
+.postreveal {
     display: none;
 }
-.table {
+.posttable {
     display: flex;
     flex-direction: column;
     margin: 10px;
 }
-#headTable {
+#postheadTable {
     flex: 0 20px;
     display: flex;
     flex-direction: row;
@@ -50,51 +50,51 @@
     background-color: lightgrey;
     font-weight: bold;    
 }
-#headTable > div {
+#postheadTable > div {
     border: solid;
     border-width: 0 0 2px 0;
 }
-#date {
+#postdate {
     flex: 0 100px;
 }
-#title {
+#posttitle {
     flex: 1;
     font-weight: bold;
 }
-#like {
+#postlike {
     flex: 0 70px;
 }
-.post {
+.postRow {
     flex: 0 20px;
     display: flex;
     flex-direction: column;
     /* border: solid green 2px; */
 }
-.head {
+.posthead {
     flex: 1;
     display: flex;
     flex-direction: row;
 }
-.head:hover {
+.posthead:hover {
     background-color: rgb(226, 242, 248);
 }
-.date {
+.postdate {
     flex: 0 100px;
     border: solid black 1px;
     padding: 2px;
 }
-.title {
+.posttitle {
     flex: 3;
     font-weight: bold;
     border: solid black 1px;
     padding: 2px;
 }
-.like {
+.postlike {
     flex: 0 70px;
     border: solid black 1px;
     padding: 2px;
 }
-.content {
+.postcontent {
     display: none;
     height: auto;
     font-size: 0px;
@@ -103,13 +103,13 @@
     background-color: rgb(236, 239, 251);
     padding: 5px;
 }
-.reveal:not(:checked) + label > .content {
+.postreveal:not(:checked) + label > .postcontent {
     animation: close 0.3s;
     font-size: 0px;
     border: solid black 0px;
     padding: 0px;
 }
-.reveal:checked + label > .content {
+.postreveal:checked + label > .postcontent {
     animation: open 0.3s;
     font-size: 15px;
     border: solid black 1px;
@@ -142,22 +142,22 @@
     }
 }
 @media (max-width: 600px) {
-    .date {
+    .postdate {
         font-size: 12px;
     }
-    #date {
+    #postdate {
         font-size: 15px;
     }
-    .title {
+    .posttitle {
         font-size: 12px;
     }
-    #title {
+    #posttitle {
          font-size: 15px;
     }
-    .like {
+    .postlike {
         font-size: 12px;
     }
-    #like {
+    #postlike {
         font-size: 15px;
     }
 }

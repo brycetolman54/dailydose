@@ -47,14 +47,14 @@ export function LikedPosts() {
     if(posts.length) {
         for(const [i, post] of posts.entries()) {
             postRows.push(
-                <li key={i} className='post'>
-                    <input type='checkbox' className='reveal' id={'reveal' + i} />
-                    <label id={'label' + i} className='label' htmlFor={'reveal' + i} onClick={() => openPost(i)}>
-                        <div id={'head' + i} className='head'>
-                            <div id={'date' + i} className='date'>{getDate(new Date(post.time))}</div>
-                            <div id={'title' + i} className='title'>{post.title}</div>
+                <li key={i} className='postRow'>
+                    <input type='checkbox' className='postreveal' id={'postreveal' + i} />
+                    <label id={'postlabel' + i} className='postlabel' htmlFor={'postreveal' + i} onClick={() => openPost(i)}>
+                        <div id={'posthead' + i} className='posthead'>
+                            <div id={'postdate' + i} className='postdate'>{getDate(new Date(post.time))}</div>
+                            <div id={'posttitle' + i} className='posttitle'>{post.title}</div>
                         </div>
-                        <div className='content' id={'content' + i}>{post.content}</div>
+                        <div className='postcontent' id={'postcontent' + i}>{post.content}</div>
                     </label>
                 </li>
             );
@@ -75,16 +75,16 @@ export function LikedPosts() {
                 <h2 id="head">Liked Posts</h2>
                 {/* <div id="userInfo" onclick="backToLogin()">Login</div> */}
             </div>
-            <div id="likeTable" className="table">
-                <div id="headTable">
-                    <div id="date" className="date">
+            <div id="postlikeTable" className="posttable">
+                <div id="postheadTable">
+                    <div id="postdate" className="postdate">
                         Date
                     </div>
-                    <div id="title" className="title">
+                    <div id="posttitle" className="posttitle">
                         Title
                     </div>
                 </div>
-                <div id="likePosts">{postRows}</div>
+                <div id="postlikePosts">{postRows}</div>
             </div>
         </main>
     );
