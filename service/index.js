@@ -87,6 +87,20 @@ apiRouter.get('/auth/:user', async (req, res) => {
     res.status(401).send({msg: 'This user is unknown'});
 });
 
+// Now we need to pull the posts of the root user for the posts page to display them
+apiRouter.get('/posts/mine/:user', async (req, res) => {
+    const mine = await DB.getUserPosts(req.params.user);
+    res.send(mine);
+});
+
+// What if we need to get the posts
+apiRouter.get('/*/posts', async (_req, res) => {
+
+    const posts = await DB.getPosts();
+    res.send(posts);
+
+});
+
 // Make a secure router for the one above to use to verify credentials for endpoints
 var secureApiRouter = express.Router();
 apiRouter.use(secureApiRouter);
@@ -97,29 +111,12 @@ secureApiRouter.use(async (req, res, next) => {
         next();
     }
     else {
-        res.status(401).send({msg: 'User does not exist'});
+        res.status(401).send({msg: 'He does not exist'});
     }
 });
 
-// // We need to put a new user in the array
-// secureApiRouter.post('/login/user', async (req, res) => {
 
-//     // If the user isn't in the array, add him
-//     const array = await DB.getUser(req.body.user);
-//     if( array.length === 0) {
-//         await DB.addUser(req.body);
-//     }
-//     res.send('done');
 
-// });
-
-// What if we need to get the posts
-secureApiRouter.get('/*/posts', async (_req, res) => {
-
-    const posts = await DB.getPosts();
-    res.send(posts);
-
-});
 
 // What if we need to add a new post
 secureApiRouter.post('/feed/post/:user', async (req, res) => {
@@ -192,11 +189,7 @@ secureApiRouter.post('/chat/:user/update/messages/with/:user2', async (req, res)
     res.send('done');
 });
 
-// Now we need to pull the posts of the root user for the posts page to display them
-secureApiRouter.get('/posts/mine/:user', async (req, res) => {
-    const mine = await DB.getUserPosts(req.params.user);
-    res.send(mine);
-});
+
 
 // Also we need to get the likes of our rootuser for the liked posts table
 secureApiRouter.get('/posts/liked/:user', async (req, res) => {

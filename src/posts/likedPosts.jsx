@@ -10,15 +10,15 @@ export function LikedPosts() {
             <div id="topHeader">
                 <NavLink id="bars" to='../posts'>&#x2630;</NavLink>
                 <h2 id="head">Liked Posts</h2>
-                <div id="userInfo" onclick="backToLogin()">Login</div>
+                {/* <div id="userInfo" onclick="backToLogin()">Login</div> */}
             </div>
 
-            <div id="likeTable" class="table">
+            <div id="likeTable" className="table">
                 <div id="headTable">
-                    <div id="date" class="date">
+                    <div id="date" className="date">
                         Date
                     </div>
-                    <div id="title" class="title">
+                    <div id="title" className="title">
                         Title
                     </div>
                 </div>

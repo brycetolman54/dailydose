@@ -135,6 +135,9 @@ footer p {
     background-color: rgb(165, 213, 220);
     cursor: pointer;
 }
+#bars:active {
+    color: black;
+}
 #chatNav {
     border: solid black;
     border-width: 0 2px 0 2px;
