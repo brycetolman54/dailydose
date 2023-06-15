@@ -7,3 +7,5 @@ export function Posts() {
         </main>
     );
 }
+
+// Do like you did in the Simon scores for here. This should be the easiest, followed by the feed and then the login and then the chats... :)
