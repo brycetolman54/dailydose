@@ -10,18 +10,18 @@ body {
     flex-direction: column;
     font-family: georgia;
 }
-header {
+.top {
     flex: 0 80px;
     display: flex;
     flex-direction: column;
-    background-image: url("DailyDose.jpg");
+    background-image: url("../DailyDose.jpg");
     background-position: center;
     background-repeat: 0;
     background-size: 100vw;
     text-align: center;
     color: white;
 }
-h1 {
+.logo {
     margin: 20px;
     -webkit-text-stroke: black 1px;
     font-size: auto;    
@@ -73,7 +73,7 @@ button {
     cursor: pointer;
 }
 /* For the footer */
-footer {
+.bottom {
     flex: 0 20px;
     background-color: rgba(8, 5, 62, 0.943);
     display: flex;
@@ -100,7 +100,7 @@ footer p {
     margin: 0;
 }
 /* For the navigation bar */
-menu {
+.links {
     flex: 0 20px;
     display: flex;
     flex-direction: row;
@@ -113,12 +113,12 @@ menu {
     border: solid black;
     border-width: 3px 0 1px 0;
 }
-menu a {
+.links a {
     flex: 1;
     color: darkblue;
     text-decoration: none;
 }
-menu a:hover {
+.links a:hover {
     background-color: rgb(190, 233, 241);
     padding: 0;
     margin: 0;
@@ -139,10 +139,13 @@ menu a:hover {
     border-width: 0 2px 0 2px;
 }
 @media (max-height: 300px) {
-    header {
+    .logo {
         display: none;
     }
-    footer {
+    .top {
+        background-image: none;
+    }
+    .bottom {
         display: none;
     }
 }
