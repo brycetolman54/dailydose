@@ -34,7 +34,7 @@
     border: solid black 1px;
 }
 .reveal {
-    display: none;
+    display: ;
 }
 .table {
     display: flex;
@@ -100,6 +100,7 @@
     font-size: 0px;
     border: solid black 1px;
     text-align: start;
+    background-color: rgb(236, 239, 251);
     padding: 5px;
 }
 .reveal:not(:checked) + label > .content {

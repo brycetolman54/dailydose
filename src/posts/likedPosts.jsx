@@ -7,6 +7,7 @@ import './posts.css';
 export function LikedPosts() {
 
     const [posts, setPosts] = React.useState([]);
+    const [openPost, setOpenPost] = React.useState([]);
 
     React.useEffect(() => {
     fetch('/api/posts/posts')

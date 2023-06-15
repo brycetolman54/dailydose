@@ -6,73 +6,42 @@ import './posts.css';
 
 export function Posts() {
 
-    const handleClick = (buttonId = -1) => {
-
-        // First we want to make it show
-        if(buttonId !== -1) {
-            const content = document.getElementById(`content${buttonId}`);
-            content.style.display = 'flex';
-        }
-    
-        // Now we loop
-        for(let i = 0; i < length; i++) {
-    
-            // Get the input element with the reveali id
-            let reveal = document.getElementById(`reveal${i}`);
-    
-            // Then, if the button is not the one we are clicking, close it
-            if(i !== buttonId) {
-                reveal.checked = false;
-            }
-        }
-        if(buttonId === -1) {
-            for(let i = 0; i < length; i++) {
-    
-                // Get the input element with the contenti id
-                let contents = document.getElementById(`content${i}`);
-                
-                contents.style.display = 'none';
-            }
-        }
-    };
-
     const [posts, setPosts] = React.useState([]);
-    
 
     React.useEffect(() => {
-    fetch('/api/posts/posts')
-        .then((response) => response.json())
-        .then(async (allPosts) => {
+        fetch('/api/posts/posts')
+            .then((response) => response.json())
+            .then(async (allPosts) => {
 
-            return fetch(`/api/posts/mine/${localStorage.getItem('username')}`)
-                .then((response) => response.json())
-                .then((posts) => {
-                    posts = posts.sort((a,b) => b.allPlace - a.allPlace);
+                return fetch(`/api/posts/mine/${localStorage.getItem('username')}`)
+                    .then((response) => response.json())
+                    .then((posts) => {
+                        posts = posts.sort((a,b) => b.allPlace - a.allPlace);
 
-                    let newPosts = [];
-                    for(const postIndex of posts) {
-                        newPosts.push(allPosts[allPosts.length - postIndex.allPlace - 1]);
-                    }
+                        let newPosts = [];
+                        for(const postIndex of posts) {
+                            newPosts.push(allPosts[allPosts.length - postIndex.allPlace - 1]);
+                        }
 
-                    setPosts(newPosts);
-                    localStorage.setItem('posts', JSON.stringify(posts));
-                })
-        })
-        .catch(() => {
-            const postsText = localStorage.getItem('posts');
-            if(postsText) {
-                setPosts(JSON.parse(postsText));
-            } 
-        });
+                        setPosts(newPosts);
+                        localStorage.setItem('posts', JSON.stringify(posts));
+                    })
+            })
+            .catch(() => {
+                const postsText = localStorage.getItem('posts');
+                if(postsText) {
+                    setPosts(JSON.parse(postsText));
+                } 
+            });
     }, []);
 
-    const postRows = [];
+     const postRows = [];
     if(posts.length) {
         for(const [i, post] of posts.entries()) {
             postRows.push(
                 <li key={i} className='post'>
                     <input type='checkbox' className='reveal' id={'reveal' + i} />
-                    <label id={'label' + i} className='label' htmlFor={'reveal' + i} >
+                    <label id={'label' + i} className='label' htmlFor={'reveal' + i} onClick={() => openPost(i)}>
                         <div id={'head' + i} className='head'>
                             <div id={'date' + i} className='date'>{getDate(new Date(post.time))}</div>
                             <div id={'title' + i} className='title'>{post.title}</div>
@@ -127,6 +96,22 @@ function getDate(time) {
     value += '/';
     value += time.getFullYear();
     return value;
+}
+
+function openPost(i) {
+    let opened = JSON.parse(localStorage.getItem('openPost'));
+
+    if(opened !== i) {
+        const reveal = document.getElementById(`reveal${opened}`);
+        reveal.checked = false;
+    }
+    
+    opened = i;
+    
+    const content = document.getElementById(`content${opened}`);
+    content.style.display = 'flex';
+    
+    localStorage.setItem('openPost', JSON.stringify(opened));
 }
 
 // Do like you did in the Simon scores for here. This should be the easiest, followed by the feed and then the login and then the chats... :)
