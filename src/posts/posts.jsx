@@ -6,7 +6,38 @@ import './posts.css';
 
 export function Posts() {
 
+    const handleClick = (buttonId = -1) => {
+
+        // First we want to make it show
+        if(buttonId !== -1) {
+            const content = document.getElementById(`content${buttonId}`);
+            content.style.display = 'flex';
+        }
+    
+        // Now we loop
+        for(let i = 0; i < length; i++) {
+    
+            // Get the input element with the reveali id
+            let reveal = document.getElementById(`reveal${i}`);
+    
+            // Then, if the button is not the one we are clicking, close it
+            if(i !== buttonId) {
+                reveal.checked = false;
+            }
+        }
+        if(buttonId === -1) {
+            for(let i = 0; i < length; i++) {
+    
+                // Get the input element with the contenti id
+                let contents = document.getElementById(`content${i}`);
+                
+                contents.style.display = 'none';
+            }
+        }
+    };
+
     const [posts, setPosts] = React.useState([]);
+    
 
     React.useEffect(() => {
     fetch('/api/posts/posts')
@@ -41,7 +72,7 @@ export function Posts() {
             postRows.push(
                 <li key={i} className='post'>
                     <input type='checkbox' className='reveal' id={'reveal' + i} />
-                    <label id={'label' + i} className='label' htmlFor={'reveal' + i}>
+                    <label id={'label' + i} className='label' htmlFor={'reveal' + i} >
                         <div id={'head' + i} className='head'>
                             <div id={'date' + i} className='date'>{getDate(new Date(post.time))}</div>
                             <div id={'title' + i} className='title'>{post.title}</div>

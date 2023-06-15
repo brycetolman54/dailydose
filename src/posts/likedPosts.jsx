@@ -13,9 +13,15 @@ export function LikedPosts() {
         .then((response) => response.json())
         .then(async (allPosts) => {
 
-            return fetch(`/api/posts/mine/${localStorage.getItem('username')}`)
+            return fetch(`/api/posts/liked/${localStorage.getItem('username')}`)
                 .then((response) => response.json())
                 .then((posts) => {
+                    if(typeof(posts[0] === 'number')) {
+                        for(const [i, thepost] of posts.entries()) {
+                            posts[i] = {allPlace: thepost};
+                        }
+                    }
+
                     posts = posts.sort((a,b) => b.allPlace - a.allPlace);
 
                     let newPosts = [];

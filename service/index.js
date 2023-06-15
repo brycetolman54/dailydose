@@ -101,6 +101,12 @@ apiRouter.get('/*/posts', async (_req, res) => {
 
 });
 
+// Also we need to get the likes of our rootuser for the liked posts table
+apiRouter.get('/posts/liked/:user', async (req, res) => {
+    const liked = await DB.getLiked(req.params.user);
+    res.send(liked);
+}); 
+
 // Make a secure router for the one above to use to verify credentials for endpoints
 var secureApiRouter = express.Router();
 apiRouter.use(secureApiRouter);
@@ -191,11 +197,7 @@ secureApiRouter.post('/chat/:user/update/messages/with/:user2', async (req, res)
 
 
 
-// Also we need to get the likes of our rootuser for the liked posts table
-secureApiRouter.get('/posts/liked/:user', async (req, res) => {
-    const liked = await DB.getLiked(req.params.user);
-    res.send(liked);
-}); 
+
 
 // Be able to update the unseen value of a post
 secureApiRouter.post('/chat/:user1/with/:user2/unseen/:bool', async (req, res) => {
