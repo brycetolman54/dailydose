@@ -5,6 +5,19 @@ import {NavLink} from 'react-router-dom';
 import './feed.css';
 
 export function Feed() {
+
+    const [author, setAuthor] = React.useState('');
+    const [quote, setQuote] = React.useState('');
+
+    React.useEffect(() => {
+        fetch('https://api.quotable.io/random')
+        .then((response) => response.json())
+        .then((data) => {
+          setQuote(data.content);
+          setAuthor(data.author);
+        });
+    }, []);
+
     return (
         <main>
         <div id="topHeader">
@@ -16,8 +29,8 @@ export function Feed() {
             <div id="quoteAndNew">
                 <aside id="quote">
                     <h3 id="quoteTitle">Inspirational Quote</h3>
-                    <p id="thequote"></p>
-                    <p id="author"></p>
+                    <p id="thequote">{quote}</p>
+                    <p id="author">{author}</p>
                 </aside>
                 <div id="newpost">
                     <p id="newPostHead"><b>New Post</b></p>
