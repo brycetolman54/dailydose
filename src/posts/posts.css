@@ -39,9 +39,6 @@
     flex-direction: column;
     margin: 10px;
 }
-#likeTable {
-    display: none;
-}
 #headTable {
     flex: 0 20px;
     display: flex;

@@ -111,7 +111,7 @@ footer p {
     padding: 0px;
     background-color: rgb(147, 204, 223);
     border: solid black;
-    border-width: 3px 0 1px 0;
+    border-width: 3px 0 2px 0;
 }
 .links a {
     flex: 1;
@@ -129,6 +129,7 @@ footer p {
     padding: 2px 0 5px 0px;
     border: solid;
     border-width: 0 1.5px 0 0;
+    text-decoration: none;
 }
 #bars:hover {
     background-color: rgb(165, 213, 220);
