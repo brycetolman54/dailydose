@@ -34,7 +34,7 @@
     border: solid black 1px;
 }
 .reveal {
-    display: ;
+    display: none;
 }
 .table {
     display: flex;

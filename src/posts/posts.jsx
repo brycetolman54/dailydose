@@ -35,7 +35,7 @@ export function Posts() {
             });
     }, []);
 
-     const postRows = [];
+    const postRows = [];
     if(posts.length) {
         for(const [i, post] of posts.entries()) {
             postRows.push(
@@ -87,7 +87,7 @@ export function Posts() {
     );
 }
 
-function getDate(time) {
+export function getDate(time) {
     let value = '';
     let month = time.getMonth() + 1;
     value += month;
@@ -98,10 +98,10 @@ function getDate(time) {
     return value;
 }
 
-function openPost(i) {
+export function openPost(i) {
     let opened = JSON.parse(localStorage.getItem('openPost'));
 
-    if(opened !== i) {
+    if((opened || opened ===0) && opened !== i) {
         const reveal = document.getElementById(`reveal${opened}`);
         reveal.checked = false;
     }

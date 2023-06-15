@@ -4,42 +4,43 @@ import {NavLink} from 'react-router-dom';
 
 import './posts.css';
 
+import {getDate, openPost} from './posts.jsx';
+
 export function LikedPosts() {
 
     const [posts, setPosts] = React.useState([]);
-    const [openPost, setOpenPost] = React.useState([]);
 
     React.useEffect(() => {
-    fetch('/api/posts/posts')
-        .then((response) => response.json())
-        .then(async (allPosts) => {
+        fetch('/api/posts/posts')
+            .then((response) => response.json())
+            .then(async (allPosts) => {
 
-            return fetch(`/api/posts/liked/${localStorage.getItem('username')}`)
-                .then((response) => response.json())
-                .then((posts) => {
-                    if(typeof(posts[0] === 'number')) {
-                        for(const [i, thepost] of posts.entries()) {
-                            posts[i] = {allPlace: thepost};
+                return fetch(`/api/posts/liked/${localStorage.getItem('username')}`)
+                    .then((response) => response.json())
+                    .then((posts) => {
+                        if(typeof(posts[0] === 'number')) {
+                            for(const [i, thepost] of posts.entries()) {
+                                posts[i] = {allPlace: thepost};
+                            }
                         }
-                    }
 
-                    posts = posts.sort((a,b) => b.allPlace - a.allPlace);
+                        posts = posts.sort((a,b) => b.allPlace - a.allPlace);
 
-                    let newPosts = [];
-                    for(const postIndex of posts) {
-                        newPosts.push(allPosts[allPosts.length - postIndex.allPlace - 1]);
-                    }
+                        let newPosts = [];
+                        for(const postIndex of posts) {
+                            newPosts.push(allPosts[allPosts.length - postIndex.allPlace - 1]);
+                        }
 
-                    setPosts(newPosts);
-                    localStorage.setItem('posts', JSON.stringify(posts));
-                })
-        })
-        .catch(() => {
-            const postsText = localStorage.getItem('posts');
-            if(postsText) {
-                setPosts(JSON.parse(postsText));
-            } 
-        });
+                        setPosts(newPosts);
+                        localStorage.setItem('posts', JSON.stringify(posts));
+                    })
+            })
+            .catch(() => {
+                const postsText = localStorage.getItem('posts');
+                if(postsText) {
+                    setPosts(JSON.parse(postsText));
+                } 
+            });
     }, []);
 
     const postRows = [];
@@ -48,7 +49,7 @@ export function LikedPosts() {
             postRows.push(
                 <li key={i} className='post'>
                     <input type='checkbox' className='reveal' id={'reveal' + i} />
-                    <label id={'label' + i} className='label' htmlFor={'reveal' + i}>
+                    <label id={'label' + i} className='label' htmlFor={'reveal' + i} onClick={() => openPost(i)}>
                         <div id={'head' + i} className='head'>
                             <div id={'date' + i} className='date'>{getDate(new Date(post.time))}</div>
                             <div id={'title' + i} className='title'>{post.title}</div>
@@ -70,11 +71,10 @@ export function LikedPosts() {
     return (
         <main>
             <div id="topHeader">
-                <NavLink id="bars" to='../posts'>&#x2630;</NavLink>
+                <NavLink id="bars" to='../posts' onClick={() => localStorage.removeItem('openPost')}>&#x2630;</NavLink>
                 <h2 id="head">Liked Posts</h2>
                 {/* <div id="userInfo" onclick="backToLogin()">Login</div> */}
             </div>
-
             <div id="likeTable" className="table">
                 <div id="headTable">
                     <div id="date" className="date">
@@ -88,15 +88,4 @@ export function LikedPosts() {
             </div>
         </main>
     );
-}
-
-function getDate(time) {
-    let value = '';
-    let month = time.getMonth() + 1;
-    value += month;
-    value += '/';
-    value += time.getDate();
-    value += '/';
-    value += time.getFullYear();
-    return value;
 }
