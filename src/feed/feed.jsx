@@ -35,12 +35,23 @@ export function Feed() {
                     setAllPosts(JSON.parse(postText));
                 }
             });
-    }, [allPosts]);
+    }, []);
 
     const [likes, setLikes] = React.useState([]);
 
     React.useEffect(() => {
         fetch(`/api/feed/${localStorage.getItem('username')}`)
+            .then(response => response.json())
+            .then(data => {
+                setLikes(data);
+                localStorage.setItem('myLikes', JSON.stringify(data));
+            })
+            .catch(() => {
+                const likesText = localStorage.getItem('myLikes');
+                if(likesText) {
+                    setLikes(JSON.parse(likesText));
+                }
+            });
     }, []);
 
     const handleClick = (id) => {
@@ -50,11 +61,11 @@ export function Feed() {
     const postsArray = [];
     if(allPosts.length) {
         for(const [i, post] of allPosts.entries()) {
+            const liked = likes.includes(post.place);
             const date = getDate(new Date(post.time));
             const time = getTime(new Date(post.time));
-            const liked = true;
             postsArray.push(
-                <Post key={post.place} id={post.place} title={post.title} content={post.content} user={post.user} time={time} date={date} handleClick={handleClick} liked={liked}/>
+                <Post key={post.place} id={allPosts.length - post.place - 1} title={post.title} content={post.content} user={post.user} time={time} date={date} handleClick={handleClick} liked={liked}/>
             );
         }
     }

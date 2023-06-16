@@ -3,7 +3,11 @@ import React from 'react';
 export function Post(props) {
 
     const [like, setLike] = React.useState(props.liked);
-    const [color, setColor] = React.useState('purple');
+    const [color, setColor] = React.useState(props.liked ? 'rgb(41, 195, 246)' : 'purple');
+
+    React.useEffect(() => {
+        setLike(props.liked);
+    }, [props.liked]);
 
     React.useEffect(() => {
         if(like) {
