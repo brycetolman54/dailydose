@@ -40,7 +40,7 @@ export function Post(props) {
                 <p className="user">{props.user}</p>
                 <p className="timestamp">{props.date}<br/>{props.time}</p>
                 <div className="buttons">
-                    <button className="like" id={'like' + props.id} style={{backgroundColor: color}} onClick={() => {hitLike(props.id); props.handleClick(props.id);}}>Like</button>
+                    <button className="like" id={'like' + props.id} style={{backgroundColor: color}} onClick={() => hitLike(props.id)}>Like</button>
                 </div>
             </div>
             <div className="bottomMatter">

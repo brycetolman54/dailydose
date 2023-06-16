@@ -129,6 +129,16 @@ apiRouter.post('/feed/:user/dislike/:post', async (req, res) =>{
     res.send('good');
 });
 
+// What if we need to add a new post
+apiRouter.post('/feed/post/:user', async (req, res) => {
+
+    // Add the post to all the posts
+    await DB.addPost(req.body);
+
+    res.send('good');
+
+});
+
 // Make a secure router for the one above to use to verify credentials for endpoints
 var secureApiRouter = express.Router();
 apiRouter.use(secureApiRouter);
@@ -144,15 +154,7 @@ secureApiRouter.use(async (req, res, next) => {
 });
 
 
-// What if we need to add a new post
-secureApiRouter.post('/feed/post/:user', async (req, res) => {
 
-    // Add the post to all the posts
-    await DB.addPost(req.body);
-
-    res.send('good');
-
-});
 
 
 

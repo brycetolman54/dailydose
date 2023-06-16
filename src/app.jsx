@@ -7,7 +7,6 @@ import {Login} from './login/login';
 import {Chat} from './chat/chat';
 // import {ChatNoSide} from './chat/chatNoSide';
 import {Feed} from './feed/feed';
-import {FeedNoTop} from './feed/feedNoTop';
 import {Posts} from './posts/posts';
 import {LikedPosts} from './posts/likedPosts';
 
@@ -34,7 +33,6 @@ export default function App() {
                 <Routes>
                     <Route path='/' element={<Login />} />
                     <Route path='/feed' element={<Feed />} />
-                    <Route path='/feedNoTop' element={<FeedNoTop />} />
                     <Route path='/chat' element={<Chat />} />
                     {/* <Route path='/chatNoSide' element={<ChatNoSide />} /> */}
                     <Route path='/posts' element={<Posts />} />

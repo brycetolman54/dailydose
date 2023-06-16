@@ -224,7 +224,6 @@ async function addPost() {
     obj.content = content;
     obj.user = localStorage.getItem('username');
     obj.time = new Date();
-    // obj.place = store.length;
     obj.likes = 0;
 
     // Maybe I'll put this in at a later date

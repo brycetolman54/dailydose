@@ -9,7 +9,18 @@ import {Post} from './post';
 export function Feed() {
 
     const [author, setAuthor] = React.useState('');
-    const [quote, setQuote] = React.useState('');
+    const [quote, setQuote] = React.useState('Searching for a quote...');
+    const [show, setShow] = React.useState(true);
+    const [display, setDisplay] = React.useState('flex');
+
+    React.useEffect(() => {
+        if(show) {
+            setDisplay('flex');
+        }
+        else if(!show) {
+            setDisplay('none');
+        }
+    }, [show]);
 
     React.useEffect(() => {
         fetch('https://api.quotable.io/random')
@@ -54,10 +65,6 @@ export function Feed() {
             });
     }, []);
 
-    const handleClick = (id) => {
-
-    }
-
     const postsArray = [];
     if(allPosts.length) {
         for(const [i, post] of allPosts.entries()) {
@@ -65,33 +72,34 @@ export function Feed() {
             const date = getDate(new Date(post.time));
             const time = getTime(new Date(post.time));
             postsArray.push(
-                <Post key={post.place} id={allPosts.length - post.place - 1} title={post.title} content={post.content} user={post.user} time={time} date={date} handleClick={handleClick} liked={liked}/>
+                <Post key={post.place} id={allPosts.length - post.place - 1} title={post.title} content={post.content} user={post.user} time={time} date={date} liked={liked}/>
             );
         }
     }
 
+    const [theTitle, setTheTitle] = React.useState('');
+    const [theContent, setTheContent] = React.useState('');
 
     return (
         <main>
         <div id="topHeader">
-            <NavLink id="bars" to='../feedNoTop'>&#x2630;</NavLink>
+            <div id="bars" onClick={() => setShow(!show)}>&#x2630;</div>
             <h2>Feed</h2>
             {/* <div id="userInfo" onclick='backToLogin()'>Login</div> */}
         </div>
         <div id="feedAndQuote">
             <div id="quoteAndNew">
-                <aside id="quote">
+                <aside id="quote" style={{display: display}}>
                     <h3 id="quoteTitle">Inspirational Quote</h3>
-                    <p id="thequote">{quote}</p>
+                    <p id="thequote">"{quote}"</p>
                     <p id="author">{author}</p>
                 </aside>
-                <div id="newpost">
+                <div id="newpost" style={{display: display}}>
                     <p id="newPostHead"><b>New Post</b></p>
                     <label htmlFor="text">Post title</label>
-                    {/* <input type="text" id="postTitle" name="postTitle" placeholder="Enter a title (max 60 characters)" pattern=".{1,50}" title="Your title is too long" required oninput="enablePost()"/> */}
-                    <label htmlFor="textarea">Post text</label>
-                    {/* <textarea id="postContent" name="newPost" placeholder="Share your thoughts" required oninput="enablePost()"></textarea> */}
-                    {/* <button id="postIt" disabled onclick="addPost()">Post</button> */}
+                    <textarea id="postTitle" name="postTitle" placeholder="Enter a title (max 60 characters)" pattern=".{1,50}" title="Your title is too long" required value={theTitle} onChange={(e) => setTheTitle(e.target.value)}></textarea>                    <label htmlFor="textarea">Post text</label>
+                    <textarea id="postContent" name="newPost" placeholder="Share your thoughts" required value={theContent} onChange={(e) => setTheContent(e.target.value)}></textarea>
+                    <button id="postIt" disabled={!(theTitle && theContent)} onClick={() => {const newPost = addPost(theContent, theTitle, allPosts.length); allPosts.unshift(newPost); setTheContent(''); setTheTitle('');}}>Post</button>
                 </div>
             </div>
             <div id="feedfield">{postsArray}</div>
@@ -138,3 +146,32 @@ export function getTime(time) {
     }
     return value;
 }
+
+function enablePost() {
+    if(document.getElementById('postTitle').value.length > 0 && document.getElementById('postContent').value.length > 0) {
+        document.getElementById('postIt').disabled = false;
+    }
+    else {
+        document.getElementById('postIt').disabled = true;
+    }
+}
+
+function addPost(content, title, length) {
+
+        let obj = new Object;
+        obj.title = title;
+        obj.content = content;
+        obj.user = localStorage.getItem('username');
+        obj.time = new Date();
+        obj.likes = 0;
+    
+        fetch(`/api/feed/post/${obj.user}`, {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(obj),
+        });
+    
+        obj.place = length;
+
+        return obj;
+};
