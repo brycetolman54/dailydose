@@ -2,9 +2,14 @@ import React from 'react';
 
 import './chat.css';
 
+import {OneChat} from './OneChat.jsx';
+
+import {getDate} from '../feed/feed.jsx';
+
 export function Chat() {
 
     const [users, setUsers] = React.useState([]);
+    const [chats, setChats] = React.useState([]);
 
     const [display, setDisplay] = React.useState('flex');
     const [show, setShow] = React.useState(true);
@@ -38,16 +43,45 @@ export function Chat() {
                     setUsers(usersText);
                 }
             });
+        fetch(`/api/chat/${localStorage.getItem('username')}`)
+            .then(response => response.json())
+            .then(data => {
+                setChats(data);
+                localStorage.setItem('chats', JSON.stringify(data));
+            })
+            .catch(() => {
+                const chatsText = localStorage.getItem('chats');
+                if(chatsText) {
+                    setChats(JSON.parse(chatsText));
+                }
+            });
     }, []);
 
     const theUsers = [];
     if(users.length) {
         for(const [i, user] of users.entries()) {
-            theUsers.push(
-                <option key={i} id={user}>{user}</option>
+            if(!(user === localStorage.getItem('username')) && !(chats.find(obj => obj.name === user))) {
+                theUsers.push(
+                    <option key={i} id={user}>{user}</option>
+                );
+            }
+        }
+    }
+
+    const theChats = [];
+    if(chats.length) {
+        for(const [i,chat] of chats.entries()) {
+            theChats.push(
+                <OneChat key={i} with={chat.name} time={getDate(new Date(chat.time))} setChat={setChat} />
             );
         }
     }
+
+    const [theChosenOne, setTheChosenOne] = React.useState('');
+
+    const changeTheChosenOne = (iChooseYou) => {
+        setTheChosenOne(iChooseYou.target.value);
+    };
 
     return (
         <main>
@@ -70,11 +104,11 @@ export function Chat() {
                 <aside id="chats" style={{display: display}}>
                     <h3 id="chatHead">Conversations</h3>
                     <div id="container">
-                        <ol id="userChatList"></ol> 
+                        <ol id="userChatList">{theChats}</ol> 
                     </div>
                     <div id="startNew">
                         <label id="startLabel">Start a new message with</label>
-                        <select id="userStart" name="newChatUser">
+                        <select id="userStart" name="newChatUser" onChange={changeTheChosenOne}>
                             <option id="selector" defaultValue>--Please choose a user--</option>
                             {theUsers}
                         </select>
