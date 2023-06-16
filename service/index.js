@@ -107,6 +107,28 @@ apiRouter.get('/posts/liked/:user', async (req, res) => {
     res.send(liked);
 }); 
 
+// What if we need to get the likes of the person that we are starting the page for
+apiRouter.get('/feed/:user', async (req, res) => {
+    const likes = await DB.getLikes(req.params.user);
+    res.send(likes);
+});
+
+// What if we need to like a post
+apiRouter.post('/feed/:user/like/:post', async (req, res) => {
+    
+    await DB.like(req.params.post, req.params.user);
+    
+    res.send('good');
+});
+
+// what if we dislike a post
+apiRouter.post('/feed/:user/dislike/:post', async (req, res) =>{
+    
+    await DB.unlike(req.params.post, req.params.user);
+
+    res.send('good');
+});
+
 // Make a secure router for the one above to use to verify credentials for endpoints
 var secureApiRouter = express.Router();
 apiRouter.use(secureApiRouter);
@@ -122,8 +144,6 @@ secureApiRouter.use(async (req, res, next) => {
 });
 
 
-
-
 // What if we need to add a new post
 secureApiRouter.post('/feed/post/:user', async (req, res) => {
 
@@ -134,27 +154,7 @@ secureApiRouter.post('/feed/post/:user', async (req, res) => {
 
 });
 
-// What if we need to get the likes of the person that we are starting the page for
-secureApiRouter.get('/feed/:user', async (req, res) => {
-    const likes = await DB.getLikes(req.params.user);
-    res.send(likes);
-});
 
-// What if we need to like a post
-secureApiRouter.post('/feed/:user/like/:post', async (req, res) => {
-    
-    await DB.like(req.params.post, req.params.user);
-    
-    res.send('good');
-});
-
-// what if we dislike a post
-secureApiRouter.post('/feed/:user/dislike/:post', async (req, res) =>{
-    
-    await DB.unlike(req.params.post, req.params.user);
-
-    res.send('good');
-});
 
 // Now if we need to get the users
 secureApiRouter.get('/chat/users', async (_req, res) => {

@@ -4,7 +4,9 @@ import {NavLink} from 'react-router-dom';
 
 import './posts.css';
 
-import {getDate, openPost} from './posts.jsx';
+import {openPost} from './posts.jsx';
+
+import {getDate} from '../feed/feed.jsx';
 
 export function LikedPosts() {
 

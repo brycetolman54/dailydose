@@ -4,6 +4,8 @@ import {NavLink} from 'react-router-dom';
 
 import './feed.css';
 
+import {Post} from './post';
+
 export function Feed() {
 
     const [author, setAuthor] = React.useState('');
@@ -24,6 +26,7 @@ export function Feed() {
         fetch('/api/feed/posts')
             .then(response => response.json())
             .then(thePosts => {
+                setAllPosts(thePosts);
                 localStorage.setItem('feedPosts', JSON.stringify(thePosts));
             })
             .catch(() => {
@@ -34,10 +37,25 @@ export function Feed() {
             });
     }, [allPosts]);
 
-    const postsArray = [];
-    if(postsArray.length) {
-        for(const [i, post] of postsArray) {
+    const [likes, setLikes] = React.useState([]);
 
+    React.useEffect(() => {
+        fetch(`/api/feed/${localStorage.getItem('username')}`)
+    }, []);
+
+    const handleClick = (id) => {
+
+    }
+
+    const postsArray = [];
+    if(allPosts.length) {
+        for(const [i, post] of allPosts.entries()) {
+            const date = getDate(new Date(post.time));
+            const time = getTime(new Date(post.time));
+            const liked = true;
+            postsArray.push(
+                <Post key={post.place} id={post.place} title={post.title} content={post.content} user={post.user} time={time} date={date} handleClick={handleClick} liked={liked}/>
+            );
         }
     }
 
@@ -71,3 +89,41 @@ export function Feed() {
     );
     
 } 
+
+export function getDate(time) {
+    let value = '';
+    let month = time.getMonth() + 1;
+    value += month;
+    value += '/';
+    value += time.getDate();
+    value += '/';
+    value += time.getFullYear();
+    return value;
+}
+
+export function getTime(time) {
+    let bool = false;
+    let value = '';
+    let hour = time.getHours();
+    if(hour > 12) {
+        hour = hour - 12;
+        value += hour;
+        bool = true;
+    }
+    else {
+        value += hour;
+    }
+    value += ':';
+    if(time.getMinutes() < 10) {
+        value += 0;
+    }
+    value += time.getMinutes();
+    value += ' ';
+    if(bool) {
+        value += 'pm';
+    }
+    else {
+        value += 'am';
+    }
+    return value;
+}

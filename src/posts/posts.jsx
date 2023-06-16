@@ -4,6 +4,8 @@ import {NavLink} from 'react-router-dom';
 
 import './posts.css';
 
+import {getDate} from '../feed/feed.jsx';
+
 export function Posts() {
 
     const [posts, setPosts] = React.useState([]);
@@ -64,7 +66,7 @@ export function Posts() {
     return (
         <main>
             <div id="topHeader">
-                <NavLink id="bars" to='../likedPosts'>&#x2630;</NavLink>
+                <NavLink id="bars" to='../likedPosts' onClick={() => localStorage.removeItem('openPost')}>&#x2630;</NavLink>
                 <h2 id="head">My Posts</h2>
                 {/* <div id="userInfo" onclick="backToLogin()">Login</div> */}
             </div>
@@ -85,17 +87,6 @@ export function Posts() {
 
         </main>
     );
-}
-
-export function getDate(time) {
-    let value = '';
-    let month = time.getMonth() + 1;
-    value += month;
-    value += '/';
-    value += time.getDate();
-    value += '/';
-    value += time.getFullYear();
-    return value;
 }
 
 export function openPost(i) {
