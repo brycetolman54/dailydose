@@ -8,7 +8,7 @@ import {openPost} from './posts.jsx';
 
 import {getDate} from '../feed/feed.jsx';
 
-export function LikedPosts() {
+export function LikedPosts(props) {
 
     const [posts, setPosts] = React.useState([]);
 
@@ -17,7 +17,7 @@ export function LikedPosts() {
             .then((response) => response.json())
             .then(async (allPosts) => {
 
-                return fetch(`/api/posts/liked/${localStorage.getItem('username')}`)
+                return fetch(`/api/posts/liked/${props.username}`)
                     .then((response) => response.json())
                     .then((posts) => {
                         if(typeof(posts[0] === 'number')) {

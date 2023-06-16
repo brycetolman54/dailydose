@@ -6,7 +6,7 @@ import './feed.css';
 
 import {Post} from './post';
 
-export function Feed() {
+export function Feed(props) {
 
     const [author, setAuthor] = React.useState('');
     const [quote, setQuote] = React.useState('Searching for a quote...');
@@ -51,7 +51,7 @@ export function Feed() {
     const [likes, setLikes] = React.useState([]);
 
     React.useEffect(() => {
-        fetch(`/api/feed/${localStorage.getItem('username')}`)
+        fetch(`/api/feed/${props.username}`)
             .then(response => response.json())
             .then(data => {
                 setLikes(data);
@@ -99,7 +99,7 @@ export function Feed() {
                     <label htmlFor="text">Post title</label>
                     <textarea id="postTitle" name="postTitle" placeholder="Enter a title (max 60 characters)" pattern=".{1,50}" title="Your title is too long" required value={theTitle} onChange={(e) => setTheTitle(e.target.value)}></textarea>                    <label htmlFor="textarea">Post text</label>
                     <textarea id="postContent" name="newPost" placeholder="Share your thoughts" required value={theContent} onChange={(e) => setTheContent(e.target.value)}></textarea>
-                    <button id="postIt" disabled={!(theTitle && theContent)} onClick={() => {const newPost = addPost(theContent, theTitle, allPosts.length); allPosts.unshift(newPost); setTheContent(''); setTheTitle('');}}>Post</button>
+                    <button id="postIt" disabled={!(theTitle && theContent)} onClick={() => {const newPost = addPost(theContent, theTitle, allPosts.length, props.username); allPosts.unshift(newPost); setTheContent(''); setTheTitle('');}}>Post</button>
                 </div>
             </div>
             <div id="feedfield">{postsArray}</div>
@@ -156,12 +156,12 @@ function enablePost() {
     }
 }
 
-function addPost(content, title, length) {
+function addPost(content, title, length, user) {
 
         let obj = new Object;
         obj.title = title;
         obj.content = content;
-        obj.user = localStorage.getItem('username');
+        obj.user = user;
         obj.time = new Date();
         obj.likes = 0;
     

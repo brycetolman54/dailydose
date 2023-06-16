@@ -6,9 +6,7 @@ import {OneChat} from './OneChat.jsx';
 
 import {getDate} from '../feed/feed.jsx';
 
-export function Chat() {
-
-    const username = localStorage.getItem('username');
+export function Chat(props) {
 
     const [users, setUsers] = React.useState([]);
     const [chats, setChats] = React.useState([]);
@@ -58,9 +56,10 @@ export function Chat() {
     }, []);
 
     React.useEffect(() => {
-        fetch(`/api/chat/${username}`)
+        fetch(`/api/chat/${props.username}`)
             .then(response => response.json())
             .then(data => {
+                data = data.sort((a,b) => {if(a.time > b.time) {return -1;} else if(a.time < b.time) {return 1;} else {return 0;}});
                 setChats(data);
                 localStorage.setItem('chats', JSON.stringify(data));
             })
@@ -75,7 +74,7 @@ export function Chat() {
     const theUsers = [];
     if(users.length) {
         for(const [i, user] of users.entries()) {
-            if(!(user === username) && !(chats.find(obj => obj.name === user))) {
+            if(!(user === props.username) && !(chats.find(obj => obj.name === user))) {
                 theUsers.push(
                     <option key={i} id={user}>{user}</option>
                 );
@@ -100,18 +99,23 @@ export function Chat() {
         const rootObj = {name: theChosenOne, time: new Date(), messages: [], unseen: false};
         const sendChats = chats;
         sendChats.push(rootObj);
-        fetch(`/api/chat/${username}/update/chats`, {
+        fetch(`/api/chat/${props.username}/update/chats`, {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify(sendChats),
         });
+        
+        const targetObj = {name: props.username, time: new Date(), messages: [], unseen: false};
+        fetch(`/api/chat/new/with/${theChosenOne}`, {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(targetObj),
+        });
 
-
+        // SEND A MESSAGE THROUGH SOCKET
         
         setUsers(users.filter(obj => obj !== theChosenOne));
         setTheChosenOne('');
-
-        chats.unshift(rootObj);
 
         }
     }

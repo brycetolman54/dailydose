@@ -6,7 +6,7 @@ import './posts.css';
 
 import {getDate} from '../feed/feed.jsx';
 
-export function Posts() {
+export function Posts(props) {
 
     const [posts, setPosts] = React.useState([]);
 
@@ -15,7 +15,7 @@ export function Posts() {
             .then((response) => response.json())
             .then(async (allPosts) => {
 
-                return fetch(`/api/posts/mine/${localStorage.getItem('username')}`)
+                return fetch(`/api/posts/mine/${props.username}`)
                     .then((response) => response.json())
                     .then((posts) => {
                         posts = posts.sort((a,b) => b.allPlace - a.allPlace);

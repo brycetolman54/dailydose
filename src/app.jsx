@@ -5,7 +5,6 @@ import './app.css';
 
 import {Login} from './login/login';
 import {Chat} from './chat/chat';
-// import {ChatNoSide} from './chat/chatNoSide';
 import {Feed} from './feed/feed';
 import {Posts} from './posts/posts';
 import {LikedPosts} from './posts/likedPosts';
@@ -18,6 +17,9 @@ function NotFound() {
 }
 
 export default function App() {
+
+    const username = localStorage.getItem('username');
+
     return (
         <BrowserRouter>
             <div className='app'>        
@@ -32,11 +34,10 @@ export default function App() {
 
                 <Routes>
                     <Route path='/' element={<Login />} />
-                    <Route path='/feed' element={<Feed />} />
-                    <Route path='/chat' element={<Chat />} />
-                    {/* <Route path='/chatNoSide' element={<ChatNoSide />} /> */}
-                    <Route path='/posts' element={<Posts />} />
-                    <Route path='/likedPosts' element={<LikedPosts />} />
+                    <Route path='/feed' element={<Feed username={username} />} />
+                    <Route path='/chat' element={<Chat username={username} />} />
+                    <Route path='/posts' element={<Posts username={username} />} />
+                    <Route path='/likedPosts' element={<LikedPosts username={username} />} />
                     <Route path='*' element={<NotFound />} />
                 </Routes>
 

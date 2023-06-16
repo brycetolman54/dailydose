@@ -156,6 +156,24 @@ apiRouter.get('/chat/:user', async (req, res) => {
     res.send(chats);
 });
 
+// We want to update the chats of the root user
+apiRouter.post('/chat/:user/update/chats', async (req, res) => {
+    
+    await DB.updateChats(req.params.user, req.body);
+
+    res.send('done');
+
+});
+
+// We want to update the chats of the user with whom we are chatting
+apiRouter.post('/chat/new/with/:user', async (req, res) => {
+
+    await DB.updateHisChats(req.params.user, req.body);
+
+    res.send('done');
+
+});
+
 // Make a secure router for the one above to use to verify credentials for endpoints
 var secureApiRouter = express.Router();
 apiRouter.use(secureApiRouter);
@@ -177,23 +195,7 @@ secureApiRouter.use(async (req, res, next) => {
 
 
 
-// We want to update the chats of the root user
-secureApiRouter.post('/chat/:user/update/chats', async (req, res) => {
-    
-    await DB.updateChats(req.params.user, req.body);
 
-    res.send('done');
-
-});
-
-// We want to update the chats of the user with whom we are chatting
-secureApiRouter.post('/chat/new/with/:user', async (req, res) => {
-
-    await DB.updateHisChats(req.params.user, req.body);
-
-    res.send('done');
-
-});
 
 // We want to do the same for the user with whom we are chatting
 secureApiRouter.post('/chat/:user/update/messages/with/:user2', async (req, res) => {
