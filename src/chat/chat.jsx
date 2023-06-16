@@ -8,6 +8,8 @@ import {getDate} from '../feed/feed.jsx';
 
 export function Chat() {
 
+    const username = localStorage.getItem('username');
+
     const [users, setUsers] = React.useState([]);
     const [chats, setChats] = React.useState([]);
 
@@ -18,6 +20,16 @@ export function Chat() {
 
     const setChat = (user) => {
         // Pass this into the chat element
+        // It will clear away the messages area
+        // The OneChat will return its array of messages that it has created
+        // This functin will take that array and set the messagesArray to that array that it is passed after clearing out the other array
+        // Make a message component
+        // Each OneChat will store their own messages as the array of objects
+        // You will take that array and render the messages in a React.useEffect function that rerenders whenever the messagesArray is updated
+        // It will update when you open a chat or send a message
+        // This function will simply use the setMessagesArray function to update the messages
+        // It will also change the value of the chat user
+        // The function in the Open chat will change its color
         setChatUser(user);
     }
 
@@ -43,7 +55,10 @@ export function Chat() {
                     setUsers(usersText);
                 }
             });
-        fetch(`/api/chat/${localStorage.getItem('username')}`)
+    }, []);
+
+    React.useEffect(() => {
+        fetch(`/api/chat/${username}`)
             .then(response => response.json())
             .then(data => {
                 setChats(data);
@@ -60,7 +75,7 @@ export function Chat() {
     const theUsers = [];
     if(users.length) {
         for(const [i, user] of users.entries()) {
-            if(!(user === localStorage.getItem('username')) && !(chats.find(obj => obj.name === user))) {
+            if(!(user === username) && !(chats.find(obj => obj.name === user))) {
                 theUsers.push(
                     <option key={i} id={user}>{user}</option>
                 );
@@ -72,16 +87,34 @@ export function Chat() {
     if(chats.length) {
         for(const [i,chat] of chats.entries()) {
             theChats.push(
-                <OneChat key={i} with={chat.name} time={getDate(new Date(chat.time))} setChat={setChat} />
+                <OneChat key={i} with={chat.name} time={getDate(new Date(chat.time))} setChat={setChat} unseen={chat.unseen} messages={chat.messages}/>
             );
         }
     }
 
     const [theChosenOne, setTheChosenOne] = React.useState('');
 
-    const changeTheChosenOne = (iChooseYou) => {
-        setTheChosenOne(iChooseYou.target.value);
-    };
+    const startChat = () => {
+        if(theChosenOne && theChosenOne !== '--Choose a user--') {
+
+        const rootObj = {name: theChosenOne, time: new Date(), messages: [], unseen: false};
+        const sendChats = chats;
+        sendChats.push(rootObj);
+        fetch(`/api/chat/${username}/update/chats`, {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(sendChats),
+        });
+
+
+        
+        setUsers(users.filter(obj => obj !== theChosenOne));
+        setTheChosenOne('');
+
+        chats.unshift(rootObj);
+
+        }
+    }
 
     return (
         <main>
@@ -108,11 +141,11 @@ export function Chat() {
                     </div>
                     <div id="startNew">
                         <label id="startLabel">Start a new message with</label>
-                        <select id="userStart" name="newChatUser" onChange={changeTheChosenOne}>
-                            <option id="selector" defaultValue>--Please choose a user--</option>
+                        <select id="userStart" name="newChatUser" onChange={(e) => setTheChosenOne(e.target.value)} value={theChosenOne}>
+                            <option id="selector" defaultValue>--Choose a user--</option>
                             {theUsers}
                         </select>
-                        {/* <button id="start" onclick="startNew()">Start</button> */}
+                        <button id="start" onClick={() => startChat()}>Start</button>
                     </div>
                 </aside>
             </div>        
