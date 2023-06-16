@@ -50,7 +50,6 @@
     background-color: lightblue;
 }
 .littleDot {
-    /* color: rgb(226, 226, 251); */
     flex: 0 5px;
     background-color: rgb(234, 233, 233);
     border: solid grey 1px;
@@ -174,7 +173,6 @@
 #userChatter {
     flex: 0 12px;
     background-color: rgb(236, 218, 218);
-    color: rgb(236,218,218);
     text-align: center;
     margin: auto;
     border: solid black;

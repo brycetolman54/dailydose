@@ -139,6 +139,23 @@ apiRouter.post('/feed/post/:user', async (req, res) => {
 
 });
 
+// Now if we need to get the users
+apiRouter.get('/chat/users', async (_req, res) => {
+    
+    const users = await DB.getUsers();
+    const sendArray = [];
+    for(const user of users) {
+        sendArray.push(user.user);
+    }
+    res.send(sendArray);    
+});
+
+// What if we want to get the chats of the root user
+apiRouter.get('/chat/:user', async (req, res) => {
+    const chats = await DB.getUserChats(req.params.user);
+    res.send(chats);
+});
+
 // Make a secure router for the one above to use to verify credentials for endpoints
 var secureApiRouter = express.Router();
 apiRouter.use(secureApiRouter);
@@ -158,18 +175,7 @@ secureApiRouter.use(async (req, res, next) => {
 
 
 
-// Now if we need to get the users
-secureApiRouter.get('/chat/users', async (_req, res) => {
-    
-    const users = await DB.getUsers();
-    res.send(users);    
-});
 
-// What if we want to get the chats of the root user
-secureApiRouter.get('/chat/:user', async (req, res) => {
-    const chats = await DB.getUserChats(req.params.user);
-    res.send(chats);
-});
 
 // We want to update the chats of the root user
 secureApiRouter.post('/chat/:user/update/chats', async (req, res) => {

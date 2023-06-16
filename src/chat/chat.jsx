@@ -4,8 +4,17 @@ import './chat.css';
 
 export function Chat() {
 
+    const [users, setUsers] = React.useState([]);
+
     const [display, setDisplay] = React.useState('flex');
     const [show, setShow] = React.useState(true);
+
+    const [chatUser, setChatUser] = React.useState('');
+
+    const setChat = (user) => {
+        // Pass this into the chat element
+        setChatUser(user);
+    }
 
     React.useEffect(() => {
         if(show) {
@@ -16,6 +25,30 @@ export function Chat() {
         }
     }, [show]);
 
+    React.useEffect(() => {
+        fetch('/api/chat/users')
+            .then(response => response.json())
+            .then(data => {
+                setUsers(data);
+                localStorage.setItem('users', JSON.stringify(data));
+            })
+            .catch(() => {
+                const usersText = localStorage.getItem('users');
+                if(usersText) {
+                    setUsers(usersText);
+                }
+            });
+    }, []);
+
+    const theUsers = [];
+    if(users.length) {
+        for(const [i, user] of users.entries()) {
+            theUsers.push(
+                <option key={i} id={user}>{user}</option>
+            );
+        }
+    }
+
     return (
         <main>
             <div id="topHeader">
@@ -25,7 +58,7 @@ export function Chat() {
             </div>
             <div id="chatSpace">
                 <div id="chat">
-                    <h2 id="userChatter">Bobbaly</h2>
+                    <h2 id="userChatter">{chatUser}</h2>
                     <div id="messageSpace">
                         <ol id="messageList"></ol>
                     </div>
@@ -42,7 +75,8 @@ export function Chat() {
                     <div id="startNew">
                         <label id="startLabel">Start a new message with</label>
                         <select id="userStart" name="newChatUser">
-                            {/* <option id="selector" selected>--Please choose a user--</option> */}
+                            <option id="selector" defaultValue>--Please choose a user--</option>
+                            {theUsers}
                         </select>
                         {/* <button id="start" onclick="startNew()">Start</button> */}
                     </div>
