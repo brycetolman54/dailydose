@@ -16,6 +16,9 @@ export function Chat(props) {
     const [display, setDisplay] = React.useState('flex');
     const [show, setShow] = React.useState(true);
 
+    const [theMessage, setTheMessage] = React.useState(''); 
+    const [disabled, setDisabled] = React.useState(true);
+
     React.useEffect(() => {
         if(show) {
             setDisplay('flex');
@@ -80,6 +83,7 @@ export function Chat(props) {
 
         setOpenChat(user);
         setChatUser(user);
+        setDisabled(false);
 
         const theMessages = [];
         if(myMessages) {
@@ -88,7 +92,7 @@ export function Chat(props) {
             }
         }
         setMessages(theMessages);
-        
+
     }
 
     const theChats = [];
@@ -99,6 +103,15 @@ export function Chat(props) {
             );
         }
     }
+
+    const scrollRef = React.useRef(null);
+    
+    React.useEffect(() => {
+        const scrollEl = scrollRef.current;
+        if(scrollEl) {
+            scrollEl.scrollTop = scrollEl.scrollHeight;
+        }
+    }, [messages]);
 
     const [theChosenOne, setTheChosenOne] = React.useState('');
 
@@ -128,6 +141,19 @@ export function Chat(props) {
         }
     }
 
+    const sendMessage = () => {
+
+        const timeStamp = new Date();
+
+        const rootObj = {message: theMessage, time: timeStamp, whose: 'mine'};
+
+        const targetObj = {message: theMessage, time: timeStamp, whose: 'their'};
+
+        messages.push(<Message key={messages.length} time={rootObj.time} msg={rootObj.message} whose={rootObj.whose} />);
+
+        setTheMessage(''); 
+    }
+
     return (
         <main>
             <div id="topHeader">
@@ -139,11 +165,11 @@ export function Chat(props) {
                 <div id="chat">
                     <h2 id="userChatter">{chatUser}</h2>
                     <div id="messageSpace">
-                        <ol id="messageList">{messages}</ol>
+                        <ol ref={scrollRef} id="messageList">{messages}</ol>
                     </div>
                     <div id="newMessage">
-                        {/* <textarea id="messageArea" name="message" required oninput="enableSend()" disabled onkeydown="checkEnter(event)"></textarea> */}
-                        {/* <button id="send" disabled="false" onclick="sendMessage()">Send</button> */}
+                        <textarea id="messageArea" onChange={(e) => setTheMessage(e.target.value)} disabled={disabled} onKeyDown={(e) => {if(e.key === 'Enter'){if((theMessage.length > 0 && theMessage !== '\n')){e.preventDefault(); sendMessage();} else{setTheMessage('');}}}} value={theMessage}></textarea>
+                        <button id="send" disabled={!theMessage && !(false)} onClick={() => {sendMessage();}}>Send</button>
                     </div>
                 </div>
                 <aside id="chats" style={{display: display}}>
@@ -163,4 +189,8 @@ export function Chat(props) {
             </div>        
         </main>
     );
+}
+
+function checkEnter() {
+
 }
