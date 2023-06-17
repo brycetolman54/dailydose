@@ -187,6 +187,14 @@ apiRouter.post('/chat/:user1/with/:user2/unseen/:bool', async (req, res) => {
 
 });
 
+// We want to do the same for the user with whom we are chatting
+apiRouter.post('/chat/:user/update/messages/with/:user2', async (req, res) => {
+    
+    await DB.updateHisMessages(req.params.user, req.params.user2, req.body);
+    
+    res.send('done');
+});
+
 // Make a secure router for the one above to use to verify credentials for endpoints
 var secureApiRouter = express.Router();
 apiRouter.use(secureApiRouter);
@@ -200,27 +208,6 @@ secureApiRouter.use(async (req, res, next) => {
         res.status(401).send({msg: 'He does not exist'});
     }
 });
-
-
-
-
-
-
-
-
-
-
-// We want to do the same for the user with whom we are chatting
-secureApiRouter.post('/chat/:user/update/messages/with/:user2', async (req, res) => {
-    
-    await DB.updateHisMessages(req.params.user, req.params.user2, req.body);
-    
-    res.send('done');
-});
-
-
-
-
 
 
 

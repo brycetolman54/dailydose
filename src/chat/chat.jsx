@@ -163,7 +163,24 @@ export function Chat(props) {
         chats.splice(chatIndex, 1);
         chats.unshift(theChat);
 
+        fetch(`/api/chat/${props.username}/update/chats`, {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(chats),
+        });
+
         const targetObj = {message: theMessage, time: timeStamp, whose: 'their'};
+
+        fetch(`/api/chat/${chatUser}/update/messages/with/${props.username}`, {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({msg: targetObj, time: timeStamp}),
+        });
+
+        fetch(`/api/chat/${chatUser}/with/${props.username}/unseen/true`, {
+            method: 'POST',
+            headers: {'content-type': 'application/json'}, 
+        });
 
         messages.push(<Message key={messages.length} time={rootObj.time} msg={rootObj.message} whose={rootObj.whose} />);
 
