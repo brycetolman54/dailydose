@@ -70,9 +70,16 @@ export function Chat(props) {
         }
     }
 
-    const [openChat, setOpenChat] = React.useState('');
+
     const [chatUser, setChatUser] = React.useState('');
+    const [openChat, setOpenChat] = React.useState('');
     const [messages, setMessages] = React.useState([]);
+
+    React.useEffect(() => {
+        if(openChat === '') {
+            setOpenChat(chatUser);
+        }
+    }, [openChat]);
 
     const setChat = (user, myMessages) => {
 
@@ -105,7 +112,7 @@ export function Chat(props) {
     }
 
     const scrollRef = React.useRef(null);
-    
+
     React.useEffect(() => {
         const scrollEl = scrollRef.current;
         if(scrollEl) {
@@ -145,13 +152,24 @@ export function Chat(props) {
 
         const timeStamp = new Date();
 
+        const theChat = chats.find((o) => o.name === chatUser);
+        const chatIndex = chats.findIndex((o,i) => o.name === chatUser);
+
         const rootObj = {message: theMessage, time: timeStamp, whose: 'mine'};
+
+        theChat.time = timeStamp;
+        theChat.messages.push(rootObj);
+
+        chats.splice(chatIndex, 1);
+        chats.unshift(theChat);
 
         const targetObj = {message: theMessage, time: timeStamp, whose: 'their'};
 
         messages.push(<Message key={messages.length} time={rootObj.time} msg={rootObj.message} whose={rootObj.whose} />);
 
         setTheMessage(''); 
+
+        setOpenChat('');
     }
 
     return (
@@ -169,7 +187,7 @@ export function Chat(props) {
                     </div>
                     <div id="newMessage">
                         <textarea id="messageArea" onChange={(e) => setTheMessage(e.target.value)} disabled={disabled} onKeyDown={(e) => {if(e.key === 'Enter'){if((theMessage.length > 0 && theMessage !== '\n')){e.preventDefault(); sendMessage();} else{setTheMessage('');}}}} value={theMessage}></textarea>
-                        <button id="send" disabled={!theMessage && !(false)} onClick={() => {sendMessage();}}>Send</button>
+                        <button id="send" disabled={!theMessage && !(false)} onClick={() => {sendMessage(); setOpenChat(chatUser)}}>Send</button>
                     </div>
                 </div>
                 <aside id="chats" style={{display: display}}>
@@ -189,8 +207,4 @@ export function Chat(props) {
             </div>        
         </main>
     );
-}
-
-function checkEnter() {
-
 }
