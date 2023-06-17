@@ -87,6 +87,13 @@ apiRouter.get('/auth/:user', async (req, res) => {
     res.status(401).send({msg: 'This user is unknown'});
 });
 
+
+/****************************************************************************************************** */
+/****************************************************************************************************** */
+/****************************************************************************************************** */
+/****************************************************************************************************** */
+/****************************************************************************************************** */
+
 // Now we need to pull the posts of the root user for the posts page to display them
 apiRouter.get('/posts/mine/:user', async (req, res) => {
     const mine = await DB.getUserPosts(req.params.user);
@@ -195,19 +202,28 @@ apiRouter.post('/chat/:user/update/messages/with/:user2', async (req, res) => {
     res.send('done');
 });
 
+
+/****************************************************************************************************** */
+/****************************************************************************************************** */
+/****************************************************************************************************** */
+/****************************************************************************************************** */
+/****************************************************************************************************** */
+
+
+
 // Make a secure router for the one above to use to verify credentials for endpoints
-var secureApiRouter = express.Router();
-apiRouter.use(secureApiRouter);
-secureApiRouter.use(async (req, res, next) => {
-    authToken = req.cookies[authCookieName];
-    const user = await DB.getUserByToken(authToken);
-    if(user) {
-        next();
-    }
-    else {
-        res.status(401).send({msg: 'He does not exist'});
-    }
-});
+// var secureApiRouter = express.Router();
+// apiRouter.use(secureApiRouter);
+// secureApiRouter.use(async (req, res, next) => {
+//     authToken = req.cookies[authCookieName];
+//     const user = await DB.getUserByToken(authToken);
+//     if(user) {
+//         next();
+//     }
+//     else {
+//         res.status(401).send({msg: 'He does not exist'});
+//     }
+// });
 
 
 

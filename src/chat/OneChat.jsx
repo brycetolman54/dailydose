@@ -11,6 +11,10 @@ export function OneChat(props) {
     const [open, setOpen] = React.useState(false);
 
     React.useEffect(() => {
+        setActive(props.active.includes(props.with));
+    }, [props.active]);
+
+    React.useEffect(() => {
         setUnSeen(props.unseen);
     }, [props.unseen]);
 

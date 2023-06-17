@@ -10,6 +10,95 @@ import {getDate} from '../feed/feed.jsx';
 
 export function Chat(props) {
 
+    const [activeUsers, setActiveUsers] = React.useState([]);
+
+    React.useEffect(() => {
+        const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+        const socket = new WebSocket(`${protocol}://localhost:4000/ws?user=${props.username}`);
+
+        socket.onopen = () => {
+            console.log(`chats open for ${props.username}`);
+        };
+        socket.onclose = () => {
+            console.log(`chats closed for ${props.username}`);
+        };
+        socket.onmessage = async (event) => {
+            // Get the data sent
+            const msg = JSON.parse(event.data);
+            // Check to see what type it is
+            if(msg.which === 'notification') {
+                // Turn the green light on or off
+                if(msg.status === 'on') {
+                    setActiveUsers(lastActive => [...lastActive, msg.who]);
+                }
+                else if(msg.status === 'off') {
+                    activeUsers.splice(activeUsers.findIndex((o, i) => o === msg.who ), 1);
+                    setActiveUsers(lastActive => lastActive.filter(user => user !== msg.who));
+                }
+                    // changeStatus(msg.who, msg.status);
+            }
+            else if(msg.which === 'message') {
+                // Push the message onto local storage
+                const chats = JSON.parse(localStorage.getItem('chats'));
+                const theChat = chats.find(obj => obj.name === msg.from);
+                const messages = theChat.messages;
+                messages.push(msg.msg);
+                theChat.messages = messages;
+                chats[theChat.num] = theChat;
+                localStorage.setItem('chats', JSON.stringify(chats));
+
+                // Put up the message immediately if you have the chat open
+                if(localStorage.getItem('openedChat') === msg.from) {
+                    // Now we can get the ol element that we need to add the message to
+                    const olEl = document.getElementById('messageList');
+                    // Now we can add the message
+                    const liEl = getMessageEl(msg.msg);
+                    // Add it to the list
+                    olEl.appendChild(liEl);
+                    // Scroll down again
+                    let scrollElement = document.getElementById('messageList');
+                    scrollElement.scrollTop = scrollElement.scrollHeight;
+                    // Make the box blue
+                    const userLine = document.getElementById(`${msg.from}`);
+                    userLine.style.backgroundColor = 'lightblue';
+                    // Update the unseen value in DB
+                    await fetch(`/api/chat/${localStorage.getItem('username')}/with/${msg.from}/unseen/false`, {
+                        method: 'POST',
+                        headers: {'content-type': 'application/json'}, 
+                    });
+                }
+                // Else, highlight the chat
+                else {
+                    // Move the box to the top
+                    const chatList = document.getElementById('userChatList');
+                    const moveUser = chatList.querySelector(`#${msg.from}`);
+                    chatList.removeChild(moveUser);
+                    chatList.prepend(moveUser);
+                    // Change the color of the box
+                    const userLine = document.getElementById(`${msg.from}`);
+                    userLine.style.backgroundColor = 'rgb(226, 226, 251)';
+                    
+                    // Update the code for when you make the user list, so the unseen chats be purpley when loaded
+                }
+            }
+            else if(msg.which === 'startNew') {
+                // Add the chat to local storage
+                const chats = JSON.parse(localStorage.getItem('chats'));
+                chats.push(msg.chat);
+                localStorage.setItem('chats', JSON.stringify(chats));
+                // Add the chat to the top of the list
+                placeChat(msg.chat, 'before');
+                // Remove his name from select
+                const selectList = document.getElementById('userStart');
+                const user = selectList.querySelector(`#${msg.from}`);
+                selectList.removeChild(user);
+            }
+        };
+        return () => {
+            socket.close();
+        };
+    }, []);
+
     const [users, setUsers] = React.useState([]);
     const [chats, setChats] = React.useState([]);
 
@@ -70,7 +159,6 @@ export function Chat(props) {
         }
     }
 
-
     const [chatUser, setChatUser] = React.useState('');
     const [openChat, setOpenChat] = React.useState('');
     const [messages, setMessages] = React.useState([]);
@@ -106,13 +194,12 @@ export function Chat(props) {
     if(chats.length) {
         for(const [i,chat] of chats.entries()) {
             theChats.push(
-                <OneChat key={i} with={chat.name} time={getDate(new Date(chat.time))} setChat={() => setChat(chat.name, chat.messages)} unseen={chat.unseen} open={openChat} />
+                <OneChat key={i} with={chat.name} time={getDate(new Date(chat.time))} setChat={() => setChat(chat.name, chat.messages)} unseen={chat.unseen} open={openChat} active={activeUsers}/>
             );
         }
     }
 
     const scrollRef = React.useRef(null);
-
     React.useEffect(() => {
         const scrollEl = scrollRef.current;
         if(scrollEl) {
@@ -121,7 +208,6 @@ export function Chat(props) {
     }, [messages]);
 
     const [theChosenOne, setTheChosenOne] = React.useState('');
-
     const startChat = () => {
         if(theChosenOne && theChosenOne !== '--Choose a user--') {
 

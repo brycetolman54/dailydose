@@ -130,6 +130,7 @@ footer p {
     border: solid;
     border-width: 0 1.5px 0 0;
     text-decoration: none;
+    color: black;
 }
 #bars:hover {
     background-color: rgb(165, 213, 220);

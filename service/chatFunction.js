@@ -1,7 +1,5 @@
 // Get the Websocket from the modules
 const {WebSocketServer} = require('ws');
-// We are going to need unique ids later
-const uuid = require('uuid');
 
 // This is the function that will deal with all that our websocket does
 // It will take the server that we host all on and upgrade it
@@ -40,18 +38,11 @@ function chatFunction(httpServer) {
         // Push that connection into our array
         connections.push(connection);
 
-/*
-- Send the message with your name and the name of the person you are sending it to to the server
-- When the server gets the message, check the name and send it to the right person only
-- When you receive the message, check to see if the sender is the same as the open chat
-- If it is, just put the message on the screen
-- if it isn't higlight the user's chat in the side menu (add something to remove this when a chat is opened)
-*/
-
         // We want to send a message to either a specific person or all people
         ws.on('message', (event)  => {
             // Get the data out of the thing  
             const msg = JSON.parse(event.toString());
+
             // If it's a message, send it to the one person
             if(msg.which === 'message') {
                 const c = connections.find(obj => obj.id === msg.to);
