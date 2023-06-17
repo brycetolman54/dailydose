@@ -4,6 +4,8 @@ import './chat.css';
 
 import {OneChat} from './OneChat.jsx';
 
+import {Message} from './Message.jsx';
+
 import {getDate} from '../feed/feed.jsx';
 
 export function Chat(props) {
@@ -13,23 +15,6 @@ export function Chat(props) {
 
     const [display, setDisplay] = React.useState('flex');
     const [show, setShow] = React.useState(true);
-
-    const [chatUser, setChatUser] = React.useState('');
-
-    const setChat = (user) => {
-        // Pass this into the chat element
-        // It will clear away the messages area
-        // The OneChat will return its array of messages that it has created
-        // This functin will take that array and set the messagesArray to that array that it is passed after clearing out the other array
-        // Make a message component
-        // Each OneChat will store their own messages as the array of objects
-        // You will take that array and render the messages in a React.useEffect function that rerenders whenever the messagesArray is updated
-        // It will update when you open a chat or send a message
-        // This function will simply use the setMessagesArray function to update the messages
-        // It will also change the value of the chat user
-        // The function in the Open chat will change its color
-        setChatUser(user);
-    }
 
     React.useEffect(() => {
         if(show) {
@@ -82,11 +67,35 @@ export function Chat(props) {
         }
     }
 
+    const [openChat, setOpenChat] = React.useState('');
+    const [chatUser, setChatUser] = React.useState('');
+    const [messages, setMessages] = React.useState([]);
+
+    const setChat = (user, myMessages) => {
+
+        fetch(`/api/chat/${props.username}/with/${user}/unseen/false`, {
+            method: 'POST',
+            headers: {'content-type': 'application/json'}
+        });
+
+        setOpenChat(user);
+        setChatUser(user);
+
+        const theMessages = [];
+        if(myMessages) {
+            for(const [i, msg] of myMessages.entries()) {
+                theMessages.push(<Message key={i} time={msg.time} msg={msg.message} whose={msg.whose} />);
+            }
+        }
+        setMessages(theMessages);
+        
+    }
+
     const theChats = [];
     if(chats.length) {
         for(const [i,chat] of chats.entries()) {
             theChats.push(
-                <OneChat key={i} with={chat.name} time={getDate(new Date(chat.time))} setChat={setChat} unseen={chat.unseen} messages={chat.messages}/>
+                <OneChat key={i} with={chat.name} time={getDate(new Date(chat.time))} setChat={() => setChat(chat.name, chat.messages)} unseen={chat.unseen} open={openChat} />
             );
         }
     }
@@ -97,12 +106,11 @@ export function Chat(props) {
         if(theChosenOne && theChosenOne !== '--Choose a user--') {
 
         const rootObj = {name: theChosenOne, time: new Date(), messages: [], unseen: false};
-        const sendChats = chats;
-        sendChats.push(rootObj);
+        chats.unshift(rootObj);
         fetch(`/api/chat/${props.username}/update/chats`, {
             method: 'POST',
             headers: {'content-type': 'application/json'},
-            body: JSON.stringify(sendChats),
+            body: JSON.stringify(chats),
         });
         
         const targetObj = {name: props.username, time: new Date(), messages: [], unseen: false};
@@ -131,7 +139,7 @@ export function Chat(props) {
                 <div id="chat">
                     <h2 id="userChatter">{chatUser}</h2>
                     <div id="messageSpace">
-                        <ol id="messageList"></ol>
+                        <ol id="messageList">{messages}</ol>
                     </div>
                     <div id="newMessage">
                         {/* <textarea id="messageArea" name="message" required oninput="enableSend()" disabled onkeydown="checkEnter(event)"></textarea> */}

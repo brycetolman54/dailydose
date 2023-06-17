@@ -174,6 +174,19 @@ apiRouter.post('/chat/new/with/:user', async (req, res) => {
 
 });
 
+// Be able to update the unseen value of a post
+apiRouter.post('/chat/:user1/with/:user2/unseen/:bool', async (req, res) => {
+    if(req.params.bool === 'true') {
+        await DB.updateUnseen(req.params.user1, true, req.params.user2);
+    }
+    else if(req.params.bool === 'false') {
+        await DB.updateUnseen(req.params.user1, false, req.params.user2);
+    }
+
+    res.send('done');
+
+});
+
 // Make a secure router for the one above to use to verify credentials for endpoints
 var secureApiRouter = express.Router();
 apiRouter.use(secureApiRouter);
@@ -209,18 +222,7 @@ secureApiRouter.post('/chat/:user/update/messages/with/:user2', async (req, res)
 
 
 
-// Be able to update the unseen value of a post
-secureApiRouter.post('/chat/:user1/with/:user2/unseen/:bool', async (req, res) => {
-    if(req.params.bool === 'true') {
-        await DB.updateUnseen(req.params.user1, true, req.params.user2);
-    }
-    else if(req.params.bool === 'false') {
-        await DB.updateUnseen(req.params.user1, false, req.params.user2);
-    }
 
-    res.send('done');
-
-});
 
 // Default error message
 app.use(function (err, req, res, next) {
