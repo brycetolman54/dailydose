@@ -421,12 +421,6 @@ async function startNew() {
     // If it is actually a user, start a new chat
     if(newChat !== '--Please choose a user--') {
 
-        // Get the user data array
-        // const userData = JSON.parse(localStorage.getItem('userData'));
-
-        // Get the user's object
-        // const target = userData.find(obj => obj.name === newChat);
-
         // Create a new object for the chat in the root users object
         const rootObj = new Object();
             // Add the user that it is with
