@@ -80,3 +80,10 @@ For this deliverable I enabled realtime reporting of votes from other users.
 - ***Frontend makes WebSocket Connection:*** - The frontend connects to the WebSocket server when a chat is opened by the user.
 - ***Data Sent Over WebSocket Connection:*** - The messages sent between users are sent over the WebSocket connection when they are sent.
 - ***WebSocket Data Displayed:*** - The messages people send one another are put into the Datbase and are also displayed on the users' screens when sent.
+
+# React Deliverable
+In this deliverable, I moved all my code over from being in separate JavaScript, HTML, and CSS folders to being React components.
+- ***Bundled Using Vite:*** I use vite to run my code and build the package I send to my server.
+- ***Multiple Function React Components:*** I have components for my _Login_, _Feed_, _Chats_, and both _Posts_ pages. I also have components for rendering the posts in the _Feed_ and for rendering the messages and chats in the _Chats_ page.
+- ***React Router:*** I use the React Router and the NavLinks to change what page I am looking at on the website.
+- ***React Hooks:*** I use React's `useState` in all of my components to keep track of changing values in my code so that my page can rerender accordingly. I also use React's `useEffect` in order to mount code into my page when needed.
