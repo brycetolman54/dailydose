@@ -146,6 +146,7 @@ export function Chat(props) {
                 else {
 
                     const theChat = chats.find((o) => o.name === msg.from);
+                    theChat.unseen = true;
                     const chatIndex = chats.findIndex((o,i) => o.name === msg.from);
                     setChats([theChat, ...chats.splice(chatIndex + 1, 1)]);
 
@@ -153,17 +154,11 @@ export function Chat(props) {
 
                     setActiveUsers(oldActive => [...oldActive]);
 
-
-                    // Move the box to the top
-                    // const chatList = document.getElementById('userChatList');
-                    // const moveUser = chatList.querySelector(`#${msg.from}`);
-                    // chatList.removeChild(moveUser);
-                    // chatList.prepend(moveUser);
                     // Change the color of the box
                     // const userLine = document.getElementById(`${msg.from}`);
+                    // console.log(userLine);
                     // userLine.style.backgroundColor = 'rgb(226, 226, 251)';
                     
-                    // Update the code for when you make the user list, so the unseen chats be purpley when loaded
                 }
             }
             else if(msg.which === 'startNew') {
@@ -185,6 +180,10 @@ export function Chat(props) {
             setOpenChat(chatUser);
         }
     }, [openChat]);
+
+    React.useEffect(() => {
+        setOpenChat(chatUser);
+    }, [chatUser]);
 
     const setChat = (user, myMessages) => {
 
@@ -217,30 +216,29 @@ export function Chat(props) {
     const startChat = () => {
         if(theChosenOne && theChosenOne !== '--Choose a user--') {
 
-        const rootObj = {name: theChosenOne, time: new Date(), messages: [], unseen: true};
-        chats.unshift(rootObj);
-        fetch(`/api/chat/${props.username}/update/chats`, {
-            method: 'POST',
-            headers: {'content-type': 'application/json'},
-            body: JSON.stringify(chats),
-        });
-        
-        const targetObj = {name: props.username, time: new Date(), messages: [], unseen: true};
-        fetch(`/api/chat/new/with/${theChosenOne}`, {
-            method: 'POST',
-            headers: {'content-type': 'application/json'},
-            body: JSON.stringify(targetObj),
-        });
- 
-        socket.send(JSON.stringify({which: 'startNew', chat: targetObj, to: theChosenOne, from: props.username}));
+            const rootObj = {name: theChosenOne, time: new Date(), messages: [], unseen: true};
+            chats.unshift(rootObj);
+            fetch(`/api/chat/${props.username}/update/chats`, {
+                method: 'POST',
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify(chats),
+            });
 
-        
-        setUsers(users.filter(obj => obj !== theChosenOne));
-        setTheChosenOne('');
+            setChatUser(theChosenOne);
+            setOpenChat('');
+            
+            const targetObj = {name: props.username, time: new Date(), messages: [], unseen: true};
+            fetch(`/api/chat/new/with/${theChosenOne}`, {
+                method: 'POST',
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify(targetObj),
+            });
+    
+            socket.send(JSON.stringify({which: 'startNew', chat: targetObj, to: theChosenOne, from: props.username}));
 
-        setOpenChat('');
-        setActiveUsers(oldActive => [...oldActive]);
-
+            setUsers(users.filter(obj => obj !== theChosenOne));
+            
+            setActiveUsers(oldActive => [...oldActive]);
         }
     }
 
@@ -323,7 +321,7 @@ export function Chat(props) {
                             <option id="selector" defaultValue>--Choose a user--</option>
                             {theUsers}
                         </select>
-                        <button id="start" onClick={() => startChat()}>Start</button>
+                        <button id="start" onClick={() => {startChat(); setTheChosenOne('');}}>Start</button>
                     </div>
                 </aside>
             </div>        
