@@ -1,13 +1,4 @@
 /* This is the formatting for the Chat page */
-#filler {
-    border: solid black 1px;
-    border-radius: 20px;
-    background-color: rgb(214, 239, 248);
-    margin: auto;
-    padding: 10px;
-    width: fit-content;
-    font-size: 12px;
-}
 #chatSpace {
     flex: 1;
     display: flex;

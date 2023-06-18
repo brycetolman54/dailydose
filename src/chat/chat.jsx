@@ -144,37 +144,35 @@ export function Chat(props) {
                 }
                 // Else, highlight the chat
                 else {
+
+                    const theChat = chats.find((o) => o.name === msg.from);
+                    const chatIndex = chats.findIndex((o,i) => o.name === msg.from);
+                    setChats([theChat, ...chats.splice(chatIndex + 1, 1)]);
+
+                    setOpenChat(chatUser);
+
+                    setActiveUsers(oldActive => [...oldActive]);
+
+
                     // Move the box to the top
-                    const chatList = document.getElementById('userChatList');
-                    const moveUser = chatList.querySelector(`#${msg.from}`);
-                    chatList.removeChild(moveUser);
-                    chatList.prepend(moveUser);
+                    // const chatList = document.getElementById('userChatList');
+                    // const moveUser = chatList.querySelector(`#${msg.from}`);
+                    // chatList.removeChild(moveUser);
+                    // chatList.prepend(moveUser);
                     // Change the color of the box
-                    const userLine = document.getElementById(`${msg.from}`);
-                    userLine.style.backgroundColor = 'rgb(226, 226, 251)';
+                    // const userLine = document.getElementById(`${msg.from}`);
+                    // userLine.style.backgroundColor = 'rgb(226, 226, 251)';
                     
                     // Update the code for when you make the user list, so the unseen chats be purpley when loaded
                 }
             }
             else if(msg.which === 'startNew') {
-                // // Add the chat to local storage
-                // const chats = JSON.parse(localStorage.getItem('chats'));
-                // chats.push(msg.chat);
-                // localStorage.setItem('chats', JSON.stringify(chats));
-                // // Add the chat to the top of the list
-                // placeChat(msg.chat, 'before');
-                // // Remove his name from select
-                // const selectList = document.getElementById('userStart');
-                // const user = selectList.querySelector(`#${msg.from}`);
-                // selectList.removeChild(user);
 
                 setChats((oldChats) => [msg.chat, ...oldChats]);
 
                 setActiveUsers(oldActive => [msg.from, ...oldActive]);
 
                 setOpenChat(chatUser);
-                console.log('hey there', msg.to);
-
             }
         };
         return () => {
@@ -199,16 +197,13 @@ export function Chat(props) {
         setChatUser(user);
         setDisabled(false);
 
-        const theMessages = [<div id='filler' key={0}>Send a message to your new friend to get started!</div>];
+        const theMessages = [];
         if(myMessages.length > 0) {
-            console.log('open');
-            theMessages.splice(content => content !== <div>Send a message to your new friend!</div>)
             for(const [i, msg] of myMessages.entries()) {
                 theMessages.push(<Message key={i} time={msg.time} msg={msg.message} whose={msg.whose} />);
             }
         }
         setMessages(theMessages);
-
     }
 
     const scrollRef = React.useRef(null);
@@ -222,22 +217,21 @@ export function Chat(props) {
     const startChat = () => {
         if(theChosenOne && theChosenOne !== '--Choose a user--') {
 
-        const rootObj = {name: theChosenOne, time: new Date(), messages: [], unseen: false};
+        const rootObj = {name: theChosenOne, time: new Date(), messages: [], unseen: true};
         chats.unshift(rootObj);
-        // fetch(`/api/chat/${props.username}/update/chats`, {
-        //     method: 'POST',
-        //     headers: {'content-type': 'application/json'},
-        //     body: JSON.stringify(chats),
-        // });
+        fetch(`/api/chat/${props.username}/update/chats`, {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(chats),
+        });
         
-        const targetObj = {name: props.username, time: new Date(), messages: [], unseen: false};
-        // fetch(`/api/chat/new/with/${theChosenOne}`, {
-        //     method: 'POST',
-        //     headers: {'content-type': 'application/json'},
-        //     body: JSON.stringify(targetObj),
-        // });
+        const targetObj = {name: props.username, time: new Date(), messages: [], unseen: true};
+        fetch(`/api/chat/new/with/${theChosenOne}`, {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(targetObj),
+        });
  
-        // SEND A MESSAGE THROUGH SOCKET
         socket.send(JSON.stringify({which: 'startNew', chat: targetObj, to: theChosenOne, from: props.username}));
 
         
@@ -286,9 +280,16 @@ export function Chat(props) {
 
         messages.push(<Message key={messages.length} time={rootObj.time} msg={rootObj.message} whose={rootObj.whose} />);
 
-        // SEND A MESSAGE THROUGH SOCKET
+        fetch(`/api/chat/${chatUser}/with/${props.username}/unseen/true`, {
+            method: 'POST',
+            headers: {'content-type': 'application/json'}, 
+        });
+
+        socket.send(JSON.stringify({which: 'message', from: props.username, to: openChat, msg: targetObj }));
 
         setTheMessage(''); 
+
+        setActiveUsers(oldActive => [...oldActive]);
 
         setOpenChat('');
     }
