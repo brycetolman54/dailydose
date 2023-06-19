@@ -101,7 +101,7 @@ export function Feed(props) {
             const date = getDate(new Date(post.time));
             const time = getTime(new Date(post.time));
             postsArray.push(
-                <Post key={post.place} id={allPosts.length - post.place - 1} title={post.title} content={post.content} user={post.user} time={time} date={date} liked={liked}/>
+                <Post key={post.place} id={allPosts.length - post.place - 1} title={post.title} content={post.content} user={post.user} username={props.username} time={time} date={date} liked={liked}/>
             );
         }
     }

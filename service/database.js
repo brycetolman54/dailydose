@@ -129,6 +129,7 @@ async function getLikes(user) {
 async function like(post, user) {
     // Increase the post's like count (after getting all posts)
     const allPosts = await getPosts();
+
     await posts.updateOne(
         {place: allPosts[post].place},
         {$inc: {likes: 1}}
@@ -144,6 +145,7 @@ async function like(post, user) {
 async function unlike(post, user) {
     // Decrease the post's like count (after getting all posts)
     const allPosts = await getPosts();
+    
     posts.updateOne(
         {place: allPosts[post].place},
         {$inc: {likes: -1}}
