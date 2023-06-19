@@ -26,18 +26,36 @@
     font-size: 12px;
     font-weight: bold;
     animation-name: shake;
-    animation-duration: 1s;
+    animation-duration: 0.2s;
     animation-iteration-count: 1;
 }
 @keyframes shake {
     from {
-        transform: translate(30%);
+        transform: translate(0%);
+    }
+    12% {
+        transform: translate(-1%);
+    }
+    25% {
+        transform: translate(1%)
+    }
+    37% {
+        transform: translate(-1%);
     }
     50% {
-        transform: translate(-30%);
+        transform: translate(1%);
+    }
+    62% {
+        transform: translate(-1%);
+    }
+    75% {
+        transform: translate(1%);
+    }
+    87% {
+        transform: translate(-1%);
     }
     to {
-        transform: translate(100%);
+        transform: translate(0%);
     }
 }
 #submit {
@@ -46,6 +64,13 @@
     padding: 4px 12px;
     border-radius: 6px;
     transform: translate(0%, -70%);
+}
+#submit:disabled {
+    cursor: default;
+    background-color: grey;
+}
+#submit:disabled:hover {
+    background-color: grey;
 }
 #submit:hover {
     background-color: rgb(153, 34, 153);
