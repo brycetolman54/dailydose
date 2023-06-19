@@ -261,6 +261,8 @@ export function Chat(props) {
             setUsers(users.filter(obj => obj !== theChosenOne));
             
             setActiveUsers(oldActive => [...oldActive]);
+
+            setMessages([]);
         }
     }
 
