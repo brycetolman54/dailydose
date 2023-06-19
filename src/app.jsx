@@ -43,7 +43,9 @@ export default function App() {
 
                 <footer className='bottom'>
                     <p>Bryce Tolman</p>
-                    <a href="https://github.com/brycetolman54/startup.git">My GitHub</a>
+                    <div id='fillIt'>
+                        <a href="https://github.com/brycetolman54/startup.git">My GitHub</a>
+                    </div>
                 </footer>
             </div>
         </BrowserRouter>

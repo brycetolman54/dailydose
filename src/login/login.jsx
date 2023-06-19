@@ -19,6 +19,9 @@ export function Login() {
     const [require3, setRequire3] = React.useState('\u2716');
     const [require4, setRequire4] = React.useState('\u2716');
     const [require5, setRequire5] = React.useState('\u2716');
+    const [requires, setRequires] = React.useState(false);
+    const [requires1, setRequires1] = React.useState(false);
+    const [requires2, setRequires2] = React.useState(false);
 
     React.useEffect(() => {
 
@@ -39,6 +42,43 @@ export function Login() {
         }
     }, [show]);
 
+    React.useEffect(() => {
+        setRequires(requires1 && requires2);
+    }, [requires1, requires2]);
+    React.useEffect(() => {
+        setRequires1(require1 === '\u2714' && require2 === '\u2714');
+    }, [require1, require2]);
+    React.useEffect(() => {
+        setRequires2(require3 === '\u2714' && require4 === '\u2714' && require5 === '\u2714');
+    }, [require3, require4, require5]);
+
+
+    const submitForm = (hit = 'Enter') => {
+
+        if(hit === 'Enter') {
+
+            if(requires){
+
+                console.log('you dunnit');
+
+            } 
+            else if(!requires1 && show) {
+
+                setError('Please match the format for the username')
+            
+            } 
+            else if(!requires2 && show) {
+            
+                setError('Please match the format for the password')
+            
+            } 
+            else if(!requires && !show) {
+            
+                setError('Username/Password incorrect')
+            
+            }
+        }
+    }
 
     return (
         <main>
@@ -50,13 +90,12 @@ export function Login() {
                 </div>
                 <div id="loginForm">
                     <div id="loginbox">
-                        <div id="error">
+                        <div style={{display: error === '' ? 'none' : 'block'}}id="error">
                             {error}
                         </div>
                         <div className="login"> 
                             <label htmlFor="text">Username:</label>
-                            {/* oninput="checkUsername()" onkeydown="checkEnter(event, 'login')" */}
-                            <input value={username} onChange={(e) => {const u = e.target.value; setUsername(u); setRequire1(u.length >= 5 ? '\u2714' : '\u2716'); setRequire2((u.length <= 15 && u.length !== 0) ? '\u2714' : '\u2716');}} type="text" id="loginText" name="userName" placeholder="Enter your username" required pattern="\w{5,15}"/>
+                            <input value={username} onChange={(e) => {const u = e.target.value; setUsername(u); setRequire1(u.length >= 5 ? '\u2714' : '\u2716'); setRequire2((u.length <= 15 && u.length !== 0) ? '\u2714' : '\u2716');}} onKeyDown={(e) => submitForm(e.key)} type="text" id="loginText" name="userName" placeholder="Enter your username" required pattern="\w{5,15}"/>
                         </div>
                         <div style={{display: checkShow}} className="filler">
                             <div id="require1" className="require">
@@ -70,8 +109,7 @@ export function Login() {
                         </div>
                         <div className="login">
                             <label htmlFor="password">Password:</label>
-                            {/* oninput="checkPassword()" onkeydown="checkEnter(event, 'login')" */}
-                            <input value={password} onChange={(e) => {const p = e.target.value; setPassword(p); setRequire3(p.length >= 8 ? '\u2714' : '\u2716'); setRequire4((/[A-Z]/).test(p) ? '\u2714' : '\u2716'); setRequire5((/[0-9]/).test(p) ? '\u2714' : '\u2716');}} type="password" id="password" name="passWord" placeholder="Enter your password" required pattern="(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])[\S]{8,}" />
+                            <input value={password} onChange={(e) => {const p = e.target.value; setPassword(p); setRequire3(p.length >= 8 ? '\u2714' : '\u2716'); setRequire4((/[A-Z]/).test(p) ? '\u2714' : '\u2716'); setRequire5((/[0-9]/).test(p) ? '\u2714' : '\u2716');}} onKeyDown={(e) => submitForm(e.key)} type="password" id="password" name="passWord" placeholder="Enter your password" required pattern="(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])[\S]{8,}" />
                         </div>
                         <div style={{display: checkShow}} className="filler">
                             <div id="require2" className="require">
@@ -90,7 +128,7 @@ export function Login() {
                     </div>
                     <div className="login">
                     {/* onclick="submitForm('login')" */}
-                        <button disabled={!(username && password && require1 === '\u2714' && require2 === '\u2714' && require3 === '\u2714' && require4 === '\u2714' && require5 === '\u2714')} type="submit" id="submit" >Submit</button>      
+                        <button disabled={!(username && password && requires)} onClick={() => submitForm()} type="submit" id="submit" >Submit</button>      
                     </div>
                 </div>
             </div>
