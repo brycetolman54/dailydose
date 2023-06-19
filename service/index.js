@@ -93,7 +93,7 @@ secureApiRouter.use(async (req, res, next) => {
 
 
 // Gets the user's info
-apiRouter.get('/auth/:user', async (req, res) => {
+secureApiRouter.get('/auth/:user', async (req, res) => {
     const user = await DB.getUser(req.params.user);
     if(user) {
         const token = req?.cookies.token;
@@ -104,13 +104,13 @@ apiRouter.get('/auth/:user', async (req, res) => {
 });
 
 // Now we need to pull the posts of the root user for the posts page to display them
-apiRouter.get('/posts/mine/:user', async (req, res) => {
+secureApiRouter.get('/posts/mine/:user', async (req, res) => {
     const mine = await DB.getUserPosts(req.params.user);
     res.send(mine);
 });
 
 // What if we need to get the posts
-apiRouter.get('/*/posts', async (_req, res) => {
+secureApiRouter.get('/*/posts', async (_req, res) => {
 
     const posts = await DB.getPosts();
     res.send(posts);
@@ -118,19 +118,19 @@ apiRouter.get('/*/posts', async (_req, res) => {
 });
 
 // Also we need to get the likes of our rootuser for the liked posts table
-apiRouter.get('/posts/liked/:user', async (req, res) => {
+secureApiRouter.get('/posts/liked/:user', async (req, res) => {
     const liked = await DB.getLiked(req.params.user);
     res.send(liked);
 }); 
 
 // What if we need to get the likes of the person that we are starting the page for
-apiRouter.get('/feed/:user', async (req, res) => {
+secureApiRouter.get('/feed/:user', async (req, res) => {
     const likes = await DB.getLikes(req.params.user);
     res.send(likes);
 });
 
 // What if we need to like a post
-apiRouter.post('/feed/:user/like/:post', async (req, res) => {
+secureApiRouter.post('/feed/:user/like/:post', async (req, res) => {
     
     await DB.like(req.params.post, req.params.user);
     
@@ -138,7 +138,7 @@ apiRouter.post('/feed/:user/like/:post', async (req, res) => {
 });
 
 // what if we dislike a post
-apiRouter.post('/feed/:user/dislike/:post', async (req, res) =>{
+secureApiRouter.post('/feed/:user/dislike/:post', async (req, res) =>{
     
     await DB.unlike(req.params.post, req.params.user);
 
@@ -146,7 +146,7 @@ apiRouter.post('/feed/:user/dislike/:post', async (req, res) =>{
 });
 
 // What if we need to add a new post
-apiRouter.post('/feed/post/:user', async (req, res) => {
+secureApiRouter.post('/feed/post/:user', async (req, res) => {
 
     // Add the post to all the posts
     await DB.addPost(req.body);
@@ -156,7 +156,7 @@ apiRouter.post('/feed/post/:user', async (req, res) => {
 });
 
 // Now if we need to get the users
-apiRouter.get('/chat/users', async (_req, res) => {
+secureApiRouter.get('/chat/users', async (_req, res) => {
     
     const users = await DB.getUsers();
     const sendArray = [];
@@ -167,13 +167,13 @@ apiRouter.get('/chat/users', async (_req, res) => {
 });
 
 // What if we want to get the chats of the root user
-apiRouter.get('/chat/:user', async (req, res) => {
+secureApiRouter.get('/chat/:user', async (req, res) => {
     const chats = await DB.getUserChats(req.params.user);
     res.send(chats);
 });
 
 // We want to update the chats of the root user
-apiRouter.post('/chat/:user/update/chats', async (req, res) => {
+secureApiRouter.post('/chat/:user/update/chats', async (req, res) => {
     
     await DB.updateChats(req.params.user, req.body);
 
@@ -182,7 +182,7 @@ apiRouter.post('/chat/:user/update/chats', async (req, res) => {
 });
 
 // We want to update the chats of the user with whom we are chatting
-apiRouter.post('/chat/new/with/:user', async (req, res) => {
+secureApiRouter.post('/chat/new/with/:user', async (req, res) => {
 
     await DB.updateHisChats(req.params.user, req.body);
 
@@ -191,7 +191,7 @@ apiRouter.post('/chat/new/with/:user', async (req, res) => {
 });
 
 // Be able to update the unseen value of a post
-apiRouter.post('/chat/:user1/with/:user2/unseen/:bool', async (req, res) => {
+secureApiRouter.post('/chat/:user1/with/:user2/unseen/:bool', async (req, res) => {
     if(req.params.bool === 'true') {
         await DB.updateUnseen(req.params.user1, true, req.params.user2);
     }
@@ -204,7 +204,7 @@ apiRouter.post('/chat/:user1/with/:user2/unseen/:bool', async (req, res) => {
 });
 
 // We want to do the same for the user with whom we are chatting
-apiRouter.post('/chat/:user/update/messages/with/:user2', async (req, res) => {
+secureApiRouter.post('/chat/:user/update/messages/with/:user2', async (req, res) => {
     
     await DB.updateHisMessages(req.params.user, req.params.user2, req.body);
     
