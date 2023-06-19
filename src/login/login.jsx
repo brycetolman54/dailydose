@@ -16,6 +16,9 @@ export function Login() {
 
     const [require1, setRequire1] = React.useState('\u2716');
     const [require2, setRequire2] = React.useState('\u2716');
+    const [require3, setRequire3] = React.useState('\u2716');
+    const [require4, setRequire4] = React.useState('\u2716');
+    const [require5, setRequire5] = React.useState('\u2716');
 
     React.useEffect(() => {
 
@@ -53,7 +56,7 @@ export function Login() {
                         <div className="login"> 
                             <label htmlFor="text">Username:</label>
                             {/* oninput="checkUsername()" onkeydown="checkEnter(event, 'login')" */}
-                            <input value={username} onChange={(e) => {setUsername(e.target.value); setRequire1(e.target.value.length >= 5 ? '\u2714' : '\u2716'); setRequire2((e.target.value.length <= 15 && e.target.value.length !== 0) ? '\u2714' : '\u2716');}} type="text" id="loginText" name="userName" placeholder="Enter your username" required pattern="\w{5,15}"/>
+                            <input value={username} onChange={(e) => {const u = e.target.value; setUsername(u); setRequire1(u.length >= 5 ? '\u2714' : '\u2716'); setRequire2((u.length <= 15 && u.length !== 0) ? '\u2714' : '\u2716');}} type="text" id="loginText" name="userName" placeholder="Enter your username" required pattern="\w{5,15}"/>
                         </div>
                         <div style={{display: checkShow}} className="filler">
                             <div id="require1" className="require">
@@ -68,26 +71,26 @@ export function Login() {
                         <div className="login">
                             <label htmlFor="password">Password:</label>
                             {/* oninput="checkPassword()" onkeydown="checkEnter(event, 'login')" */}
-                            <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" id="password" name="passWord" placeholder="Enter your password" required pattern="(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])[\S]{8,}" />
+                            <input value={password} onChange={(e) => {const p = e.target.value; setPassword(p); setRequire3(p.length >= 8 ? '\u2714' : '\u2716'); setRequire4((/[A-Z]/).test(p) ? '\u2714' : '\u2716'); setRequire5((/[0-9]/).test(p) ? '\u2714' : '\u2716');}} type="password" id="password" name="passWord" placeholder="Enter your password" required pattern="(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])[\S]{8,}" />
                         </div>
                         <div style={{display: checkShow}} className="filler">
                             <div id="require2" className="require">
-                                <div id="checkbox3" className="checkbox">&#x2716;</div>
+                                <div style={{color: require3 === '\u2714' ? 'green' : 'red'}} id="checkbox3" className="checkbox">{require3}</div>
                                 <div id="passwordcheck"><b>Minimum</b> 8 characters</div>
                             </div>
                             <div id="require3" className="require">
-                                <div id="checkbox4" className="checkbox">&#x2716;</div>
+                                <div style={{color: require4 === '\u2714' ? 'green' : 'red'}} id="checkbox4" className="checkbox">{require4}</div>
                                 <div id="passwordcheck">An <b>uppercase</b> letter</div>
                             </div>
                             <div id="require4" className="require">
-                                <div id="checkbox5" className="checkbox">&#x2716;</div>
+                                <div style={{color: require5 === '\u2714' ? 'green' : 'red'}} id="checkbox5" className="checkbox">{require5}</div>
                                 <div id="passwordcheck">A <b>number</b></div>
                             </div>
                         </div>
                     </div>
                     <div className="login">
                     {/* onclick="submitForm('login')" */}
-                        <button disabled={!(username && password)} type="submit" id="submit" >Submit</button>      
+                        <button disabled={!(username && password && require1 === '\u2714' && require2 === '\u2714' && require3 === '\u2714' && require4 === '\u2714' && require5 === '\u2714')} type="submit" id="submit" >Submit</button>      
                     </div>
                 </div>
             </div>
