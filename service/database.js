@@ -189,8 +189,7 @@ async function updateHisMessages(user, user2, body) {
     // Get the info from the body
     allChats[theChat].time = body.time;
     allChats[theChat].messages.push(body.msg);
-    // Put it all back
-    // allChats[theChat.num] = theChat;
+
     await userData.updateOne(
         {name: user},
         {$set: {chats: allChats}}
