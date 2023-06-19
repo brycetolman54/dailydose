@@ -111,7 +111,7 @@ footer p {
     padding: 0px;
     background-color: rgb(147, 204, 223);
     border: solid black;
-    border-width: 3px 0 2px 0;
+    border-width: 0 0 2px 0;
 }
 .links a {
     flex: 1;

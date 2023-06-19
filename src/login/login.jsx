@@ -2,7 +2,7 @@ import React from 'react';
 
 import './login.css';
 
-export function Login() {
+export function Login(props) {
 
     const [show, setShow] = React.useState(false);
     const [checkShow, setCheckShow] = React.useState('none');
@@ -33,6 +33,11 @@ export function Login() {
             setSuBorder('2px');
             setCheckShow('flex');
             setError('');
+            setRequire1('\u2716');
+            setRequire2('\u2716');
+            setRequire3('\u2716');
+            setRequire4('\u2716');
+            setRequire5('\u2716');
         }
         else if(!show) {
             setLoginBorder('2px');
@@ -53,15 +58,49 @@ export function Login() {
     }, [require3, require4, require5]);
 
 
-    const submitForm = (hit = 'Enter') => {
+    const submitForm = async (hit = 'Enter') => {
 
         if(hit === 'Enter') {
 
-            if(requires){
+            let response = '';
 
-                console.log('you dunnit');
+            if(requires && show){
+
+                const theUser = {name: username, posts: [], chats: [], likes: []};
+        
+                response = await fetch(`/api/auth/signup`, {
+                    method: 'POST',
+                    headers: {'content-type': 'application/json'},
+                    body: JSON.stringify({user: username, data: theUser, password: password}),
+                });
+
+                if (response.ok) {
+                    props.Login(username);
+                }
+                else {
+                    setError('User already exists');
+                }
+                    
 
             } 
+            else if(requires && !show) {
+
+                console.log('you can now log in');
+
+                response = await fetch(`/api/auth/login`, {
+                    method: 'POST',
+                    headers: {'content-type': 'application/json'},
+                    body: JSON.stringify({user: username, password: password}),
+                });
+
+                if(response.ok) {
+                    props.Login(username);
+                }
+                else {
+                    setError('Username/Password incorrect');
+                }
+
+            }
             else if(!requires1 && show) {
 
                 setError('Please match the format for the username')
@@ -127,7 +166,6 @@ export function Login() {
                         </div>
                     </div>
                     <div className="login">
-                    {/* onclick="submitForm('login')" */}
                         <button disabled={!(username && password && requires)} onClick={() => submitForm()} type="submit" id="submit" >Submit</button>      
                     </div>
                 </div>

@@ -18,22 +18,25 @@ function NotFound() {
 
 export default function App() {
 
-    const username = localStorage.getItem('username');
+    // const username = localStorage.getItem('username');
+    const [username, setUsername] = React.useState(localStorage.getItem('username') || '');
+    const currentAuthState = username ? true : false;
+    const [authState, setAuthState] = React.useState(currentAuthState);
 
     return (
         <BrowserRouter>
             <div className='app'>        
-                <header className='top'>
+                <header style={{borderBottom: 'solid black', borderBottomWidth: authState ? '0' : '3px' }}className='top'>
                     <h1 className='logo'>DailyDose</h1>
-                    <menu className='links'>
+                    {authState && (<menu style={{borderTop: 'solid black 3px'}} className='links'>
                         <NavLink className="link" to='feed'>Feed</NavLink>
                         <NavLink className="link" id="chatNav" to='chat'>Chat</NavLink>
-                        <NavLink className="link" to='posts'>Posts</NavLink> 
-                    </menu>
+                        <NavLink className="link" to='posts'>Posts</NavLink>
+                    </menu>)}
                 </header>
 
                 <Routes>
-                    <Route path='/' element={<Login />} />
+                    <Route path='/' element={<Login Login={(username) => {setAuthState(true); setUsername(username); localStorage.setItem('username', username); window.location.href = './feed'}}/>} />
                     <Route path='/feed' element={<Feed username={username} />} />
                     <Route path='/chat' element={<Chat username={username} />} />
                     <Route path='/posts' element={<Posts username={username} />} />
