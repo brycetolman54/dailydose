@@ -119,8 +119,10 @@ async function getLikes(user) {
     const theUser = await getUserData(user);
 
     // Now get his likes and return them
-    const likes  = theUser.likes;
-    return likes;
+    if(theUser) {
+        const likes  = theUser.likes;
+        return likes;
+    }
 
 };
 // Like Posts

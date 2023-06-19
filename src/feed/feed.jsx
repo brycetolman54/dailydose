@@ -8,6 +8,35 @@ import {Post} from './post';
 
 export function Feed(props) {
 
+    React.useEffect(() => {
+
+        checkUser();
+        
+    }, [props.username]);
+
+    async function checkUser() {
+
+        if(props.username) {
+            if(await getAuthen(props.username)) {
+                // Do nothing
+            }
+            else {
+                props.Logout();          
+            }
+        }
+        else {
+            props.Logout();
+        }
+    }
+
+    async function getAuthen(username) {
+        const result = await fetch(`/api/auth/${username}`);
+        if(result.ok) {
+            return true;
+        }
+        return false;
+    }
+
     const [author, setAuthor] = React.useState('');
     const [quote, setQuote] = React.useState('Searching for a quote...');
     const [show, setShow] = React.useState(true);
@@ -85,7 +114,7 @@ export function Feed(props) {
         <div id="topHeader">
             <div id="bars" onClick={() => setShow(!show)}>&#x2630;</div>
             <h2>Feed</h2>
-            {/* <div id="userInfo" onclick='backToLogin()'>Login</div> */}
+            <div id="userInfo" onClick={() => props.Logout()}>{props.username}</div>
         </div>
         <div id="feedAndQuote">
             <div id="quoteAndNew">
@@ -145,15 +174,6 @@ export function getTime(time) {
         value += 'am';
     }
     return value;
-}
-
-function enablePost() {
-    if(document.getElementById('postTitle').value.length > 0 && document.getElementById('postContent').value.length > 0) {
-        document.getElementById('postIt').disabled = false;
-    }
-    else {
-        document.getElementById('postIt').disabled = true;
-    }
 }
 
 function addPost(content, title, length, user) {

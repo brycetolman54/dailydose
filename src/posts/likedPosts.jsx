@@ -10,6 +10,35 @@ import {getDate} from '../feed/feed.jsx';
 
 export function LikedPosts(props) {
 
+    React.useEffect(() => {
+
+        checkUser();
+        
+    }, [props.username]);
+
+    async function checkUser() {
+
+        if(props.username) {
+            if(await getAuthen(props.username)) {
+                // Do nothing
+            }
+            else {
+                props.Logout();          
+            }
+        }
+        else {
+            props.Logout();
+        }
+    }
+
+    async function getAuthen(username) {
+        const result = await fetch(`/api/auth/${username}`);
+        if(result.ok) {
+            return true;
+        }
+        return false;
+    }
+
     const [posts, setPosts] = React.useState([]);
 
     React.useEffect(() => {
@@ -75,7 +104,7 @@ export function LikedPosts(props) {
             <div id="topHeader">
                 <NavLink id="bars" to='../posts' onClick={() => localStorage.removeItem('openPost')}>&#x2630;</NavLink>
                 <h2 id="head">Liked Posts</h2>
-                {/* <div id="userInfo" onclick="backToLogin()">Login</div> */}
+                <div id="userInfo" onClick={() => props.Logout()}>{props.username}</div>
             </div>
             <div id="postlikeTable" className="posttable">
                 <div id="postheadTable">

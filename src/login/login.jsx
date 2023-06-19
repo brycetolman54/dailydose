@@ -85,8 +85,6 @@ export function Login(props) {
             } 
             else if(requires && !show) {
 
-                console.log('you can now log in');
-
                 response = await fetch(`/api/auth/login`, {
                     method: 'POST',
                     headers: {'content-type': 'application/json'},

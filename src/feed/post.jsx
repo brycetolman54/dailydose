@@ -20,13 +20,13 @@ export function Post(props) {
 
     async function hitLike(likeNum) {
         if(like) {
-            await fetch(`/api/feed/${props.user}/dislike/${likeNum}`, {
+            await fetch(`/api/feed/${props.username}/dislike/${likeNum}`, {
                 method: 'POST',
                 headers: {'content-type': 'application:json'},
             });
         }
         else if(!like) {
-            await fetch(`/api/feed/${props.user}/like/${likeNum}`, {
+            await fetch(`/api/feed/${props.username}/like/${likeNum}`, {
                 method: 'POST',
                 headers: {'content-type': 'application:json'},
             });

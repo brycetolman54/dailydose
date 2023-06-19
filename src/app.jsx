@@ -18,10 +18,18 @@ function NotFound() {
 
 export default function App() {
 
-    // const username = localStorage.getItem('username');
     const [username, setUsername] = React.useState(localStorage.getItem('username') || '');
     const currentAuthState = username ? true : false;
     const [authState, setAuthState] = React.useState(currentAuthState);
+    React.useEffect(() => {
+        setAuthState(currentAuthState);
+    }, [currentAuthState]);
+
+    const logout = () => {
+        localStorage.removeItem('username');
+        setAuthState(false);
+        window.location.href = '.';
+    }
 
     return (
         <BrowserRouter>
@@ -37,10 +45,10 @@ export default function App() {
 
                 <Routes>
                     <Route path='/' element={<Login Login={(username) => {setAuthState(true); setUsername(username); localStorage.setItem('username', username); window.location.href = './feed'}}/>} />
-                    <Route path='/feed' element={<Feed username={username} />} />
-                    <Route path='/chat' element={<Chat username={username} />} />
-                    <Route path='/posts' element={<Posts username={username} />} />
-                    <Route path='/likedPosts' element={<LikedPosts username={username} />} />
+                    <Route path='/feed' element={<Feed username={username} Logout={() => logout()} />} />
+                    <Route path='/chat' element={<Chat username={username} Logout={() => logout()} />} />
+                    <Route path='/posts' element={<Posts username={username} Logout={() => logout()} />} />
+                    <Route path='/likedPosts' element={<LikedPosts username={username} Logout={() => logout()} />} />
                     <Route path='*' element={<NotFound />} />
                 </Routes>
 

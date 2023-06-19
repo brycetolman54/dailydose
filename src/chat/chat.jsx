@@ -10,6 +10,35 @@ import {getDate} from '../feed/feed.jsx';
 
 export function Chat(props) {
 
+    React.useEffect(() => {
+
+        checkUser();
+        
+    }, [props.username]);
+
+    async function checkUser() {
+
+        if(props.username) {
+            if(await getAuthen(props.username)) {
+                // Do nothing
+            }
+            else {
+                props.Logout();          
+            }
+        }
+        else {
+            props.Logout();
+        }
+    }
+
+    async function getAuthen(username) {
+        const result = await fetch(`/api/auth/${username}`);
+        if(result.ok) {
+            return true;
+        }
+        return false;
+    }
+
     const [users, setUsers] = React.useState([]);
     const [chats, setChats] = React.useState([]);
 
@@ -290,7 +319,7 @@ export function Chat(props) {
             <div id="topHeader">
                 <div id="bars" onClick={() => setShow(!show)}>&#x2630;</div>
                 <h2>Chat</h2>
-                {/* <div id="userInfo" onclick="backToLogin()">Login</div> */}
+                <div id="userInfo" onClick={() => props.Logout()}>{props.username}</div>
             </div>
             <div id="chatSpace">
                 <div id="chat">
