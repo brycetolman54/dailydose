@@ -124,7 +124,7 @@ export function Feed(props) {
                     <p id="author">{author}</p>
                 </aside> 
                 <div id="newpost" style={{display: display}}>
-                    <p id="newPostHead"><b>New Post</b></p>
+                    <p id="newPostHead"><b><i>New Post</i></b></p>
                     <label htmlFor="text">Post title</label>
                     <textarea id="postTitle" name="postTitle" placeholder="Enter a title (max 60 characters)" pattern=".{1,50}" title="Your title is too long" required value={theTitle} onChange={(e) => setTheTitle(e.target.value)}></textarea>                    <label htmlFor="textarea">Post text</label>
                     <textarea id="postContent" name="newPost" placeholder="Share your thoughts" required value={theContent} onChange={(e) => setTheContent(e.target.value)}></textarea>
