@@ -122,7 +122,7 @@ export function Feed(props) {
                     <h3 id="quoteTitle">Inspirational Quote</h3>
                     <p id="thequote">"{quote}"</p>
                     <p id="author">{author}</p>
-                </aside>
+                </aside> 
                 <div id="newpost" style={{display: display}}>
                     <p id="newPostHead"><b>New Post</b></p>
                     <label htmlFor="text">Post title</label>

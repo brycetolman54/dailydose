@@ -20,7 +20,7 @@ export function Chat(props) {
 
         if(props.username) {
             if(await getAuthen(props.username)) {
-                // Do nothing
+                // do nothing
             }
             else {
                 props.Logout();          
@@ -158,7 +158,9 @@ export function Chat(props) {
 
     React.useEffect(() => {
         const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+        // const socket = new WebSocket(`${protocol}://${window.location.host}/ws?user=${props.username}`);
         const socket = new WebSocket(`${protocol}://localhost:4000/ws?user=${props.username}`);
+
         setSocket(socket);
 
         socket.onopen = () => {
@@ -168,7 +170,9 @@ export function Chat(props) {
             console.log(`chats closed for ${props.username}`);
         };
         socket.onmessage = async (event) => {
+
             const msg = JSON.parse(event.data);
+
             if(msg.which === 'notification') {
                 if(msg.status === 'on') {
                     setActiveUsers(lastActive => [...lastActive, msg.who]);
@@ -228,6 +232,12 @@ export function Chat(props) {
                 setActiveUsers(oldActive => [msg.from, ...oldActive]);
 
                 setOpenChat(chatUser);
+
+                const chats = JSON.parse(localStorage.getItem('chats'));
+
+                chats.push(msg.chat);
+
+                localStorage.setItem('chats', JSON.stringify(chats));
             }
         };
         return () => {
@@ -238,7 +248,7 @@ export function Chat(props) {
     const startChat = () => {
         if(theChosenOne && theChosenOne !== '--Choose a user--') {
 
-            const rootObj = {name: theChosenOne, time: new Date(), messages: [], unseen: true};
+            const rootObj = {name: theChosenOne, time: new Date(), messages: [], unseen: false};
             chats.unshift(rootObj);
             fetch(`/api/chat/${props.username}/update/chats`, {
                 method: 'POST',
@@ -248,6 +258,7 @@ export function Chat(props) {
 
             setChatUser(theChosenOne);
             setOpenChat('');
+            setDisabled(false);
             
             const targetObj = {name: props.username, time: new Date(), messages: [], unseen: true};
             fetch(`/api/chat/new/with/${theChosenOne}`, {
