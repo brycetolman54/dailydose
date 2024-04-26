@@ -39,6 +39,11 @@ app.get('/test', (_req, res) => {
     res.send('You are here for fun I guess. There is nothing for you to do here...');
 })
 
+// more testing
+app.get('/db', (_req, res) => {
+    res.send(`${process.env.USERNAME}`)  
+})
+
 // testing
 //app.get('/user/test', (_req, res) => {
 //    if (await DB.getUser('bryce')) {
