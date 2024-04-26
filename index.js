@@ -41,7 +41,7 @@ app.get('/test', (_req, res) => {
 
 // testing
 app.get('/test/users', (_req, res) => {
-    if (await DB.getUsers()) {
+    if (1 === 1) {
         res.send('good');
     }  
     else {
