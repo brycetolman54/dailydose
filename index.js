@@ -34,22 +34,6 @@ app.get('/', (_req, res) => {
     res.send('Welcome to my DailyDose Server! You really can\'t do anything wihtout the proper authorization.');
 })
 
-// testing
-app.get('/test', (_req, res) => {
-    res.send('You are here for fun I guess. There is nothing for you to do here...');
-})
-
-// testing
-app.get('/test/users', async (_req, res) => {
-    if (1 === 1) {
-        const users = await DB.getUsers()
-        res.send(users);
-    }  
-    else {
-        res.send('Not quite');
-    }
-})
-
 // Router for service endpoints, this just makes it so we don't have to put in 'api' for every path
 var apiRouter = express.Router();
 app.use('/api', apiRouter);
