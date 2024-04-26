@@ -12,7 +12,7 @@ const cookieParser = require('cookie-parser');
 const {chatFunction} = require('./chatFunction.js');
 
 // The service port. In production the fronted code is statically hosted by the service on the same port.
-const port = process.argv.length > 2 ? process.argv[2] : 4000;
+const port = process.argv.length > 2 ? process.argv[2] : process.env.PORT;
 
 // JSON body parsing using built in middleware
 app.use(express.json());
