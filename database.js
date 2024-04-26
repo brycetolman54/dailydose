@@ -2,10 +2,13 @@
 const { MongoClient } = require('mongodb');
 
 // Get the info from your login file for the DB
-const config = require('./dbConfig.json');
+// const config = require('./dbConfig.json');
+const username = process.env.USERNAME
+const password = process.env.PASSWORD
+const hostname = process.env.HOSTNAME
 
 // Make the url to enter the DB
-const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
+const url = `mongodb+srv://${username}:${password}@${hostname}`;
 
 // Start the client 
 const client = new MongoClient(url);

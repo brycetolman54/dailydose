@@ -29,6 +29,11 @@ app.set('trust proxy', true);
 // This sets the cookie name
 const authCookieName = 'token';
 
+// set the default message
+app.get('/', (_req, res) => {
+    res.send('Welcome to my DailyDose Server! You really can\'t do anything wihtout the proper authorization.');
+})
+
 // Router for service endpoints, this just makes it so we don't have to put in 'api' for every path
 var apiRouter = express.Router();
 app.use('/api', apiRouter);
