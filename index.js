@@ -31,6 +31,12 @@ app.use(cookieParser());
 // This lets us trust headers forwarded from the proxy so we can determine the IP addresses
 app.set('trust proxy', true);
 
+// This lets us set the header we need to send things around
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+});
+
 // This sets the cookie name
 const authCookieName = 'token';
 
