@@ -39,20 +39,15 @@ app.get('/test', (_req, res) => {
     res.send('You are here for fun I guess. There is nothing for you to do here...');
 })
 
-// more testing
-app.get('/db', (_req, res) => {
-    res.send(`${process.env.USERNAME}`)  
-})
-
 // testing
-//app.get('/user/test', (_req, res) => {
-//    if (await DB.getUser('bryce')) {
-//        res.send('You are in!')
-//    }  
-//    else {
-//        res.send('Not quite')
-//    }
-//})
+app.get('/test/users', (_req, res) => {
+    if (await DB.getUsers()) {
+        res.send('good')
+    }  
+    else {
+        res.send('Not quite')
+    }
+})
 
 // Router for service endpoints, this just makes it so we don't have to put in 'api' for every path
 var apiRouter = express.Router();
