@@ -42,10 +42,10 @@ app.get('/test', (_req, res) => {
 // testing
 app.get('/test/users', (_req, res) => {
     if (await DB.getUsers()) {
-        res.send('good')
+        res.send('good');
     }  
     else {
-        res.send('Not quite')
+        res.send('Not quite');
     }
 })
 
