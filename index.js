@@ -6,6 +6,8 @@ const app = express();
 const DB = require('./database.js');
 // Get the encrypting guy
 const bcrypt = require('bcrypt');
+// get cors
+const cors = require('cors');
 // Get the cookie parser
 const cookieParser = require('cookie-parser');
 // Pull in the WebSockets server
