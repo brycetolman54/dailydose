@@ -5,7 +5,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "ghp.sh"
+    "deploy": "./ghp.sh"
   },
   "devDependencies": {
     "gh-pages": "^6.1.1",
