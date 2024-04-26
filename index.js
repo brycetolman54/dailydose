@@ -20,6 +20,9 @@ app.use(express.json());
 // Serve up the frontend static content hosting
 app.use(express.static('public'));
 
+// Allow anyone to access this
+app.use(cors())
+
 // This makes us use the cookie parser middleware for tracking authentication
 app.use(cookieParser());
 
