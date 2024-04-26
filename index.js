@@ -43,7 +43,7 @@ app.get('/test', (_req, res) => {
 app.get('/test/users', async (_req, res) => {
     if (1 === 1) {
         const users = await DB.getUsers()
-        res.send('good');
+        res.send(users);
     }  
     else {
         res.send('Not quite');
