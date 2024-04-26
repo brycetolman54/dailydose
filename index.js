@@ -40,7 +40,7 @@ app.get('/test', (_req, res) => {
 })
 
 // testing
-app.get('/test/users', (_req, res) => {
+app.get('/test/users', async (_req, res) => {
     if (1 === 1) {
         const users = await DB.getUsers()
         res.send('good');
