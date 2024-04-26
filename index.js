@@ -39,6 +39,16 @@ app.get('/test', (_req, res) => {
     res.send('You are here for fun I guess. There is nothing for you to do here...');
 })
 
+// testing
+app.get('/user/test', (_req, res) => {
+    if (await DB.getUser('bryce')) {
+        res.send('You are in!')
+    }  
+    else {
+        res.send('Not quite')
+    }
+})
+
 // Router for service endpoints, this just makes it so we don't have to put in 'api' for every path
 var apiRouter = express.Router();
 app.use('/api', apiRouter);
