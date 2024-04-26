@@ -32,7 +32,7 @@ export function Chat(props) {
     }
 
     async function getAuthen(username) {
-        const result = await fetch(`/api/auth/${username}`);
+        const result = await fetch(`https://dailydose-pearl.vercel.app/api/auth/${username}`);
         if(result.ok) {
             return true;
         }
@@ -65,7 +65,7 @@ export function Chat(props) {
     }, [show]);
 
     React.useEffect(() => {
-        fetch('/api/chat/users')
+        fetch('https://dailydose-pearl.vercel.app/api/chat/users')
             .then(response => response.json())
             .then(data => {
                 setUsers(data);
@@ -80,7 +80,7 @@ export function Chat(props) {
     }, []);
 
     React.useEffect(() => {
-        fetch(`/api/chat/${props.username}`)
+        fetch(`https://dailydose-pearl.vercel.app/api/chat/${props.username}`)
             .then(response => response.json())
             .then(data => {
                 data = data.sort((a,b) => {if(a.time > b.time) {return -1;} else if(a.time < b.time) {return 1;} else {return 0;}});
@@ -127,7 +127,7 @@ export function Chat(props) {
 
     const setChat = (user, myMessages) => {
 
-        fetch(`/api/chat/${props.username}/with/${user}/unseen/false`, {
+        fetch(`https://dailydose-pearl.vercel.app/api/chat/${props.username}/with/${user}/unseen/false`, {
             method: 'POST',
             headers: {'content-type': 'application/json'}
         });
@@ -207,7 +207,7 @@ export function Chat(props) {
                     setMessages(oldMessages => [...oldMessages, <Message key={length} time={msg.msg.time} msg={msg.msg.message} whose={msg.msg.whose} />]);
 
                     // // Update the unseen value in DB
-                    await fetch(`/api/chat/${localStorage.getItem('username')}/with/${msg.from}/unseen/false`, {
+                    await fetch(`https://dailydose-pearl.vercel.app/api/chat/${localStorage.getItem('username')}/with/${msg.from}/unseen/false`, {
                         method: 'POST',
                         headers: {'content-type': 'application/json'}, 
                     });
@@ -250,7 +250,7 @@ export function Chat(props) {
 
             const rootObj = {name: theChosenOne, time: new Date(), messages: [], unseen: false};
             chats.unshift(rootObj);
-            fetch(`/api/chat/${props.username}/update/chats`, {
+            fetch(`https://dailydose-pearl.vercel.app/api/chat/${props.username}/update/chats`, {
                 method: 'POST',
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(chats),
@@ -261,7 +261,7 @@ export function Chat(props) {
             setDisabled(false);
             
             const targetObj = {name: props.username, time: new Date(), messages: [], unseen: true};
-            fetch(`/api/chat/new/with/${theChosenOne}`, {
+            fetch(`https://dailydose-pearl.vercel.app/api/chat/new/with/${theChosenOne}`, {
                 method: 'POST',
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(targetObj),
@@ -294,7 +294,7 @@ export function Chat(props) {
 
         localStorage.setItem('chats', JSON.stringify(chats));
 
-        await fetch(`/api/chat/${props.username}/update/chats`, {
+        await fetch(`https://dailydose-pearl.vercel.app/api/chat/${props.username}/update/chats`, {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify(chats),
@@ -302,7 +302,7 @@ export function Chat(props) {
 
         const targetObj = {message: theMessage, time: timeStamp, whose: 'their'};
 
-        await fetch(`/api/chat/${chatUser}/update/messages/with/${props.username}`, {
+        await fetch(`https://dailydose-pearl.vercel.app/api/chat/${chatUser}/update/messages/with/${props.username}`, {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({msg: targetObj, time: timeStamp}),
@@ -313,7 +313,7 @@ export function Chat(props) {
 
         setMessages(oldMessages => [...oldMessages, <Message key={length} time={rootObj.time} msg={rootObj.message} whose={rootObj.whose} />]);
 
-        fetch(`/api/chat/${chatUser}/with/${props.username}/unseen/true`, {
+        fetch(`https://dailydose-pearl.vercel.app/api/chat/${chatUser}/with/${props.username}/unseen/true`, {
             method: 'POST',
             headers: {'content-type': 'application/json'}, 
         });

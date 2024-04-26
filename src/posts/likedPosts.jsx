@@ -32,7 +32,7 @@ export function LikedPosts(props) {
     }
 
     async function getAuthen(username) {
-        const result = await fetch(`/api/auth/${username}`);
+        const result = await fetch(`https://dailydose-pearl.vercel.app/api/auth/${username}`);
         if(result.ok) {
             return true;
         }
@@ -42,11 +42,11 @@ export function LikedPosts(props) {
     const [posts, setPosts] = React.useState([]);
 
     React.useEffect(() => {
-        fetch('/api/posts/posts')
+        fetch('https://dailydose-pearl.vercel.app/api/posts/posts')
             .then((response) => response.json())
             .then(async (allPosts) => {
 
-                return fetch(`/api/posts/liked/${props.username}`)
+                return fetch(`https://dailydose-pearl.vercel.app/api/posts/liked/${props.username}`)
                     .then((response) => response.json())
                     .then((posts) => {
                         if(typeof(posts[0] === 'number')) {

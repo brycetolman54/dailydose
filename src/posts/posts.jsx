@@ -30,7 +30,7 @@ export function Posts(props) {
     }
 
     async function getAuthen(username) {
-        const result = await fetch(`/api/auth/${username}`);
+        const result = await fetch(`https://dailydose-pearl.vercel.app/api/auth/${username}`);
         if(result.ok) {
             return true;
         }
@@ -40,11 +40,11 @@ export function Posts(props) {
     const [posts, setPosts] = React.useState([]);
 
     React.useEffect(() => {
-        fetch('/api/posts/posts')
+        fetch('https://dailydose-pearl.vercel.app/api/posts/posts')
             .then((response) => response.json())
             .then(async (allPosts) => {
 
-                return fetch(`/api/posts/mine/${props.username}`)
+                return fetch(`https://dailydose-pearl.vercel.app/api/posts/mine/${props.username}`)
                     .then((response) => response.json())
                     .then((posts) => {
                         posts = posts.sort((a,b) => b.allPlace - a.allPlace);

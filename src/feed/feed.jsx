@@ -30,7 +30,7 @@ export function Feed(props) {
     }
 
     async function getAuthen(username) {
-        const result = await fetch(`/api/auth/${username}`);
+        const result = await fetch(`https://dailydose-pearl.vercel.app/api/auth/${username}`);
         if(result.ok) {
             return true;
         }
@@ -39,6 +39,7 @@ export function Feed(props) {
 
     const [author, setAuthor] = React.useState('');
     const [quote, setQuote] = React.useState('Searching for a quote...');
+    const [reference, setReference] = React.useState('Coming...');
     const [show, setShow] = React.useState(true);
     const [display, setDisplay] = React.useState('flex');
 
@@ -52,10 +53,11 @@ export function Feed(props) {
     }, [show]);
 
     React.useEffect(() => {
-        fetch('https://api.quotable.io/random')
+        fetch('https://general-conference-quotes-api.vercel.app/random')
             .then((response) => response.json())
             .then((data) => {
-            setQuote(data.content);
+            setQuote(data.text);
+            setReference(data.reference);
             setAuthor(data.author);
             });
     }, []);
@@ -63,7 +65,7 @@ export function Feed(props) {
     const [allPosts, setAllPosts] = React.useState([]);
 
     React.useEffect(() => {
-        fetch('/api/feed/posts')
+        fetch('https://dailydose-pearl.vercel.app/api/feed/posts')
             .then(response => response.json())
             .then(thePosts => {
                 setAllPosts(thePosts);
@@ -80,7 +82,7 @@ export function Feed(props) {
     const [likes, setLikes] = React.useState([]);
 
     React.useEffect(() => {
-        fetch(`/api/feed/${props.username}`)
+        fetch(`https://dailydose-pearl.vercel.app/api/feed/${props.username}`)
             .then(response => response.json())
             .then(data => {
                 setLikes(data);
@@ -122,6 +124,7 @@ export function Feed(props) {
                     <h3 id="quoteTitle">Inspirational Quote</h3>
                     <p id="thequote">"{quote}"</p>
                     <p id="author">{author}</p>
+                    <p id="reference"><a href={reference}>Read More</a></p>
                 </aside> 
                 <div id="newpost" style={{display: display}}>
                     <p id="newPostHead"><b><i>New Post</i></b></p>
@@ -185,7 +188,7 @@ function addPost(content, title, length, user) {
         obj.time = new Date();
         obj.likes = 0;
     
-        fetch(`/api/feed/post/${obj.user}`, {
+        fetch(`https://dailydose-pearl.vercel.app/api/feed/post/${obj.user}`, {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify(obj),

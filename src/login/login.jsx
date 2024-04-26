@@ -68,7 +68,7 @@ export function Login(props) {
 
                 const theUser = {name: username, posts: [], chats: [], likes: []};
         
-                response = await fetch(`/api/auth/signup`, {
+                response = await fetch(`https://dailydose-pearl.vercel.app/api/auth/signup`, {
                     method: 'POST',
                     headers: {'content-type': 'application/json'},
                     body: JSON.stringify({user: username, data: theUser, password: password}),
@@ -85,7 +85,7 @@ export function Login(props) {
             } 
             else if(requires && !show) {
 
-                response = await fetch(`/api/auth/login`, {
+                response = await fetch(`https://dailydose-pearl.vercel.app/api/auth/login`, {
                     method: 'POST',
                     headers: {'content-type': 'application/json'},
                     body: JSON.stringify({user: username, password: password}),

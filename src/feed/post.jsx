@@ -21,13 +21,13 @@ export function Post(props) {
     async function hitLike(likeNum) {
         console.log(likeNum);
         if(like) {
-            await fetch(`/api/feed/${props.username}/dislike/${likeNum}`, {
+            await fetch(`https://dailydose-pearl.vercel.app/api/feed/${props.username}/dislike/${likeNum}`, {
                 method: 'POST',
                 headers: {'content-type': 'application:json'},
             });
         }
         else if(!like) {
-            await fetch(`/api/feed/${props.username}/like/${likeNum}`, {
+            await fetch(`https://dailydose-pearl.vercel.app/api/feed/${props.username}/like/${likeNum}`, {
                 method: 'POST',
                 headers: {'content-type': 'application:json'},
             });
