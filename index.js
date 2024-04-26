@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Allow anyone to access this
-app.use(cors())
+//app.use(cors())
 
 // This makes us use the cookie parser middleware for tracking authentication
 app.use(cookieParser());
@@ -48,7 +48,7 @@ function setAuthCookie(res, authToken) {
     res.cookie(authCookieName, authToken, {
         secure: true,
         httpOnly: true,
-        sameSite: 'strict', 
+        sameSite: 'none', 
     });
 };
 
