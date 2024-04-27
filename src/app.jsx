@@ -44,7 +44,7 @@ export default function App() {
                 </header>
 
                 <Routes>
-                    <Route exact path='/' element={<Login Login={(username) => {setAuthState(true); setUsername(username); localStorage.setItem('username', username); window.location.href = './feed'}}/>} />
+                    <Route exact path='/' element={<Login Login={(username) => {setAuthState(true); setUsername(username); localStorage.setItem('username', username); window.location.href = '/feed'}}/>} />
                     <Route exact path='/feed' element={<Feed username={username} Logout={() => logout()} />} />
                     <Route exact path='/chat' element={<Chat username={username} Logout={() => logout()} />} />
                     <Route exact path='/posts' element={<Posts username={username} Logout={() => logout()} />} />
