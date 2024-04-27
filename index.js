@@ -31,24 +31,25 @@ app.use(cookieParser());
 // This lets us trust headers forwarded from the proxy so we can determine the IP addresses
 app.set('trust proxy', true);
 
-// This lets us set the header we need to send things around
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    next();
-});
-
 // This sets the cookie name
 const authCookieName = 'token';
 
 // set the default message
 app.get('/', (_req, res) => {
-    res.send('Welcome to my DailyDose Server! You really can\'t do anything wihtout the proper authorization.');
+    res.send('Welcome to my DailyDose Server! You really can\'t do anything wihtout the proper authorization..');
 })
 
 // Router for service endpoints, this just makes it so we don't have to put in 'api' for every path
 var apiRouter = express.Router();
 app.use('/api', apiRouter);
+
+// Set up the proper CORS response
+app.options('/api/*', (req, res) => {
+   res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+
+    res.status(200).send();
+});
 
 // This function actually sets the cookie in the HTTP response
 function setAuthCookie(res, authToken) {
