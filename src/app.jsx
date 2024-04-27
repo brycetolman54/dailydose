@@ -45,10 +45,10 @@ export default function App() {
 
                 <Routes>
                     <Route exact path='/' element={<Login Login={(username) => {setAuthState(true); setUsername(username); localStorage.setItem('username', username); window.location.href = './feed'}}/>} />
-                    <Route exact path='/feed' element={<Feed username={username} Logout={() => logout()} />} />
-                    <Route exact path='/chat' element={<Chat username={username} Logout={() => logout()} />} />
-                    <Route exact path='/posts' element={<Posts username={username} Logout={() => logout()} />} />
-                    <Route exact path='/likedPosts' element={<LikedPosts username={username} Logout={() => logout()} />} />
+                    <Route path='/feed' element={<Feed username={username} Logout={() => logout()} />} />
+                    <Route path='/chat' element={<Chat username={username} Logout={() => logout()} />} />
+                    <Route path='/posts' element={<Posts username={username} Logout={() => logout()} />} />
+                    <Route path='/likedPosts' element={<LikedPosts username={username} Logout={() => logout()} />} />
                     <Route path='*' element={<NotFound />} />
                 </Routes>
 
