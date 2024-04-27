@@ -34,7 +34,7 @@ export default function App() {
     }
 
     return (
-        <BrowserRouter basename='/dailydose'>
+        <BrowserRouter basename={window.location.pathname || ''}>
             <div className='app'>        
                 <header style={{borderBottom: 'solid black', borderBottomWidth: authState ? '0' : '3px' }}className='top'>
                     <h1 className='logo'>DailyDose</h1>
@@ -46,7 +46,7 @@ export default function App() {
                 </header>
 
                 <Routes>
-                    <Route exact path='/' element={<Login Login={(username) => {setAuthState(true); setUsername(username); localStorage.setItem('username', username); history.push('/feed')}}/>} />
+                    <Route exact path='/' element={<Login Login={(username) => {setAuthState(true); setUsername(username); localStorage.setItem('username', username); history.push(`${window.location.pathname || ''}/feed`)}}/>} />
                     <Route exact path='/feed' element={<Feed username={username} Logout={() => logout()} />} />
                     <Route exact path='/chat' element={<Chat username={username} Logout={() => logout()} />} />
                     <Route exact path='/posts' element={<Posts username={username} Logout={() => logout()} />} />
