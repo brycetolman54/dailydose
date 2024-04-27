@@ -18,6 +18,8 @@ function NotFound() {
 
 export default function App() {
 
+    const history = useHistory();
+
     const [username, setUsername] = React.useState(localStorage.getItem('username') || '');
     const currentAuthState = username ? true : false;
     const [authState, setAuthState] = React.useState(currentAuthState);
@@ -44,7 +46,7 @@ export default function App() {
                 </header>
 
                 <Routes>
-                    <Route exact path='/' element={<Login Login={(username) => {setAuthState(true); setUsername(username); localStorage.setItem('username', username); window.location.href = '/feed'}}/>} />
+                    <Route exact path='/' element={<Login Login={(username) => {setAuthState(true); setUsername(username); localStorage.setItem('username', username); history.push('/feed')}}/>} />
                     <Route exact path='/feed' element={<Feed username={username} Logout={() => logout()} />} />
                     <Route exact path='/chat' element={<Chat username={username} Logout={() => logout()} />} />
                     <Route exact path='/posts' element={<Posts username={username} Logout={() => logout()} />} />
