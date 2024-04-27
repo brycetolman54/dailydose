@@ -34,6 +34,7 @@ app.set('trust proxy', true);
 // This lets us set the header we need to send things around
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     next();
 });
 
