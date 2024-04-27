@@ -36,7 +36,7 @@ const authCookieName = 'token';
 
 // set the default message
 app.get('/', (_req, res) => {
-    res.send('Welcome to my DailyDose Server! You really can\'t do anything wihtout the proper authorization..');
+    res.send('Welcome to my DailyDose Server! You really can\'t do anything wihtout the proper authorization.');
 })
 
 // Router for service endpoints, this just makes it so we don't have to put in 'api' for every path
@@ -44,8 +44,12 @@ var apiRouter = express.Router();
 app.use('/api', apiRouter);
 
 // Set up the proper CORS response
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+})
 app.options('/api/*', (req, res) => {
-   res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
 
     res.status(200).send();
