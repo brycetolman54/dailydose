@@ -32,7 +32,7 @@ export default function App() {
     }
 
     return (
-        <BrowserRouter basename='/dailydose' || ''}>
+        <BrowserRouter basename='/dailydose'>
             <div className='app'>        
                 <header style={{borderBottom: 'solid black', borderBottomWidth: authState ? '0' : '3px' }}className='top'>
                     <h1 className='logo'>DailyDose</h1>
