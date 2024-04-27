@@ -34,6 +34,12 @@ app.set('trust proxy', true);
 // This sets the cookie name
 const authCookieName = 'token';
 
+// some cors stuff
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+});
+
 // set the default message
 app.get('/', (_req, res) => {
     res.send('Welcome to my DailyDose Server! You really can\'t do anything wihtout the proper authorization.');
@@ -44,10 +50,6 @@ var apiRouter = express.Router();
 app.use('/api', apiRouter);
 
 // Set up the proper CORS response
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    next();
-})
 app.options('/api/*', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
