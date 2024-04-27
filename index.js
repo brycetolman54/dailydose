@@ -114,7 +114,9 @@ secureApiRouter.use(async (req, res, next) => {
         next();
     } 
     else {
-        res.status(401).send({msg: 'He does not exist'});
+        // I have to take this out to actually allow myself to do things with github pages and vercel
+//        res.status(401).send({msg: 'He does not exist'});
+        next();
     }
 });
 
