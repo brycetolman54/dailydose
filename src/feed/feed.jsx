@@ -34,7 +34,7 @@ export function Feed(props) {
         if(result.ok) {
             return true;
         }
-        return false;
+        return true;
     }
 
     const [author, setAuthor] = React.useState('');
