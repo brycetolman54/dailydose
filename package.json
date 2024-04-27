@@ -1,5 +1,5 @@
 {
-  "homoepage": "https://brycetolman.github.io/dailydose/",
+  "homepage": "https://brycetolman.github.io/dailydose/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
