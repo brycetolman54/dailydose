@@ -50,7 +50,7 @@ var apiRouter = express.Router();
 app.use('/api', apiRouter);
 
 // Set up the proper CORS response
-app.options('/api/*', (req, res) => {
+app.options('*', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
 
