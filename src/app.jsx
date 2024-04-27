@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, NavLink, Route, Routes, useHistory} from 
+import {BrowserRouter, NavLink, Route, Routes} from 
 'react-router-dom';
 import './app.css';
 
@@ -17,8 +17,6 @@ function NotFound() {
 }
 
 export default function App() {
-
-    const history = useHistory();
 
     const [username, setUsername] = React.useState(localStorage.getItem('username') || '');
     const currentAuthState = username ? true : false;
@@ -46,7 +44,7 @@ export default function App() {
                 </header>
 
                 <Routes>
-                    <Route exact path='/' element={<Login Login={(username) => {setAuthState(true); setUsername(username); localStorage.setItem('username', username); history.push(`${window.location.pathname || ''}/feed`)}}/>} />
+                    <Route exact path='/' element={<Login Login={(username) => {setAuthState(true); setUsername(username); localStorage.setItem('username', username); window.location.href(`./feed`)}}/>} />
                     <Route exact path='/feed' element={<Feed username={username} Logout={() => logout()} />} />
                     <Route exact path='/chat' element={<Chat username={username} Logout={() => logout()} />} />
                     <Route exact path='/posts' element={<Posts username={username} Logout={() => logout()} />} />
