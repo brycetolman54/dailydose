@@ -55,7 +55,7 @@ apiRouter.options('*', (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
 
     res.status(200).send();
-};
+});
 
 // This function actually sets the cookie in the HTTP response
 function setAuthCookie(res, authToken) {
